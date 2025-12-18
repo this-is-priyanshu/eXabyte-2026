@@ -1,0 +1,15 @@
+<div class='navbar'>
+    {% for btn in navbar.buttons %}
+
+    <a href={{ btn.href }}
+
+        {% if title == btn.text %}
+        class='active'
+        {% endif %}>
+
+        {{ btn.text }}
+
+    </a>
+
+    {% endfor %}
+</div>

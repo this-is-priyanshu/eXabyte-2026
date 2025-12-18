@@ -1,0 +1,15 @@
+{
+    # We can add comments to each of these files.
+    #
+    # Speaking off hjson files ares associated with their corrospondingly named html
+    # files. Each file on the top-level components files is rendered separately.
+
+    title: Home
+
+    header: Hello, World! This is the main page and we are excited to test it
+
+    main:'''
+    This is the main content of the page and we can write it as such very simply,
+    This will reduce the complexity of the content writing process significantly.
+    '''
+}

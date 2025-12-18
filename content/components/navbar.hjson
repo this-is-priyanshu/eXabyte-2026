@@ -1,0 +1,15 @@
+{
+    # A simple example of arrays.
+
+    buttons: [
+        {
+            text: Home
+            href: index.html
+        }
+        {
+            text: About
+            href: about.html
+        }
+    ]
+}
+

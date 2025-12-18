@@ -1,0 +1,5 @@
+# These are for the python environment
+env
+venv
+.env
+.venv
