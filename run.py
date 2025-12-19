@@ -3,7 +3,7 @@ import time
 import threading
 import hjson
 
-from flask import Flask
+from flask import Flask, abort, send_from_directory
 from flask_hot_reload import HotReload
 from jinja2 import Environment, FileSystemLoader, meta
 
@@ -15,44 +15,47 @@ from build import ROOT_DIR, COMPONENTS_CONTENT_DIR, PAGES_CONTENT_DIR, TEMPLATES
 app = Flask(__name__, static_folder=ROOT_DIR, template_folder=PAGES_CONTENT_DIR)
 env = Environment(loader = FileSystemLoader(TEMPLATES_DIR), autoescape=False)
 
-hot_reload = HotReload(app, includes = [ 'content', 'templates', 'static', 'assets' ])
+hot_reload = HotReload(app, includes = list(map(lambda k: os.path.join(ROOT_DIR, k), [ 'content', 'templates', 'static', 'assets' ])))
 
 # If html files are read, we need to render stuff
 @app.route("/", defaults={'path':'index.html'})
 @app.route("/<path>")
 def route_html_files(path):
 
-    actual_path = (Path(path).stem, os.path.join(PAGES_CONTENT_DIR, path).replace('html', 'hjson'))
-    components_to_update = []
+    try:
+        actual_path = (Path(path).stem, os.path.join(PAGES_CONTENT_DIR, path).replace('html', 'hjson'))
+        components_to_update = []
 
-    with open(os.path.join(TEMPLATES_DIR, path)) as f:
-        src = f.read()
-        ast = env.parse(src)
-        dep = meta.find_referenced_templates(ast)
+        with open(os.path.join(TEMPLATES_DIR, path)) as f:
+            src = f.read()
+            ast = env.parse(src)
+            dep = meta.find_referenced_templates(ast)
 
-        components_to_update = [ (Path(i).stem, os.path.join(PAGES_CONTENT_DIR, i.replace('html', 'hjson'))) for i in dep ]
+            components_to_update = [ (Path(i).stem, os.path.join(PAGES_CONTENT_DIR, i.replace('html', 'hjson'))) for i in dep ]
 
-    for d in components_to_update:
-        with open(d[1]) as f:
-            components_data[ d[0] ] = hjson.load(f)
-            env.globals[ d[0] ] = components_data[ d[0] ]
+        for d in components_to_update:
+            with open(d[1]) as f:
+                components_data[ d[0] ] = hjson.load(f)
+                env.globals[ d[0] ] = components_data[ d[0] ]
 
-    with open(actual_path[1]) as f:
-        pages_data[ actual_path[0] ] = hjson.load(f)
+        with open(actual_path[1]) as f:
+            pages_data[ actual_path[0] ] = hjson.load(f)
 
-    template = env.get_template(path)
-    return template.render(pages_data[ Path(path).stem ])
+        template = env.get_template(path)
+        return template.render(pages_data[ Path(path).stem ])
+    except Exception as e:
+        return abort(404)
 
 # Route the static files
 @app.route("/static/<path>")
 def route_static_files(path):
-    print(os.path.join(ROOT_DIR, 'static', path))
-    return app.send_static_file(os.path.join('static', path))
+    folder = os.path.join(ROOT_DIR, 'static')
+    return send_from_directory(folder, path)
 
 @app.route("/assets/<path>")
 def route_assets_files(path):
-    return app.send_static_file(os.path.join('assets', path))
-
+    folder = os.path.join(ROOT_DIR, 'assets')
+    return send_from_directory(folder, path)
 
 # First get all the json data
 components_data = convert_to_json(COMPONENTS_CONTENT_DIR)

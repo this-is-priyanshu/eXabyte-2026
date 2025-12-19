@@ -1,6 +1,7 @@
 .navbar a {
     padding: 3px;
     background: blue;
+    color: red;
 }
 
 .navbar .active {
