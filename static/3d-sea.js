@@ -53,8 +53,6 @@ uniform float fogDensity;
 uniform vec3  fogColor;
 varying float vFogDepth;
 
-uniform vec2 uv;
-
 void main() {
     float d = length(gl_PointCoord - 0.5);
     if (d > 0.5) discard;
@@ -72,7 +70,7 @@ const camera = new THREE.PerspectiveCamera(25, window.innerWidth / window.innerH
 
 // setup the canvas properly
 const canv = document.getElementById('background')
-const renderer = new THREE.WebGLRenderer({ canvas: canv, antialias: true })
+const renderer = new THREE.WebGLRenderer({ canvas: canv })
 renderer.setPixelRatio(window.devicePixelRatio)
 renderer.setSize(window.innerWidth, window.innerHeight)
 
@@ -129,6 +127,7 @@ const light = new THREE.AmbientLight(color, intensity);
 scene.add(light);
 
 camera.position.z = 0.3;
+camera.position.y = 1;
 camera.rotation.x = Math.PI/2;
 camera.rotation.z = -Math.PI/6;
 
