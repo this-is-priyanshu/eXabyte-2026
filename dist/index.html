@@ -1,34 +1,165 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
  <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
-   Home
+   eXabyte
   </title>
-  <link href="static/index.css" rel="stylesheet"/>
-  <!-- we include this because well we are in the index.html -->
-  <link href="static/navbar.css" rel="stylesheet"/>
-  <!-- we include this because we include the navbar component -->
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Newsreader:ital,opsz,wght@1,6..72,300;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+  <!-- Stylesheet -->
+  <link href="/static/home.css" rel="stylesheet"/>
  </head>
  <body>
-  <header>
-   Hello, World! This is the main page and we are excited to test it
-  </header>
-  <!-- Navigation bar is used in multiple sites and thus we create a component out of it -->
-  <div class="navbar">
-   <a class="active" href="index.html">
-    Home
-   </a>
-   <a href="about.html">
-    About
-   </a>
-  </div>
-  <main>
-   This is the main content of the page and we can write it as such very simply,
-This will reduce the complexity of the content writing process significantly.
-   <br/>
-   <br/>
-   No alarms and no surprizes, No alarms and no surprizes
+  <!-- Main Hero Content -->
+  <main class="container">
+   <nav class="navbar" id="navbar">
+    <!-- Desktop Nav -->
+    <div class="nav-container hidden lg:flex" id="navContainer">
+     <a class="logo" href="#">
+      <div class="logo-circle">
+      </div>
+      <span class="font-medium text-white">
+       eXabyte
+      </span>
+     </a>
+     <div class="nav-items" id="navItems">
+      <div class="gooey-bg" id="gooeyBg">
+      </div>
+      <a class="nav-link" href="#">
+       <span>
+        x-cryptus
+       </span>
+      </a>
+      <a class="nav-link" href="#">
+       <span>
+        sponsors
+       </span>
+      </a>
+      <a class="nav-link" href="#">
+       <span>
+        about-us
+       </span>
+      </a>
+      <a class="nav-link" href="#">
+       <span>
+        contact-us
+       </span>
+      </a>
+     </div>
+     <a class="btn-primary" href="#" id="desktopBtn">
+      Register
+     </a>
+    </div>
+    <!-- Mobile Nav -->
+    <div class="mobile-nav-container lg:hidden" id="mobileContainer">
+     <div class="flex items-center justify-between w-full">
+      <a class="logo" href="#">
+       <div class="logo-circle">
+       </div>
+       <span class="font-medium text-white">
+        eXabyte
+       </span>
+      </a>
+      <button class="text-white relative" id="menuToggle" style="
+                width: 24px;
+                height: 24px;
+                background: none;
+                border: none;
+                cursor: pointer;
+              ">
+       <svg fill="none" height="24" id="menuIcon" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24">
+        <path d="M4 6h16M4 12h16M4 18h16">
+        </path>
+       </svg>
+       <svg class="absolute inset-0" fill="none" height="24" id="closeIcon" stroke="currentColor" stroke-width="2" style="opacity: 0; visibility: hidden" viewbox="0 0 24 24" width="24">
+        <path d="M18 6L6 18M6 6l12 12">
+        </path>
+       </svg>
+      </button>
+     </div>
+     <div class="mobile-menu" id="mobileMenu">
+      <a class="mobile-link" href="#">
+       x-cryptus
+      </a>
+      <a class="mobile-link" href="#">
+       sponsors Me
+      </a>
+      <a class="mobile-link" href="#">
+       about-us
+      </a>
+      <a class="mobile-link" href="#">
+       contact-us
+      </a>
+      <a class="btn-primary text-center" href="#">
+       Register
+      </a>
+     </div>
+    </div>
+   </nav>
+   <!-- Left Column: Copy -->
+   <div class="content-left">
+    <h4 class="status-badge">
+     <span class="pulse-dot">
+      <span class="pulse-dot-ping">
+      </span>
+      <span class="pulse-dot-inner">
+      </span>
+     </span>
+     18th &amp; 19th March, 2026.
+    </h4>
+    <h1>
+     eXabyte '26 ~ exploring
+     <br/>
+     <span class="white-text">
+      a realm of innovation through iteration.
+     </span>
+    </h1>
+    <p class="location">
+     St. Xavier's College [Autonomous], Kolkata
+    </p>
+    <p class="address">
+     30, Mother Teresa Sarani,
+     <br/>
+     Mullick Bazar, Park Street area,
+     <br/>
+     Kolkata, West Bengal - 700016.
+    </p>
+    <div class="cta-container">
+     <button class="shiny-cta">
+      <span>
+       Register
+      </span>
+     </button>
+    </div>
+   </div>
+   <!-- Right Column: Abstract UI Visualization -->
   </main>
-  Thingbert
+  <!-- GSAP -->
+  <script crossorigin="anonymous" integrity="sha512-NcZdtrT77bJr4STcmsGAESr06BYGE8woZdSdEgqnpyqac7sugNO+Tr4bGwGF3MsnEkGKhU2KL2xh6Ec+BqsaHA==" referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js">
+  </script>
+  <script src="/static/home.js">
+  </script>
+  <!-- Background Effects -->
+  <canvas id="background" style="
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    display: block;
+        ">
+  </canvas>
+  <script type="importmap">
+   {
+            "imports" : {
+                  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+  </script>
+  <script src="/static/3d-sea.js" type="module">
+  </script>
  </body>
 </html>
