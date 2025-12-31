@@ -2,6 +2,7 @@ import os
 import time
 import threading
 import hjson
+import sys
 
 from flask import Flask, abort, send_from_directory
 from flask_hot_reload import HotReload
@@ -52,15 +53,16 @@ def route_html_files(path):
         return abort(404)
 
 # Route the static files
-@app.route("/static/<path>")
+@app.route("/static/<path:path>")
 def route_static_files(path):
     folder = os.path.join(ROOT_DIR, 'static')
     return send_from_directory(folder, path)
 
-@app.route("/assets/<path>")
+@app.route("/assets/<path:path>")
 def route_assets_files(path):
     folder = os.path.join(ROOT_DIR, 'assets')
     return send_from_directory(folder, path)
+
 
 # First get all the json data
 components_data = convert_to_json(COMPONENTS_CONTENT_DIR)

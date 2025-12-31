@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style>
+body {
+    margin: 0px;
+}
+#xcryptus {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.left-gradient {
+    position: absolute;
+    left: 0%;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+    opacity: 0;
+}
+
+.right-gradient {
+    position: absolute;
+    left: 70%;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(-90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+    opacity: 0;
+}
+        </style>
+    </head>
+    <body>
+        <canvas id="xcryptus"></canvas>
+        <script type=importmap>
+            {
+                "imports": {
+                    "three": "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js",
+                    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/",
+                    "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js"
+                }
+            }
+        </script>
+        <script type=module src=static/x-cryptus.js></script>
+
+        <div class='left-gradient clicker'></div>
+        <div class='right-gradient clicker'></div>
+    </body>
+</html>
