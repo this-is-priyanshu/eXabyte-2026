@@ -58,7 +58,7 @@ form.addEventListener('submit', function(e) {
                         })
 
                         const transport = new TextEncoder().encode(thing).toBase64();
-                        window.location.href = '/submit.html?v=' + transport;
+                        window.location.href = 'submit.html?v=' + transport;
 
                     } else {
                         alert("Error: " + data.message);
