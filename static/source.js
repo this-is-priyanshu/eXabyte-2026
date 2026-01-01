@@ -28,45 +28,48 @@ form.addEventListener('submit', function(e) {
     cook.classList.add('blurout')
 
     const fd = new FormData(this);
-    const data = Object.fromEntries(fd.entries());
 
-    data.timestamp = new Date();
+    const formDataString = [...fd.entries()].map(entry => entry.join('=')).join('&');
+    console.log(formDataString)
 
-    const everything = Object.values(data).join('')
-
-    window.crypto.subtle.digest('SHA-1', new TextEncoder().encode(everything))
+    window.crypto.subtle.digest('SHA-1', new TextEncoder().encode(formDataString))
         .then(
-            value => {
+            async value => {
 
-                console.log(value, typeof(value))
+                fd.append('id', new Uint8Array(value).toBase64())
+                fd.append('timestamp', new Date())
+                fd.append('access_key', "d9a93770-0d66-496c-bc5e-a5f943e5a79d");
 
-                data.id = new Uint8Array(value).toBase64()
-                const jd = JSON.stringify(data)
+                try {
+                    const response = await fetch("https://api.web3forms.com/submit", {
+                        method: "POST",
+                        body: fd
+                    });
 
-                fetch("https://formsubmit.co/ajax/52d746f64b8bdb48c680e21137d1a596", {
-                    method: "POST",
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: jd
-                })
-                    .then(response => response.json())
-                    .then(doop => {
+                    const data = await response.json();
 
-                        console.log(doop)
+                    if (response.ok) {
+
                         const thing = JSON.stringify({
-                            name: data.name,
-                            college: data.college,
-                            ticket: data.id,
-                            timestamp: data.timestamp
+                            name: fd.get('name'),
+                            college: fd.get('college'),
+                            ticket: fd.get('id'),
+                            timestamp: fd.get('timestamp')
                         })
 
                         const transport = new TextEncoder().encode(thing).toBase64();
-
-                        console.log(fd, jd, transport, typeof(transport));
                         window.location.href = '/submit.html?v=' + transport;
-                    })
-                    .catch(error => console.log(error));
+
+                    } else {
+                        alert("Error: " + data.message);
+                    }
+
+                } catch (error) {
+
+                    // WE REDIRECT TO A GOOGLE FORMS HERE
+
+                    console.log(error)
+                    alert("Something went wrong. Please try again.");
+                }
             })
 })
