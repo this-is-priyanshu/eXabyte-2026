@@ -1,301 +1,373 @@
-// Elements
+// Elements 
 const navbar = document.getElementById("navbar");
 const navContainer = document.getElementById("navContainer");
 const mobileContainer = document.getElementById("mobileContainer");
 const menuToggle = document.getElementById("menuToggle");
-const mobileMenu = document.getElementById("mobileMenu");
 const menuIcon = document.getElementById("menuIcon");
-const closeIcon = document.getElementById("closeIcon");
+const mainMenu = document.getElementById("mainMenu");
+const menuPanel = document.getElementById("menuPanel");
+const panelClose = document.getElementById("panelClose");
+const panelLinks = document.querySelectorAll(".panel-link");
 const mobileLinks = document.querySelectorAll(".mobile-link");
 const navLinks = document.querySelectorAll(".nav-link");
 const gooeyBg = document.getElementById("gooeyBg");
 const navItems = document.getElementById("navItems");
 const desktopBtn = document.getElementById("desktopBtn");
 
-gsap.from(".status-badge", {
-  opacity: 0,
-  y: -20,
-  duration: 1,
-  ease: "power3.out",
-});
+// GSAP intro animations
+if (typeof gsap !== "undefined") {
+  if (document.querySelector("#main-title, .hero-events, h1"))
+    gsap.from("#main-title, .hero-events, h1", { opacity: 0, y: 30, duration: 1.2, delay: 0.2, ease: "power3.out" });
 
-gsap.from("h1", {
-  opacity: 0,
-  y: 30,
-  duration: 1.2,
-  delay: 0.2,
-  ease: "power3.out",
-});
+  if (document.querySelector(".location"))
+    gsap.from(".location", { opacity: 0, y: 20, duration: 1, delay: 0.4, ease: "power3.out" });
 
-gsap.from(".location", {
-  opacity: 0,
-  y: 20,
-  duration: 1,
-  delay: 0.4,
-  ease: "power3.out",
-});
+  if (document.querySelector(".address"))
+    gsap.from(".address", { opacity: 0, y: 20, duration: 1, delay: 0.5, ease: "power3.out" });
 
-gsap.from(".address", {
-  opacity: 0,
-  y: 20,
-  duration: 1,
-  delay: 0.5,
-  ease: "power3.out",
-});
+  if (document.querySelector(".shiny-cta"))
+    gsap.from(".shiny-cta", { opacity: 0, scale: 0.9, duration: 1, delay: 0.7, ease: "back.out(1.7)" });
 
-gsap.from(".shiny-cta", {
-  opacity: 0,
-  scale: 0.9,
-  duration: 1,
-  delay: 0.7,
-  ease: "back.out(1.7)",
-});
+  if (document.querySelector(".visualization svg"))
+    gsap.from(".visualization svg", { opacity: 0, scale: 0.95, duration: 1.5, delay: 0.3, ease: "power3.out" });
+}
 
-gsap.from(".visualization svg", {
-  opacity: 0,
-  scale: 0.95,
-  duration: 1.5,
-  delay: 0.3,
-  ease: "power3.out",
-});
-
-// Button interaction
 const ctaButton = document.querySelector(".shiny-cta");
-ctaButton.addEventListener("click", () => {
-  gsap.to(ctaButton, {
-    scale: 0.95,
-    duration: 0.1,
-    yoyo: true,
-    repeat: 1,
-    ease: "power2.inOut",
+if (ctaButton && typeof gsap !== "undefined") {
+  ctaButton.addEventListener("click", () => {
+    gsap.to(ctaButton, { scale: 0.95, duration: 0.1, yoyo: true, repeat: 1, ease: "power2.inOut" });
   });
-});
+}
 
-let isMobileMenuOpen = false;
-
-// Desktop animations
-gsap.fromTo(
-  navContainer,
-  {
-    width: "100%",
-    y: 0,
-    background: "transparent",
-    backdropFilter: "none",
-    boxShadow: "none",
-    duration: 1,
-    ease: "power2.out",
-  },
-  {
-    width: "50%",
-    y: 10,
-    background: "rgba(10, 10, 10, 0.8)",
-    backdropFilter: "blur(10px)",
-    boxShadow:
-      "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.04), 0 0 4px rgba(34, 42, 53, 0.08), 0 16px 68px rgba(47, 48, 55, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1) inset",
-    duration: 1,
-    delay: 1,
-    ease: "power2.out",
-  }
-);
-
-// Mobile animations
-gsap.fromTo(
-  mobileContainer,
-  {
-    width: "100%",
-    y: 0,
-    background: "transparent",
-    backdropFilter: "none",
-    boxShadow: "none",
-    borderRadius: "2rem",
-    paddingLeft: "1rem",
-    paddingRight: "1rem",
-    duration: 1,
-    ease: "power2.out",
-  },
-  {
-    width: "90%",
-    y: 10,
-    background: "rgba(10, 10, 10, 0.8)",
-    backdropFilter: "blur(10px)",
-    boxShadow: "0 0 24px rgba(34, 42, 53, 0.06), 0 1px 1px rgba(0, 0, 0, 0.05)",
-    borderRadius: "1rem",
-    paddingLeft: "0.75rem",
-    paddingRight: "0.75rem",
-    duration: 1,
-    delay: 1,
-    ease: "power2.out",
-  }
-);
-
-// Gooey Hover Effect
-navLinks.forEach((link) => {
-  link.addEventListener("mouseenter", function () {
-    const rect = this.getBoundingClientRect();
-    const parentRect = navItems.getBoundingClientRect();
-
-    gsap.to(gooeyBg, {
-      left: rect.left - parentRect.left,
-      width: rect.width,
-      opacity: 1,
-      duration: 0.3,
-      ease: "power2.out",
+// Desktop nav hover
+if (navLinks && navLinks.length && navItems && gooeyBg && typeof gsap !== "undefined") {
+  navLinks.forEach((link) => {
+    link.addEventListener("mouseenter", function () {
+      const rect = this.getBoundingClientRect();
+      const parentRect = navItems.getBoundingClientRect();
+      gsap.to(gooeyBg, { left: rect.left - parentRect.left, width: rect.width, opacity: 1, duration: 0.3, ease: "power2.out" });
     });
+    link.addEventListener("mouseleave", function () { gsap.to(link, { color: "#d4d4d8", duration: 0.2 }); });
+    link.addEventListener("mouseenter", function () { gsap.to(link, { color: "#ffffff", duration: 0.2 }); });
   });
+  navItems.addEventListener("mouseleave", () => { gsap.to(gooeyBg, { opacity: 0, duration: 0.3, ease: "power2.out" }); });
+}
 
-  link.addEventListener("mouseleave", function () {
-    gsap.to(link, {
-      color: "#d4d4d8",
-      duration: 0.2,
-    });
-  });
+// Desktop button hover
+if (desktopBtn && typeof gsap !== "undefined") {
+  desktopBtn.addEventListener("mouseenter", function () { gsap.to(this, { y: -2, duration: 0.2, ease: "power2.out" }); });
+  desktopBtn.addEventListener("mouseleave", function () { gsap.to(this, { y: 0, duration: 0.2, ease: "power2.out" }); });
+}
 
-  link.addEventListener("mouseenter", function () {
-    gsap.to(link, {
-      color: "#ffffff",
-      duration: 0.2,
-    });
-  });
-});
+let isMenuOpen = false;
 
-navItems.addEventListener("mouseleave", () => {
-  gsap.to(gooeyBg, {
-    opacity: 0,
-    duration: 0.3,
-    ease: "power2.out",
-  });
-});
+function openMenu() {
+  if (isMenuOpen) return;
+  isMenuOpen = true;
+  document.body.classList.add("menu-open");
+  if (menuToggle) menuToggle.setAttribute("aria-expanded", "true");
+  if (mainMenu) { mainMenu.classList.add("open"); mainMenu.setAttribute("aria-hidden", "false"); }
 
-// Button Hover
-desktopBtn.addEventListener("mouseenter", function () {
-  gsap.to(this, {
-    y: -2,
-    duration: 0.2,
-    ease: "power2.out",
-  });
-});
+  if (menuIcon && typeof gsap !== "undefined") gsap.to(menuIcon, { opacity: 0, duration: 0.12, onComplete: () => (menuIcon.style.visibility = "hidden") });
+  else if (menuIcon) menuIcon.style.visibility = "hidden";
 
-desktopBtn.addEventListener("mouseleave", function () {
-  gsap.to(this, {
-    y: 0,
-    duration: 0.2,
-    ease: "power2.out",
-  });
-});
+  if (!menuPanel) return;
 
-// Mobile Menu Toggle
-menuToggle.addEventListener("click", () => {
-  isMobileMenuOpen = !isMobileMenuOpen;
-
-  if (isMobileMenuOpen) {
-    mobileMenu.classList.add("open");
-
-    // Animate menu open
-    gsap.fromTo(
-      mobileMenu,
-      { opacity: 0, scale: 0.85 },
-      { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }
-    );
-
-    // Animate menu items (POP effect)
-    gsap.fromTo(
-      mobileMenu.children,
-      {
-        opacity: 0,
-        scale: 0.9,
-        y: 6,
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        y: 0,
-        duration: 0.4,
-        stagger: 0.06,
-        ease: "back.out(1.4)",
+  if (typeof gsap !== "undefined") {
+    if (window.innerWidth >= 1024) {
+      gsap.fromTo(menuPanel, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.26, ease: "back.out(1.2)" });
+      if (panelLinks && panelLinks.length) {
+        gsap.fromTo(panelLinks, { y: 8, opacity: 0, scale: 0.985 }, { y: 0, opacity: 1, scale: 1, duration: 0.26, stagger: 0.04, ease: "back.out(1.3)" });
       }
-    );
-
-    // Toggle icons
-    gsap.to(menuIcon, {
-      opacity: 0,
-      rotation: 90,
-      duration: 0.3,
-      onComplete: () => (menuIcon.style.visibility = "hidden"),
-    });
-    gsap.to(closeIcon, {
-      opacity: 1,
-      rotation: 0,
-      visibility: "visible",
-      duration: 0.3,
-    });
-  } else {
-    // Animate menu close
-    gsap.to(mobileMenu, {
-      opacity: 0,
-      scale: 0.85,
-      duration: 0.3,
-      ease: "power2.in",
-      onComplete: () => mobileMenu.classList.remove("open"),
-    });
-
-    // Toggle icons
-    gsap.to(closeIcon, {
-      opacity: 0,
-      rotation: -90,
-      duration: 0.3,
-      onComplete: () => (closeIcon.style.visibility = "hidden"),
-    });
-    gsap.to(menuIcon, {
-      opacity: 1,
-      rotation: 0,
-      visibility: "visible",
-      duration: 0.3,
-    });
-  }
-});
-
-// Close mobile menu on link click
-mobileLinks.forEach((link) => {
-  link.addEventListener("click", () => {
-    if (isMobileMenuOpen) {
-      isMobileMenuOpen = false;
-
-      gsap.to(mobileMenu, {
-        opacity: 0,
-        scale: 0.85,
-        duration: 0.3,
-        ease: "power2.in",
-        onComplete: () => mobileMenu.classList.remove("open"),
-      });
-
-      gsap.to(closeIcon, {
-        opacity: 0,
-        rotation: -90,
-        duration: 0.3,
-        onComplete: () => (closeIcon.style.visibility = "hidden"),
-      });
-      gsap.to(menuIcon, {
-        opacity: 1,
-        rotation: 0,
-        visibility: "visible",
-        duration: 0.3,
-      });
+    } else {
+      gsap.set(menuPanel, { x: "100%" });
+      gsap.to(menuPanel, { x: "0%", duration: 0.28, ease: "power3.out" });
+      if (panelLinks && panelLinks.length) {
+        gsap.fromTo(panelLinks, { x: 12, opacity: 0 }, { x: 0, opacity: 1, duration: 0.22, stagger: 0.035, ease: "power2.out" });
+      }
     }
-  });
-});
+  } else {
+    menuPanel.style.opacity = "1";
+  }
+}
 
-// Smooth Scroll
+function closeMenu() {
+  if (!isMenuOpen) return;
+  isMenuOpen = false;
+  document.body.classList.remove("menu-open");
+  if (menuToggle) menuToggle.setAttribute("aria-expanded", "false");
+
+  if (menuIcon) { menuIcon.style.visibility = "visible"; if (typeof gsap !== "undefined") gsap.to(menuIcon, { opacity: 1, duration: 0.12 }); }
+
+  if (!menuPanel || !mainMenu) {
+    if (mainMenu) { mainMenu.classList.remove("open"); mainMenu.setAttribute("aria-hidden", "true"); }
+    return;
+  }
+
+  if (typeof gsap !== "undefined") {
+    const hidePanel = () => {
+      if (window.innerWidth >= 1024) {
+        gsap.to(menuPanel, {
+          scale: 0.78,
+          opacity: 0,
+          duration: 0.22,
+          ease: "power2.in",
+          onComplete: () => { mainMenu.classList.remove("open"); mainMenu.setAttribute("aria-hidden", "true"); menuPanel.style.transform = ""; }
+        });
+      } else {
+        gsap.to(menuPanel, {
+          x: "100%",
+          duration: 0.2,
+          ease: "power2.in",
+          onComplete: () => { mainMenu.classList.remove("open"); mainMenu.setAttribute("aria-hidden", "true"); }
+        });
+      }
+    };
+
+    if (panelLinks && panelLinks.length) {
+      gsap.to(panelLinks, {
+        y: 8,
+        opacity: 0,
+        scale: 0.98,
+        duration: 0.12,
+        stagger: { each: 0.03, from: "end" },
+        ease: "power2.in",
+        onComplete: hidePanel,
+      });
+    } else {
+      hidePanel();
+    }
+  } else {
+    mainMenu.classList.remove("open");
+    mainMenu.setAttribute("aria-hidden", "true");
+  }
+}
+
+if (menuToggle) menuToggle.addEventListener("click", () => { if (isMenuOpen) closeMenu(); else openMenu(); });
+if (panelClose) panelClose.addEventListener("click", closeMenu);
+
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && isMenuOpen) closeMenu(); });
+
+if (mobileLinks && mobileLinks.length) {
+  mobileLinks.forEach((lnk) => { });
+}
+
+// Smooth Scroll 
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener("click", function (e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute("href"));
-    if (target) {
-      gsap.to(window, {
-        scrollTo: { y: target, offsetY: 70 },
-        duration: 0.8,
-        ease: "power2.inOut",
-      });
+    if (target && typeof gsap !== "undefined") {
+      gsap.to(window, { scrollTo: { y: target, offsetY: 70 }, duration: 0.8, ease: "power2.inOut" });
+    } else if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   });
 });
 
+// Text scramble and typing effect for h1
+(function () {
+  const h1 = document.querySelector("#main-title") || document.querySelector(".hero-events") || document.querySelector("h1");
+  const h2 = document.getElementById("subtitle");
+  if (!h1) return;
+
+  const originalHTML = h1.innerHTML;
+  const text = h1.textContent.replace(/\s+/g, " ").trim();
+  const pool = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*()[]{}<>?/|";
+  const rand = (n) => Math.floor(Math.random() * n);
+
+  function wait(ms) { return new Promise((res) => setTimeout(res, ms)); }
+
+  async function scrambleType() {
+    // If this is the page hero (simple centered word), use a keyboard-typing style
+    const isHero = h1 && h1.classList && h1.classList.contains('hero-events');
+
+    if (isHero) {
+      const span = document.createElement('span');
+      span.className = 'scramble-text';
+      const caret = document.createElement('span');
+      caret.className = 'scramble-caret';
+      caret.textContent = '|';
+
+      if (h1.classList) h1.classList.add('seq-visible');
+      h1.innerHTML = '';
+      h1.appendChild(span);
+      h1.appendChild(caret);
+
+      for (let i = 0; i < text.length; i++) {
+        span.textContent = text.slice(0, i + 1);
+        await wait(120 + rand(80)); // slightly slower typing speed
+      }
+
+      try {
+        if (span && span.classList) {
+          span.classList.add('pop');
+          await new Promise((res) => setTimeout(res, 200));
+        }
+      } catch (e) {}
+
+      await wait(80);
+      try {
+        const rect = span.getBoundingClientRect();
+        if (rect && rect.width) {
+          h1.style.setProperty('--underline-width', Math.round(rect.width) + 'px');
+        }
+      } catch (e) { }
+
+      if (caret && caret.parentNode) caret.parentNode.removeChild(caret);
+      h1.innerHTML = originalHTML;
+      if (h1.classList) {
+        setTimeout(() => h1.classList.add('underline-visible'), 80);
+      }
+      return;
+    }
+
+    const span = document.createElement("span");
+    span.className = "scramble-text";
+    const caret = document.createElement("span");
+    caret.className = "scramble-caret";
+    caret.textContent = "|";
+
+    if (h1.classList) h1.classList.add('seq-visible');
+    h1.innerHTML = "";
+    h1.appendChild(span);
+    h1.appendChild(caret);
+
+    for (let i = 0; i < text.length; i++) {
+      const target = text[i];
+      if (/\s/.test(target)) {
+        span.textContent += target;
+        await wait(20);
+        continue;
+      }
+      const rounds = 1 + rand(8);
+      for (let r = 0; r < rounds; r++) {
+        const char = pool[rand(pool.length)];
+        span.textContent = text.slice(0, i) + char;
+        await wait(10 + rand(25));
+      }
+      span.textContent = text.slice(0, i + 1);
+      await wait(20 + rand(80));
+    }
+
+    try {
+      if (span && span.classList) {
+        span.classList.add('pop');
+        await new Promise((res) => setTimeout(res, 260));
+      }
+    } catch (e) {}
+
+    await wait(100);
+    h1.innerHTML = originalHTML;
+  }
+
+  async function typeSubtitle() {
+    const full = (h2.getAttribute && h2.getAttribute('data-text')) || h2.textContent || '';
+    if (!full) return;
+
+    if (h2 && h2.classList) h2.classList.add('seq-visible');
+
+    const span = document.createElement('span');
+    span.className = 'scramble-text';
+    const caret = document.createElement('span');
+    caret.className = 'scramble-caret';
+    caret.textContent = '_'; 
+
+    h2.innerHTML = '';
+    h2.appendChild(span);
+    h2.appendChild(caret);
+    h2.setAttribute('aria-hidden', 'false');
+
+    for (let i = 0; i < full.length; i++) {
+      span.textContent = full.slice(0, i + 1);
+      await wait(28 + rand(30));
+    }
+
+    try {
+      if (span && span.classList) {
+        span.classList.add('pop');
+        await new Promise((res) => setTimeout(res, 260));
+      }
+    } catch (e) {}
+
+    await wait(80);
+    if (caret && caret.parentNode) caret.parentNode.removeChild(caret);
+  }
+
+  async function runSequence() {
+    const dept = document.querySelector('.dept-badge');
+    if (dept) {
+      await new Promise((res) => {
+        let done = false;
+        const onEnd = () => { if (!done) { done = true; dept.removeEventListener('animationend', onEnd); res(); } };
+        dept.addEventListener('animationend', onEnd);
+        const style = getComputedStyle(dept);
+        const delay = (parseFloat(style.animationDelay) || 0) * 1000;
+        const dur = (parseFloat(style.animationDuration) || 0.8) * 1000;
+        setTimeout(() => { if (!done) { done = true; dept.removeEventListener('animationend', onEnd); res(); } }, delay + dur + 80);
+      });
+    }
+
+    await scrambleType();
+
+    if (h2) {
+      await wait(40);
+      await typeSubtitle();
+    }
+
+    const rest = document.querySelectorAll('.status-badge, .location, .address, .cta-container');
+    rest.forEach((el) => {
+      if (el.classList) el.classList.add('seq-visible');
+      if (el.classList) el.classList.add('pop');
+    });
+  }
+
+  runSequence();
+
+  (async function runExtraScrambles() {
+    const targets = document.querySelectorAll('.scramble-target');
+    const rand = (n) => Math.floor(Math.random() * n);
+    function wait(ms) { return new Promise((res) => setTimeout(res, ms)); }
+
+    async function scrambleElement(el) {
+      if (!el) return;
+      const original = el.textContent.replace(/\s+/g, ' ').trim();
+      el.innerHTML = '';
+      const span = document.createElement('span');
+      span.className = 'scramble-text';
+      const caret = document.createElement('span');
+      caret.className = 'scramble-caret';
+      caret.textContent = '|';
+      el.appendChild(span);
+      el.appendChild(caret);
+
+      const pool = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*()[]{}<>?/|';
+
+      for (let i = 0; i < original.length; i++) {
+        const ch = original[i];
+        if (/\s/.test(ch)) {
+          span.textContent += ch;
+          await wait(40 + rand(40));
+          continue;
+        }
+        const rounds = 1 + rand(4);
+        for (let r = 0; r < rounds; r++) {
+          span.textContent = original.slice(0, i) + pool[rand(pool.length)];
+          await wait(20 + rand(60));
+        }
+        span.textContent = original.slice(0, i + 1);
+        await wait(60 + rand(80));
+      }
+
+      try { span.classList.add('pop'); await wait(180); } catch (e) {}
+      if (caret && caret.parentNode) caret.parentNode.removeChild(caret);
+      el.innerHTML = original;
+    }
+
+    for (const t of targets) {
+      if (t.classList.contains('hero-events')) continue;
+      await scrambleElement(t);
+      await wait(120);
+    }
+  })();
+})();
