@@ -1,9 +1,207 @@
-.navbar a {
-    padding: 3px;
-    background: blue;
-    color: red;
+.cs-navbar {
+    box-sizing: border-box;
+
+    font-family: Orbitron;
+    font-weight: 600;
+    box-sizing: border-box;
+    box-shadow: 0px 5px 20px #c0c0c0c0;/* #866f00; */
+
+    font-size: 0.8em;
+
+    width: fit-content;
+    height: fit-content;
+
+    color: gold;
+    background: #0c0c0caf;
+    backdrop-filter: blur(5px);
+    margin-inline: auto;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: fixed;
+
+    transition: width 0.2s, margin 0.2s;
 }
 
-.navbar .active {
+.cs-navbar-collapsed {
+    width: 80%;
+    border-radius: 1.5em;
+    margin-top: 2em;
+}
+
+.cs-navbar-expanded {
+    width: 100%;
+    border-radius: 0em;
+    margin-top: 0em;
+}
+
+.cs-navbar .cs-outer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+    padding-inline: 1em;
+    overflow: fixed;
+    margin-inline: auto;
+    max-width: 1024px;
+}
+
+.cs-navbar .cs-logo {
+    height: fit-content;
+}
+
+.cs-navbar .cs-call-to-action {
+    padding-block: 0.7em;
+    padding-inline: 1em;
+    border-radius: 100px;
+    background: gold;
+    color: black;
+    box-shadow: 0px 0px 0px goldenrod;
+    transition: background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+.cs-navbar .cs-call-to-action:hover {
+    box-shadow: 0px 0px 20px goldenrod;
+    transform: scale(1.2);
+}
+
+.cs-navbar nav {
+    display: flex;
+    flex-direction: row;
+}
+
+.cs-navbar nav a {
+    padding-block: 1.5em;
+    margin-inline: 0.8em;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.3s;
+}
+
+.cs-navbar nav a:hover {
     color: gold;
+    text-shadow: 0px 0px 10px goldenrod;
+    transform: scale(1.1);
+}
+
+.cs-navbar .cs-menu-open {
+    display: none;
+    padding-block: 0.3em;
+}
+
+.cs-navbar .cs-menu-open svg {
+    background: gold;
+    box-shadow: 0px 0px 80px gold;
+    border-radius: 5px;
+    color: black;
+    transition: transform 0.2s;
+}
+
+.cs-navbar-view-checker {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.cs-navbar .cs-selected {
+    text-shadow: 0px 0px 10px skyblue, 0px 0px 10px skyblue;/* #866f00; */
+}
+
+@media (max-width: 1024px) {
+    .cs-navbar nav {
+        display: none;
+    }
+    .cs-navbar .cs-menu-open {
+        display: block;
+    }
+    .cs-navbar .cs-call-to-action {
+        display: none;
+    }
+    .cs-navbar-view-checker {
+        display: none;
+    }
+}
+
+@keyframes cs-hamburger-open-anim {
+    to {
+        opacity: 1;
+        top: 0%;
+        transform: translateY(-25%);
+    }
+    from {
+        opacity: 0;
+        top: 50%;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes cs-hamburger-close-anim {
+    from {
+        opacity: 1;
+        margin-top: 50vh;
+        transform: translateY(-50%);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(0%);
+        margin-top: 0vh;
+    }
+}
+
+.cs-hamburger-dialog {
+    display: block;
+    width: 100%;
+    max-width: 500px;
+    overflow: hidden;
+    animation: 0.5s ease-in-out cs-hamburger-close-anim both;
+    padding: 0;
+    box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    border: 0px;
+    margin:auto;
+
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter:blur(20px);
+}
+
+.cs-hamburger-dialog:not([open]) {
+    pointer-events: none;
+    opacity: 0;
+}
+
+.cs-hamburger-dialog[open] {
+    animation: 0.5s ease-in-out cs-hamburger-open-anim forwards;
+}
+
+.cs-hamburger-dialog::backdrop {
+    backdrop-filter: blur(0.25rem);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.cs-hamburger-dialog > div {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.cs-hamburger-dialog nav {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-top: 1px solid gold;
+    box-shadow: 0px -2px 3px gold;
+}
+.cs-hamburger-dialog div nav a {
+    text-align: center;
+    font-size: 1.2em;
+    padding-block: 20px;
+    font-family: Orbitron;
+    text-decoration: none;
+    color: white;
+    outline: none;
+    border-radius: 10px;
+}
+.cs-hamburger-dialog div nav a:hover {
+    background: gold;
+    color: black;
 }
