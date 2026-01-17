@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
  <head>
+  <title>
+   Xcryptus
+  </title>
   <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&amp;family=Orbitron:wght@400..900&amp;display=swap" rel="stylesheet"/>
   <style>
    body {
     margin: 0px;
 }
+
 #xcryptus {
     position: absolute;
     display: block;
     width: 100%;
     height: 100%;
+    top:0px;
+    left:0px;
 }
 
 .left-gradient {
@@ -31,6 +40,7 @@
     opacity: 0;
 }
   </style>
+  <link href="static/components/navbar.css" rel="stylesheet"/>
  </head>
  <body>
   <canvas id="xcryptus">
@@ -50,5 +60,8 @@
   </div>
   <div class="right-gradient clicker">
   </div>
+  {% include "components/navbar.html" with context %}
+  <script src="static/components/navbar.js">
+  </script>
  </body>
 </html>
