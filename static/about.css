@@ -72,7 +72,6 @@
     backdrop-filter: blur(10px);
 }
 
-/* --- Responsive Card --- */
 .people-card {
     position: relative;
     width: 100%;
@@ -175,5 +174,44 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Mobile Devices */
+
+@media (max-width: 480px) {
+    canvas{
+        filter: blur(3px) brightness(1);
+    }
+    .abt-hero{
+        height: 90vh;
+    }
+    .about-main-title {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+    .about-main-desc{
+        font-size: clamp(0.7rem, 1.5vw, 7rem);
+    }
+    .team-division{
+        padding: 0!important;
+        height: 100vh;
+        top: 5vh;
+    }
+    .people-row{
+        flex-wrap: wrap;
+    }
+    .people-card {
+        width: 45%;
+        height: 15rem;
+    }
+    .card-info{
+        padding: 1rem;
+    }
+    .card-info h3{
+        font-size: 1rem;
+    }
+    .card-info p{
+        font-size: 0.5rem;
     }
 }

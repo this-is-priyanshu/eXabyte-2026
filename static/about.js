@@ -1,14 +1,21 @@
 const elements = document.getElementsByClassName('team-division');
 
-window.addEventListener('scroll', () => {
+function handleScroll() {
     const vh = window.innerHeight;
-    const stickyThreshold = vh * 0.15;
+    const vw = window.innerWidth;
+
+    const visibilityThreshold = vw > 768 ? 0.5 : 0.3;
+    const styles = window.getComputedStyle(elements[0]);
+    const stickyThreshold = parseFloat(styles.top); 
 
     const elementsArray = Array.from(elements);
 
     elementsArray.forEach((el, index) => {
         const rect = el.getBoundingClientRect();
-        if (rect.top < vh - (el.offsetHeight * 0.3)) {
+        const elementHeight = el.offsetHeight;
+        const triggerPoint = vh - (elementHeight * visibilityThreshold);
+        
+        if (rect.top < triggerPoint) {
             el.style.opacity = "1";
         } else {
             el.style.opacity = "0";
@@ -16,9 +23,12 @@ window.addEventListener('scroll', () => {
         const nextEl = elementsArray[index + 1];
         if (nextEl) {
             const nextRect = nextEl.getBoundingClientRect();
-            if (nextRect.top <= stickyThreshold + 1) {
+            if (nextRect.top <= stickyThreshold + 2) {
                 el.style.opacity = "0";
             }
         }
     });
-});
+}
+
+window.addEventListener('scroll', handleScroll);
+window.addEventListener('resize', handleScroll);
