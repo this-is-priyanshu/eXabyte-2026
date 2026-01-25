@@ -63,12 +63,13 @@ def main():
         k = Path(f).stem
         v = pages_data.get(k)
 
+
         if v is not None:
             template = env.get_template(f)
             html = template.render(v)
         else:
-            with open(os.path.join(TEMPLATES_DIR, f)) as t:
-                html = t.read()
+            template = env.get_template(f)
+            html = template.render()
 
         # prettying output
         html = BeautifulSoup(html, 'html.parser').prettify()
