@@ -11,7 +11,72 @@
   <link href="static/components/navbar.css" rel="stylesheet"/>
  </head>
  <body>
-  {% include "components/navbar.html" with context %}
+  <div class="cs-navbar-view-checker">
+  </div>
+  <div class="cs-navbar cs-navbar-collapsed">
+   <div class="cs-outer">
+    <div class="cs-logo">
+     eXabyte-2026
+    </div>
+    <nav>
+     <a href="#">
+      Home
+     </a>
+     <a href="#">
+      Sponsors
+     </a>
+     <a href="#">
+      Xcryptus
+     </a>
+     <a href="#">
+      Events
+     </a>
+     <a href="#">
+      About-Us
+     </a>
+    </nav>
+    <div class="cs-call-to-action">
+     REGISTER
+    </div>
+    <div class="cs-menu-open">
+     <svg fill="none" height="48" id="cs-hamburger" stroke="currentColor" stroke-width="2" viewbox="0 0 48 48" width="48">
+      <path d="M 8 12 h 32">
+      </path>
+      <path d="M 8 24 h 32">
+      </path>
+      <path d="M 8 36 h 32">
+      </path>
+     </svg>
+    </div>
+   </div>
+  </div>
+  <dialog class="cs-hamburger-dialog" style="display: none;">
+   <div>
+    <div style="text-align: right;">
+     <svg fill="none" height="36" id="cs-dailog-closer" stroke="currentColor" stroke-width="2" viewbox="0 0 36 36" width="36">
+      <path d="M 18 6 L 6 18 M 6 6 l 12 12" style="color:gold;transform:scale(1.5);">
+      </path>
+     </svg>
+    </div>
+    <nav>
+     <a href="#">
+      Home
+     </a>
+     <a href="#">
+      Sponsors
+     </a>
+     <a href="#">
+      Xcryptus
+     </a>
+     <a href="#">
+      Events
+     </a>
+     <a href="#">
+      About-Us
+     </a>
+    </nav>
+   </div>
+  </dialog>
   <script src="static/components/navbar.js">
   </script>
  </body>
