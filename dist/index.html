@@ -4,7 +4,7 @@
   <meta charset="utf-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
   <title>
-   eXabyte
+   Home
   </title>
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -20,80 +20,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&amp;family=Orbitron:wght@400..900&amp;family=Tektur:wght@400..900&amp;display=swap" rel="stylesheet"/>
   <!-- Stylesheet -->
   <link href="static/home.css" rel="stylesheet">
+   <link href="static/components/navbar.css" rel="stylesheet">
+   </link>
   </link>
  </head>
  <body>
-  <!-- Placeholder logo at top-left (mobile only) -->
-  <a class="logo-placeholder" href="index.html">
-   LOGO
-  </a>
-  <!-- Center Navbar (desktop only) -->
-  <nav aria-label="Primary navigation" class="center-navbar">
-   <a aria-label="Home" class="nav-logo" href="index.html">
-    LOGO
-   </a>
-   <ul class="nav-links">
-    <li>
-     <a class="nav-link" href="#">
-      x-cryptus
-     </a>
-    </li>
-    <li>
-     <a class="nav-link" href="events.html">
-      events
-     </a>
-    </li>
-    <li>
-     <a class="nav-link" href="#">
-      about-us
-     </a>
-    </li>
-    <li>
-     <a class="nav-link" href="#">
-      contact-us
-     </a>
-    </li>
-   </ul>
-  </nav>
-  <!-- Hamburger button -->
-  <button aria-expanded="false" aria-label="Open menu" class="menu-toggle" id="menuToggle">
-   <svg fill="none" height="24" id="menuIcon" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24">
-    <path d="M4 6h16M4 12h16M4 18h16">
-    </path>
-   </svg>
-   <svg fill="none" height="24" id="closeIcon" stroke="currentColor" stroke-width="2" style="opacity:0; visibility:hidden;" viewbox="0 0 24 24" width="24">
-    <path d="M18 6L6 18M6 6l12 12">
-    </path>
-   </svg>
-  </button>
-  <!-- Menu overlay -->
-  <div aria-hidden="true" class="menu-overlay" id="mainMenu">
-   <div aria-label="Main menu" aria-modal="true" class="menu-panel" id="menuPanel" role="dialog">
-    <button aria-label="Close menu" class="panel-close" id="panelClose">
-     <svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="20">
-      <path d="M18 6L6 18M6 6l12 12">
-      </path>
-     </svg>
-    </button>
-    <nav aria-label="Primary" class="panel-nav">
-     <a class="panel-link" href="#" style="font-size: 20px;">
-      x-cryptus
-     </a>
-     <a class="panel-link" href="#" style="font-size: 20px;">
-      sponsors
-     </a>
-     <a class="panel-link" href="#" style="font-size: 20px;">
-      about-us
-     </a>
-     <a class="panel-link" href="#" style="font-size: 20px;">
-      contact-us
-     </a>
-    </nav>
-   </div>
-  </div>
-  <!-- Main Hero Content -->
-  <main class="container">
-   <canvas id="background" style="
+  <canvas id="background" style="
     position: fixed;
     left: 0px;
     top: 0px;
@@ -101,7 +33,78 @@
     height: 100%;
     display: block;
     z-index: -1;">
-   </canvas>
+  </canvas>
+  <!-- Nasty work around -->
+  <div style="position:fixed; top:0px; left:0px; width:100%; z-index: 100;">
+   <div class="cs-navbar-view-checker">
+   </div>
+   <div class="cs-navbar cs-navbar-collapsed">
+    <div class="cs-outer">
+     <div class="cs-logo">
+      eXabyte-2026
+     </div>
+     <nav>
+      <a href="#">
+       Home
+      </a>
+      <a href="#">
+       Sponsors
+      </a>
+      <a href="#">
+       Xcryptus
+      </a>
+      <a href="#">
+       Events
+      </a>
+      <a href="#">
+       About-Us
+      </a>
+     </nav>
+     <div class="cs-call-to-action">
+      REGISTER
+     </div>
+     <div class="cs-menu-open">
+      <svg fill="none" height="48" id="cs-hamburger" stroke="currentColor" stroke-width="2" viewbox="0 0 48 48" width="48">
+       <path d="M 8 12 h 32">
+       </path>
+       <path d="M 8 24 h 32">
+       </path>
+       <path d="M 8 36 h 32">
+       </path>
+      </svg>
+     </div>
+    </div>
+   </div>
+   <dialog class="cs-hamburger-dialog" style="display: none;">
+    <div>
+     <div style="text-align: right;">
+      <svg fill="none" height="36" id="cs-dailog-closer" stroke="currentColor" stroke-width="2" viewbox="0 0 36 36" width="36">
+       <path d="M 18 6 L 6 18 M 6 6 l 12 12" style="color:gold;transform:scale(1.5);">
+       </path>
+      </svg>
+     </div>
+     <nav>
+      <a href="#">
+       Home
+      </a>
+      <a href="#">
+       Sponsors
+      </a>
+      <a href="#">
+       Xcryptus
+      </a>
+      <a href="#">
+       Events
+      </a>
+      <a href="#">
+       About-Us
+      </a>
+     </nav>
+    </div>
+   </dialog>
+  </div>
+  <!-- Main Hero Content -->
+  <main class="container">
    <div class="content-left">
     <h2 class="white-text dept-badge tektur-font" style="font-size: 22px;">
      From the Postgraduate and Research Department of Computer Science
@@ -159,6 +162,8 @@
         }
   </script>
   <script src="static/3d-sea.js" type="module">
+  </script>
+  <script src="static/components/navbar.js">
   </script>
  </body>
 </html>
