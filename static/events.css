@@ -416,7 +416,7 @@ body.menu-open .container {
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: 50px;
 }
 
 .cards-grid {
@@ -428,7 +428,7 @@ body.menu-open .container {
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   border-radius: 12px;
   padding: 16px;
-  min-height: 110px;
+  min-height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -456,13 +456,13 @@ body.menu-open .container {
 }
 
 .card-body { text-align: center; color: rgba(255,255,255,0.9); }
-.card-title { font-weight: 700; color: #ffd700; margin-bottom: 6px; }
+.card-title { font-weight: 700; color: #ffd700; margin-bottom: 10px; }
 .card-meta { font-size: 0.9rem; color: rgba(255,255,255,0.72); }
 
 .register-btn {
   display: block;
   width: 100%;
-  margin-top: 12px;
+  margin-top: 15px;
   padding: 8px 14px;
   border-radius: 10px;
   font-weight: 600;
@@ -572,6 +572,127 @@ body.menu-open .container {
 .event-register-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(255, 215, 0, 0.3);
+}
+
+.toggle-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+  margin: 2rem 0;
+}
+
+.toggle-container {
+  display: inline-block;
+}
+
+.toggle-switch {
+  position: relative;
+  display: flex;
+  gap: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 50px;
+  padding: 4px;
+  backdrop-filter: blur(10px);
+}
+
+.toggle-switch input[type="radio"] {
+  display: none;
+}
+
+.toggle-label {
+  position: relative;
+  padding: 12px 32px;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.3s ease;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  text-transform: lowercase;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.toggle-switch input[type="radio"]:checked + .toggle-label {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(245, 192, 77, 0.95));
+  border-radius: 50px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+.toggle-switch input[type="radio"]:nth-of-type(2):checked ~ .toggle-slider {
+  transform: translateX(100%);
+}
+
+.events-grid-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 600px;
+  overflow: hidden;
+}
+
+.events-grid-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem 1rem;
+  opacity: 0;
+  transform: translateX(100px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.events-grid-container.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+  position: relative;
+}
+
+.events-grid-container.hidden {
+  opacity: 0;
+  transform: translateX(100px);
+  pointer-events: none;
+  position: absolute;
+}
+
+.events-grid-container.fade-out-left {
+  opacity: 0;
+  transform: translateX(-100px);
+  pointer-events: none;
+  position: absolute;
+}
+
+.events-grid-container .container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 768px) {
+  .toggle-label {
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+  
+  .toggle-section {
+    padding: 1.5rem 1rem;
+    margin: 1rem 0;
+  }
 }
 
 @media (max-width: 1023px) {
