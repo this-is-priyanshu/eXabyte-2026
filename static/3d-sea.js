@@ -86,7 +86,7 @@ const geometry = new THREE.BufferGeometry();
 
 const height = 12
 const width = 5
-const res = 180
+const res = 110
 
 const position = new Float32Array(res * res * 3);
 

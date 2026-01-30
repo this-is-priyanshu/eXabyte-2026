@@ -21,6 +21,7 @@
     position: fixed;
 
     transition: width 0.2s, margin 0.2s;
+    max-width: 1024px;
 }
 
 .cs-navbar-collapsed {
@@ -43,7 +44,6 @@
     padding-inline: 1em;
     overflow: fixed;
     margin-inline: auto;
-    max-width: 1024px;
 }
 
 .cs-navbar .cs-logo {
@@ -87,6 +87,7 @@
 .cs-navbar .cs-menu-open {
     display: none;
     padding-block: 0.3em;
+    transform: scale(0.8);
 }
 
 .cs-navbar .cs-menu-open svg {
