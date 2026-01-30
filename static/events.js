@@ -1,8 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Toggle logic
+  const toggleInputs = document.querySelectorAll('input[name="event-toggle"]');
+  const onlineGrid = document.getElementById('online-events-grid');
+  const offlineGrid = document.getElementById('offline-events-grid');
+
+  toggleInputs.forEach(input => {
+    input.addEventListener('change', (e) => {
+      const value = e.target.value;
+      
+      if (value === 'online') {
+        offlineGrid.classList.remove('active');
+        offlineGrid.classList.add('fade-out-left');
+        
+        setTimeout(() => {
+          offlineGrid.classList.remove('fade-out-left');
+          offlineGrid.classList.add('hidden');
+          onlineGrid.classList.remove('hidden');
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              onlineGrid.classList.add('active');
+            });
+          });
+        }, 470);
+      } else if (value === 'offline') {
+        onlineGrid.classList.remove('active');
+        onlineGrid.classList.add('fade-out-left');
+
+        setTimeout(() => {
+          onlineGrid.classList.remove('fade-out-left');
+          onlineGrid.classList.add('hidden');
+          offlineGrid.classList.remove('hidden');
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              offlineGrid.classList.add('active');
+            });
+          });
+        }, 470);
+      }
+    });
+  });
+
   const registerButtons = document.querySelectorAll('.register-btn');
   const popupCloseButtons = document.querySelectorAll('.popup-close');
 
-  // Open popup when register button is clicked
   registerButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
@@ -16,7 +56,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Close popup when close button is clicked
   popupCloseButtons.forEach(closeBtn => {
     closeBtn.addEventListener('click', () => {
       const popup = closeBtn.closest('.event-popup');
@@ -26,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Close popup when clicking outside the panel
   document.querySelectorAll('.event-popup').forEach(popup => {
     popup.addEventListener('click', (e) => {
       if (e.target === popup) {
@@ -34,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Close popup on pressing escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && popup.classList.contains('open')) {
         closeEventPopup(popup);

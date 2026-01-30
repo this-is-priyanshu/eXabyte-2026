@@ -59,7 +59,7 @@ void main() {
 
     float fogFactor = smoothstep(fogNear, fogFar, vFogDepth);
 
-    gl_FragColor = vec4(mix(diffuse, fogColor, 0.0), 1.4 / vFogDepth);
+    gl_FragColor = vec4(diffuse, 1.4 / vFogDepth);
 }
 `
 
@@ -134,7 +134,7 @@ camera.rotation.z = -Math.PI/6;
 const clock = new THREE.Clock()
 
 function animate() {
-    material.uniforms.time.value += clock.getDelta() ;
+    material.uniforms.time.value += clock.getDelta() * 0.3;
     renderer.render(scene, camera)
 }
 renderer.setAnimationLoop(animate)

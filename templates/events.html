@@ -24,49 +24,8 @@
     <link rel="stylesheet" href="static/events.css" />
     <link rel="stylesheet" href="static/components/navbar.css" />
   </head>
+
   <body>
-    <!-- Placeholder logo for mobile -->
-    <a href="index.html" class="logo-placeholder">LOGO</a>
-
-    <!-- Center navbar for desktop -->
-    <nav class="center-navbar" aria-label="Primary navigation" style="margin-top: 0;">
-      <a href="index.html" class="nav-logo" aria-label="Home">LOGO</a>
-      <ul class="nav-links">
-        <li><a href="index.html" class="nav-link">home</a></li>
-        <li><a href="#" class="nav-link">x-cryptus</a></li>
-        <li><a href="#" class="nav-link">about-us</a></li>
-        <li><a href="#" class="nav-link">contact-us</a></li>
-      </ul>
-    </nav>
-
-    <!-- Hamburger menu button for mobile -->
-    <button id="menuToggle" class="menu-toggle" aria-label="Open menu" aria-expanded="false">
-      <svg id="menuIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-      <svg id="closeIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="opacity:0; visibility:hidden;">
-        <path d="M18 6L6 18M6 6l12 12"></path>
-      </svg>
-    </button>
-
-    <!-- Menu -->
-    <div id="mainMenu" class="menu-overlay" aria-hidden="true">
-      <div id="menuPanel" class="menu-panel" role="dialog" aria-modal="true" aria-label="Main menu">
-        <button id="panelClose" class="panel-close" aria-label="Close menu">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M18 6L6 18M6 6l12 12"></path>
-          </svg>
-        </button>
-
-        <nav class="panel-nav" aria-label="Primary">
-          <a href="#" class="panel-link" style="font-size: 20px;">home</a>
-          <a href="#" class="panel-link" style="font-size: 20px;">x-cryptus</a>
-          <a href="#" class="panel-link" style="font-size: 20px;">about-us</a>
-          <a href="#" class="panel-link" style="font-size: 20px;">contact-us</a>
-        </nav>
-
-      </div>
-    </div>
 
     <canvas id=background style="
     position: fixed;
@@ -78,6 +37,11 @@
     filter: blur(4px) brightness(0.4);
     z-index: -1;"></canvas>
 
+    <!-- Navbar -->
+  <div style="position:fixed; top:0px; left:0px; width:100%; z-index: 100;">
+      {% include "components/navbar.html" with context %}
+  </div>
+
     <section class="section">
       <div class="hero-events tektur-font">events</div>
     </section>
@@ -86,13 +50,27 @@
       <p class="tektur-font">A huge collection of events. I don't know what else to write here.</p>
     </section>
 
-    <section class="events-section container">
-      <div class="events-left">
-        <h2 class="online-title tektur-font">online events</h2>
+    <!-- Toggle Switch -->
+    <section class="toggle-section">
+      <div class="toggle-container">
+        <div class="toggle-switch">
+          <input type="radio" id="toggle-online" name="event-toggle" value="online" checked>
+          <label for="toggle-online" class="toggle-label tektur-font">online events</label>
+          
+          <input type="radio" id="toggle-offline" name="event-toggle" value="offline">
+          <label for="toggle-offline" class="toggle-label tektur-font">offline events</label>
+          
+          <div class="toggle-slider"></div>
+        </div>
       </div>
-      <div class="events-right">
-        <div class="cards-grid">
-          <div class="card" data-popup-id="online-1">
+    </section>
+
+    <div class="events-grid-wrapper">
+      <!-- Online event grid -->
+      <section class="events-grid-container active" id="online-events-grid">
+        <div class="container">
+          <div class="cards-grid">
+            <div class="card" data-popup-id="online-1">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
@@ -159,11 +137,9 @@
       </div>
     </section>
 
-    <section class="events-section container">
-      <div class="events-left">
-        <h2 class="online-title tektur-font">offline events</h2>
-      </div>
-      <div class="events-right">
+    <!-- Offline event grid -->
+    <section class="events-grid-container hidden" id="offline-events-grid">
+      <div class="container">
         <div class="cards-grid">
           <div class="card" data-popup-id="offline-1">
             <div class="card-body">
@@ -231,6 +207,7 @@
         </div>
       </div>
     </section>
+    </div>
 
     <div id="popup-online-1" class="event-popup menu-overlay" aria-hidden="true">
       <div class="menu-panel event-details-panel" role="dialog" aria-modal="true" aria-label="Event details">
@@ -610,6 +587,8 @@
         }
     </script>
     <script src="static/3d-sea.js" type=module></script>
+  <script src="static/components/navbar.js"></script>
+
   </body>
 </html>
 
