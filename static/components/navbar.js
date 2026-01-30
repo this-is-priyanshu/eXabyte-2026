@@ -16,7 +16,7 @@ const cs_navbar_observer = new IntersectionObserver((e) => {
     threshold: 1.0,
 });
 
-cs_navbar_observer.observe(document.querySelector('.cs-navbar-view-checker'))
+// cs_navbar_observer.observe(document.querySelector('.cs-navbar-view-checker'))
 
 const cs_navbar_dialog = document.querySelector('.cs-hamburger-dialog');
 const cs_closer = document.querySelector('#cs-dailog-closer')
@@ -39,7 +39,7 @@ cs_navbar_hamburger_button.addEventListener('touchstart', func)
 
 const title = document.querySelector('title').textContent
 for(const p of document.querySelectorAll('.cs-navbar nav a')) {
-    if(p.textContent.trim() == title) {
+    if(p.textContent.match(/\w+/)[0].toLowerCase() == title.toLowerCase()) {
         p.classList.add('cs-selected')
     }
 }
