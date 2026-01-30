@@ -29,9 +29,7 @@ export class Map {
 
         this.textureLoader = new THREE.TextureLoader();
         for(const v of data.volumes) {
-            const tex = this.textureLoader.load(v, (boop) => {
-                boop.colorSpace = THREE.SRGBColorSpace
-            })
+            const tex = this.textureLoader.load(v)
             this.particleTextures.push(tex)
         }
 
@@ -148,7 +146,7 @@ export class Map {
 
         const depth = 1.0;
         const plane = new THREE.BoxGeometry(this.voxelSize * 1.2, this.voxelSize * (this.corridorLength - 1.2), depth);
-        const material = new THREE.MeshStandardMaterial({ color: 0x27292b });
+        const material = new THREE.MeshStandardMaterial({ color: 'brown'});
         const othermaterial = new THREE.MeshStandardMaterial({ color: 'gold' });
 
         for(let i = 0; i < this.walkGeometry.length; i++) {
@@ -325,10 +323,15 @@ export class Map {
                 return;
 
             if(this.currentWalkPoint == this.walkGeometry.length - 1) {
+
+                this.isAnimatingMovement = true;
                 gsap.to(camera.rotation, {
-                    y: -Math.PI,
+                    y: camera.rotation.y + 2 * (Math.PI/ 2) * (px < 0.3 ? 1 : -1) ,
+                    duration: 1,
                     onComplete: () => {
-                        this.isAnimatingMovement = false
+                        this.isAnimatingMovement = false;
+                        camera.rotation.y %= Math.PI * 2 - 0.00001;
+                        camera.rotation.y = -Math.abs(camera.rotation.y)
                     }
                 })
                 return;
@@ -348,6 +351,7 @@ export class Map {
                     y: angle,
                     onComplete: () => {
                         this.isAnimatingMovement = false
+                        camera.rotation.y %= Math.PI * 2 - 0.00001;
                     }
                 })
             }
@@ -365,6 +369,7 @@ export class Map {
                     y: angle,
                     onComplete: () => {
                         this.isAnimatingMovement = false
+                        camera.rotation.y %= Math.PI * 2 - 0.00001;
                     }
                 })
             }
@@ -640,6 +645,12 @@ window.addEventListener('resize', () => {
 // Setting up the scene
 const scene = new THREE.Scene();
 scene.fog = new THREE.Fog('black', 1, data.corridorLength * 1.5 * data.voxelSize + 80);
+
+const loader = new THREE.TextureLoader()
+scene.background = loader.load('assets/x-cryptus/background.jpg', tex => {
+    tex.mapping = THREE.EquirectangularReflectionMapping;
+    tex.colorSpace = THREE.SRGBColorSpace;
+})
 
 const map = new Map(data)
 map.generateTexturePlanes(scene, camera);

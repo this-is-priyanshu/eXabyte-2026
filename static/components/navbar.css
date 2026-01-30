@@ -122,6 +122,12 @@
         display: none;
     }
 }
+@media (max-width: 900px) {
+    .cs-navbar-collapsed {
+        width: 90%;
+        margin-top: 1em;
+    }
+}
 
 @keyframes cs-hamburger-open-anim {
     to {
