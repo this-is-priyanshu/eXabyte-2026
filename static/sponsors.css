@@ -1,6 +1,6 @@
-/*
+/* 
 ============================================================
-SPONSORS VIEWFINDER UI — CSS LAYOUT GUIDE
+CSS Nav Helper AI generated summary by Samrat XD
 ============================================================
 
 This file controls ALL visuals:
@@ -105,7 +105,7 @@ CSS RULES
 }
 
 
-@media (max-width: 900px) {
+@media (max-width: 1400px) {
     :root {
         --card-width: 280px;
         --card-height: 280px;
@@ -216,10 +216,10 @@ body {
     left: 0;
     top: 0;
     height: 100%;
-    width: 350px;
+    width: 500px;
     background: linear-gradient(180deg, #0a0a0a 0%, #151515 100%);
     z-index: 50;
-    transform: skewX(-10deg) translateX(-80px);
+    transform: skewX(-10deg) translateX(-200px);
     border-right: 2px solid rgba(255, 234, 0, 0.3);
     box-shadow: 20px 0 50px rgba(0,0,0,0.9);
     display: flex;
@@ -257,7 +257,8 @@ body {
 
 .sidebar-content {
     transform: skewX(10deg);
-    padding-left: 100px;
+
+    padding-left: 220px;
     text-align: right;
     padding-right: 40px;
     transition: opacity 0.3s ease;
@@ -404,13 +405,15 @@ body {
     zoom: 1.05;
     background-color: rgba(175, 170, 170, 0.273);
     position: fixed;
-    top: 48%;
+    top: 46%;
     right: 5vw;
     width: 18vw;
     z-index: 100;
     transform: skewX(-10deg);
-    border-left: 2px solid var(--neon-yellow);
-    padding-left: 20px;
+    border-radius: 5px;
+    border-left: 4px solid var(--neon-yellow);
+    box-shadow: 0 0 30px rgba(13, 12, 12, 0.8);
+    padding-left: 10px;
     transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
 }
@@ -418,13 +421,14 @@ body {
 .history-text {
     font-family: 'Orbitron', sans-serif;
     font-size: 2rem;
+    font-weight: 800;
     color: white;
     line-height: 1.2;
     text-transform: uppercase;
     overflow-wrap: break-word;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1400px) {
     #interface-container {
         position: absolute;
         top: 0;
@@ -507,12 +511,13 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 20px rgba(255, 218, 54, 0.114);
     flex-shrink: 0;
     transition: transform 0.1s linear, filter 0.1s linear, opacity 0.3s;
     transform-origin: center center;
     will-change: transform, filter, opacity;
     border-radius: 20px;
+    overflow: hidden;
 }
 
 .sponsor-logo {
@@ -634,14 +639,24 @@ body {
 /* =========================================
    MOBILE OVERRIDES (Unified & Cleaned)
    ========================================= */
-@media (max-width: 900px) {
+@media (max-width: 1400px) {
     
     /* 1. ROOT VARS */
     :root {
         --card-width: 70vw;
         --card-height: 70vw;
-        --circle-size: 25vw;
+        --circle-size: 32vw;
         --font-size-title: 2rem; 
+    }
+
+    .solid-circle{
+        max-width: 150px;
+        max-height: 150px;
+    }
+
+    .card{
+        max-width: 400px;
+        max-height: 300px;
     }
 
     /* 2. GRID */
@@ -671,7 +686,7 @@ body {
         margin-top: 5px !important;
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 1400px) {
     
     /* 1. THE GREY CONTAINER */
     #historyPanel {
@@ -728,7 +743,6 @@ body {
         display: none !important;
     }
 }
-
 
 
 
