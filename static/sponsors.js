@@ -1,218 +1,306 @@
-import * as THREE from "three";
+//not generating summary for dis cuz pretty organized already with comments
 
-const track = document.getElementById('track');
-const navPill = document.getElementById('navPill');
-const navItems = document.querySelectorAll('.nav-item');
-const sidebarText = document.getElementById('sidebarText');
-const tierTitle = document.getElementById('tierTitle');
-const tierSubtitle = document.getElementById('tierSubtitle');
 
-const tiers = [
-    { title: "GOLD PARTNERS", subtitle: "The Biggest Gs", color: "#ffea00", shadow: "0 0 20px rgba(255, 234, 0, 0.7)" },
-    { title: "SILVER PARTNERS", subtitle: "The Rock Solid Supports", color: "#C0C0C0", shadow: "0 0 20px rgba(192, 192, 192, 0.7)" },
-    { title: "BRONZE PARTNERS", subtitle: "The Trusted Allies", color: "#cd7f32", shadow: "0 0 20px rgba(205, 127, 50, 0.7)" }
-];
+/* =========================================
+   2. UNIFIED VERTICAL SCROLLER
+   ========================================= */
 
-let currentIndex = 0;
-const sections = document.querySelectorAll('.tier-section');
-sections[currentIndex].classList.add('active');
+// Configuration for each tier
+const TIER_CONFIG = {
+    gold:   { title: "SPONSORS",   subtitle: "The elixir of eXabyte 2026",          color: "#ffea00", shadow: "rgba(255, 234, 0, 0.5)" },
+    silver: { title: "SPONSORS", subtitle: "The elixir of eXabyte 2026", color: "#C0C0C0", shadow: "rgba(192, 192, 192, 0.5)" },
+    bronze: { title: "SPONSORS", subtitle: "The elixir of eXabyte 2026",      color: "#cd7f32", shadow: "rgba(205, 127, 50, 0.5)" }
+};
 
-navItems.forEach(item => {
-    item.addEventListener('click', () => {
-        const index = parseInt(item.getAttribute('data-index'));
-        currentIndex = index;
-        updateSlider();
-    });
-});
-
-function updateSlider() {
-    const percentage = currentIndex * -33.3333;
-    track.style.transform = `translateX(${percentage}%)`;
-
-    sections.forEach((section, index) => {
-        const grid = section.querySelector('.cards-grid');
-        if (index === currentIndex) {
-            section.classList.add('active');
-            if (grid && grid.__sliderInstance) {
-                grid.__sliderInstance.snapToIndex(0);
-            }
-        } else {
-            section.classList.remove('active');
-        }
-    });
-
-    navItems.forEach((item, index) => {
-        item.classList.toggle('active', index === currentIndex);
-    });
-
-    const currentTier = tiers[currentIndex];
-    navPill.style.borderColor = currentTier.color;
-
-    sidebarText.classList.add('fade-out');
-
-    setTimeout(() => {
-        tierTitle.innerText = currentTier.title;
-        tierSubtitle.innerText = currentTier.subtitle;
-        tierTitle.style.color = currentTier.color;
-        tierTitle.style.textShadow = currentTier.shadow;
-        sidebarText.classList.remove('fade-out');
-    }, 300);
-}
-
-class VerticalSlider {
+/* =========================================
+   PASTE THIS OVER YOUR UnifiedSlider CLASS
+   ========================================= */
+class UnifiedSlider {
     constructor(element) {
-        this.container = element.querySelector('.cards-grid');
+        if (!element) return;
+        
+        this.container = element; 
         this.cards = Array.from(element.querySelectorAll('.card'));
-        this.eventTarget = element;
-        this.verticalOffset = 0;
+        
+        if (this.cards.length === 0) return;
+
+        // Physics variables
         this.currentY = 0;
         this.targetY = 0;
         this.isDragging = false;
         this.startY = 0;
         this.startCurrentY = 0;
-        this.scrollTimeout = null;
+        this.currentIndex = 0; // NEW: Track which card is active
+        
+        // Find start indices
+        this.tierIndices = {
+            gold: this.cards.findIndex(c => c.dataset.tier === 'gold'),
+            silver: this.cards.findIndex(c => c.dataset.tier === 'silver'),
+            bronze: this.cards.findIndex(c => c.dataset.tier === 'bronze')
+        };
 
-        if (element.classList.contains('tier-silver')) {
-            this.activeColor = '#C0C0C0';
-            this.activeShadow = 'rgba(192, 192, 192, 0.5)';
-        } else if (element.classList.contains('tier-bronze')) {
-            this.activeColor = '#cd7f32';
-            this.activeShadow = 'rgba(205, 127, 50, 0.5)';
-        } else {
-            this.activeColor = '#ffea00';
-            this.activeShadow = 'rgba(255, 234, 0, 0.5)';
-        }
-
-        const style = window.getComputedStyle(this.container);
-        const gap = parseFloat(style.gap) || 0;
-        this.cardHeight = this.cards[0].offsetHeight;
-        this.itemStride = this.cardHeight + gap;
-        this.currentIndex = 0;
+        // Initialize Dimensions
+        this.updateDimensions(); // NEW: Extracted to a function
 
         this.initEvents();
         this.animate();
         this.snapToIndex(0);
-        this.currentY = this.targetY;
+
+        // NEW: Listen for resize to fix layout instantly
+        window.addEventListener('resize', () => this.handleResize());
+    }
+
+    // NEW FUNCTION: Recalculates sizes when screen changes
+    updateDimensions() {
+        const style = window.getComputedStyle(this.container);
+        const gap = parseFloat(style.gap) || 0;
+        // Force a read of the new card height from CSS
+        this.cardHeight = this.cards[0].offsetHeight || 300; 
+        this.itemStride = this.cardHeight + gap;
+    }
+
+    // NEW FUNCTION: Handles the resize event
+    handleResize() {
+        this.updateDimensions();
+        // Snap back to the current card so we don't get lost
+        this.snapToIndex(this.currentIndex);
     }
 
     initEvents() {
-        this.container.addEventListener('mousedown', e => { e.preventDefault(); this.startDrag(e.clientY); });
-        window.addEventListener('mousemove', e => this.onDrag(e.clientY));
+        // ... (Keep your existing initEvents code exactly the same) ...
+        // COPY PASTE YOUR OLD initEvents HERE
+        // OR JUST LEAVE IT ALONE IF YOU ARE EDITING IN PLACE
+        
+        // --- DESKTOP ---
+        window.addEventListener('mousedown', e => { 
+            if(e.target.closest('.nav-pill') || e.target.closest('.cs-navbar')) return;
+            this.startDrag(e.clientY); 
+        });
+        
+        window.addEventListener('mousemove', e => {
+            if(this.isDragging) {
+                e.preventDefault(); 
+                this.onDrag(e.clientY);
+            }
+        });
+        
         window.addEventListener('mouseup', () => this.endDrag());
 
-        this.container.addEventListener('touchstart', e => this.startDrag(e.touches[0].clientY));
-        window.addEventListener('touchmove', e => this.onDrag(e.touches[0].clientY));
+        // --- MOBILE (TOUCH) ---
+        window.addEventListener('touchstart', e => { 
+            if(e.target.closest('.nav-pill') || 
+               e.target.closest('.cs-navbar') || 
+               e.target.closest('.cs-hamburger-dialog')) {
+                return;
+            }
+            this.startDrag(e.touches[0].clientY); 
+        }, { passive: false }); 
+
+        window.addEventListener('touchmove', e => {
+            if (this.isDragging) {
+                e.preventDefault(); 
+                this.onDrag(e.touches[0].clientY);
+            }
+        }, { passive: false }); 
+
         window.addEventListener('touchend', () => this.endDrag());
 
-        this.eventTarget.addEventListener('wheel', e => this.onWheel(e), { passive: false });
+        // --- WHEEL ---
+        window.addEventListener('wheel', e => this.onWheel(e), { passive: false });
     }
 
     onWheel(e) {
         e.preventDefault();
-        this.container.style.transition = 'none';
         this.targetY -= e.deltaY * 0.8;
-
-        const screenCenterOffset = (window.innerHeight / 2) - (this.cardHeight / 2) - this.verticalOffset;
-        const maxTarget = screenCenterOffset;
-        const minTarget = screenCenterOffset - ((this.cards.length - 1) * this.itemStride);
-
-        if (this.targetY > maxTarget + 50) this.targetY = maxTarget + 50;
-        if (this.targetY < minTarget - 50) this.targetY = minTarget - 50;
-
+        this.clampTarget();
         clearTimeout(this.scrollTimeout);
-        this.scrollTimeout = setTimeout(() => this.endScroll(), 100);
-    }
-
-    endScroll() {
-        const screenCenterOffset = (window.innerHeight / 2) - (this.cardHeight / 2) - this.verticalOffset;
-        let newIndex = Math.round((screenCenterOffset - this.targetY) / this.itemStride);
-        newIndex = Math.max(0, Math.min(newIndex, this.cards.length - 1));
-        this.snapToIndex(newIndex);
+        this.scrollTimeout = setTimeout(() => this.snapToNearest(), 100);
     }
 
     startDrag(y) {
         this.isDragging = true;
         this.startY = y;
         this.startCurrentY = this.currentY;
-        this.container.style.transition = 'none';
+        this.targetY = this.currentY;
+        this.container.style.cursor = 'grabbing';
     }
 
     onDrag(y) {
         if (!this.isDragging) return;
-        this.targetY = this.startCurrentY + (y - this.startY);
-        this.currentY = this.targetY;
+        const delta = y - this.startY;
+        this.targetY = this.startCurrentY + delta * 1.5; 
     }
 
     endDrag() {
         if (!this.isDragging) return;
         this.isDragging = false;
-        this.endScroll();
+        this.container.style.cursor = 'grab';
+        this.snapToNearest();
+    }
+
+    clampTarget() {
+        const screenCenterOffset = (window.innerHeight / 2) - (this.cardHeight / 2);
+        const maxScroll = screenCenterOffset; 
+        const minScroll = screenCenterOffset - ((this.cards.length - 1) * this.itemStride);
+        
+        if (this.targetY > maxScroll + 50) this.targetY = maxScroll + 50;
+        if (this.targetY < minScroll - 50) this.targetY = minScroll - 50;
+    }
+
+    snapToNearest() {
+        const screenCenterOffset = (window.innerHeight / 2) - (this.cardHeight / 2);
+        let index = Math.round((screenCenterOffset - this.targetY) / this.itemStride);
+        index = Math.max(0, Math.min(index, this.cards.length - 1));
+        this.snapToIndex(index);
     }
 
     snapToIndex(index) {
-        this.currentIndex = index;
-        const screenCenterOffset = (window.innerHeight / 2) - (this.cardHeight / 2) - this.verticalOffset;
+        this.currentIndex = index; // UPDATE: Save the index!
+        
+        const screenCenterOffset = (window.innerHeight / 2) - (this.cardHeight / 2);
         this.targetY = screenCenterOffset - (index * this.itemStride);
-
-        const parentSection = this.container.closest('.tier-section');
-        if (!parentSection.classList.contains('active')) return;
-
+        
         const activeCard = this.cards[index];
-        const historyText = document.getElementById('historyText');
-        const historyPanel = document.getElementById('historyPanel');
-        const focusFrame = document.getElementById('focus-frame');
+        if(!activeCard) return;
 
-        if (activeCard && historyText) {
-            const newContent = activeCard.getAttribute('data-history') || "";
+        const tier = activeCard.dataset.tier || 'gold'; 
+        const config = TIER_CONFIG[tier];
 
-            if (focusFrame) {
-                focusFrame.style.borderColor = this.activeColor;
-                focusFrame.style.boxShadow = `0 0 40px ${this.activeShadow}`;
-            }
-
-            if (historyPanel && window.innerWidth > 900) {
-                historyPanel.style.borderColor = this.activeColor;
-                historyPanel.style.boxShadow = `0 0 15px ${this.activeColor}40`;
-            }
-
-            historyText.style.color = this.activeColor;
-            historyText.style.opacity = '0';
-
-            setTimeout(() => {
-                historyText.innerText = newContent;
-                historyText.style.opacity = '1';
-                historyText.style.textShadow = `0 0 10px ${this.activeColor}80`;
-            }, 150);
+        if (config) {
+            this.updateInterface(tier, config, activeCard);
         }
     }
 
-    updateVisuals() {
-        const focalPoint = (window.innerHeight / 2) - this.verticalOffset;
-
-        this.cards.forEach(card => {
-            const rect = card.getBoundingClientRect();
-            const dist = Math.abs(focalPoint - (rect.top + rect.height / 2));
-            const factor = Math.min(dist / (window.innerHeight * 0.6), 1);
-
-            card.style.transform = `scale(${1.0 - factor * 0.25})`;
-            card.style.filter = `blur(${factor * 5}px) brightness(${1 - factor * 0.3})`;
-            card.style.opacity = Math.max(1 - factor * 0.5, 0.2);
-            card.style.zIndex = Math.round(100 - factor * 100);
+    updateInterface(tier, config, activeCard) {
+        // FIX 1: Select ALL elements with this ID (hack for duplicate IDs in your HTML)
+        const titleElements = document.querySelectorAll('[id="tierTitle"]');
+        const subtitleElements = document.querySelectorAll('[id="tierSubtitle"]');
+        const historyPanel = document.getElementById('historyPanel');
+        const historyText = document.getElementById('historyText');
+        
+        // FIX 2: Loop through all title elements (Desktop Sidebar + Mobile Header)
+        titleElements.forEach(titleEl => {
+            // Apply Color INSTANTLY (Don't wait for text change)
+            titleEl.style.color = config.color;
+            titleEl.style.textShadow = `0 0 20px ${config.shadow}`;
+            
+            // Only fade/animate if the TEXT actually needs to change
+            if (titleEl.innerText !== config.title) {
+                titleEl.innerText = config.title;
+            }
         });
+
+        if(historyPanel) {
+            // THIS LINE overrides the CSS "border-left" color dynamically
+            historyPanel.style.borderLeftColor = config.color; 
+        }
+
+        if(historyText) {
+            historyText.innerText = activeCard.getAttribute('data-history') || "";
+            historyText.style.color = config.color;
+            historyText.style.textShadow = `0 0 10px ${config.shadow}`;
+        }
+
+        // Update Subtitles
+        subtitleElements.forEach(subEl => {
+            if (subEl.innerText !== config.subtitle) {
+                subEl.innerText = config.subtitle;
+            }
+            // Optional: Match subtitle color to tier color
+             subEl.style.color = "whitesmoke"; // Or config.color if you want that too
+        });
+
+        // Update Nav Pills (Your existing logic)
+        document.querySelectorAll('.nav-item').forEach(item => {
+            const isTarget = item.dataset.targetTier === tier;
+            item.classList.toggle('active', isTarget);
+            
+            if (isTarget) {
+                const pill = document.getElementById('navPill');
+                if(pill) pill.style.borderColor = config.color;
+                
+                item.style.background = config.color;
+                item.style.boxShadow = `0 0 15px ${config.shadow}`;
+                item.style.color = 'black';
+            } else {
+                item.style.background = 'transparent';
+                item.style.boxShadow = 'none';
+                item.style.color = 'rgba(255,255,255,0.5)';
+            }
+        });
+
+        // Update History Panel
+        if(historyText) {
+            historyText.innerText = activeCard.getAttribute('data-history') || "";
+            historyText.style.color = config.color;
+            historyText.style.textShadow = `0 0 10px ${config.shadow}`;
+        }
+    }
+
+    scrollToTier(tierName) {
+        const index = this.tierIndices[tierName];
+        if (index !== -1 && index !== undefined) {
+            this.snapToIndex(index);
+        }
     }
 
     animate() {
         if (!this.isDragging) {
             this.currentY += (this.targetY - this.currentY) * 0.1;
         }
+
         this.container.style.transform = `translate(-50%, ${this.currentY}px)`;
-        this.updateVisuals();
+        
+        const focalPoint = (window.innerHeight / 2);
+        const isDesktop = window.innerWidth > 900;
+
+        this.cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const centerY = rect.top + rect.height / 2;
+            const dist = Math.abs(focalPoint - centerY);
+            
+            let normDist = Math.min(dist / (window.innerHeight * 0.5), 1);
+            
+            let maxScale = isDesktop ? 1.5 : 1.2;
+            let minScale = isDesktop ? 0.6 : 0.2;
+
+            const scaleDropoff = Math.pow(normDist, 2); 
+            let scale = maxScale - (scaleDropoff * (maxScale - minScale));
+            if (scale < minScale) scale = minScale;
+
+            card.style.transform = `scale(${scale})`;
+            card.style.filter = `blur(${normDist * 10}px) brightness(${1 - normDist * 0.5})`;
+            card.style.opacity = Math.max(1 - normDist, 0.3);
+            card.style.zIndex = Math.round(100 - normDist * 100);
+        });
+
         requestAnimationFrame(() => this.animate());
     }
 }
 
-document.querySelectorAll('.tier-section').forEach(section => {
-    const instance = new VerticalSlider(section);
-    const grid = section.querySelector('.cards-grid');
-    if (grid) grid.__sliderInstance = instance;
-});
+// === INITIALIZATION ===
+const gridElement = document.getElementById('mainGrid');
+
+if(gridElement) {
+    const slider = new UnifiedSlider(gridElement);
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const tier = item.dataset.targetTier;
+            slider.scrollToTier(tier);
+        });
+    });
+    
+//     function applySmartZoom() {
+//         const width = window.outerWidth; 
+//         if (width > 1600) {
+//             document.body.style.zoom = "125%";
+//         } else {
+//             document.body.style.zoom = "100%";
+//         }
+//     }
+//     applySmartZoom();
+//     window.addEventListener('resize', applySmartZoom);
+// } else {
+//     console.error("CRITICAL ERROR: #mainGrid not found in HTML.");
+}

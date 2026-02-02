@@ -1,6 +1,6 @@
-/*
+/* 
 ============================================================
-SPONSORS VIEWFINDER UI — CSS LAYOUT GUIDE
+CSS Nav Helper AI generated summary by Samrat XD
 ============================================================
 
 This file controls ALL visuals:
@@ -87,17 +87,25 @@ CSS RULES
 
 
 
-
 :root {
     --neon-yellow: #ffea00;
     --accent-gold: #ccbc00;
     --bg-black: #050505;
     --card-width: 400px;
     --card-height: 300px;
-    --circle-size: 125px;
+    --circle-size: 1250px;
 }
 
-@media (max-width: 900px) {
+/* Prevent images from being dragged natively (ghost image effect) */
+.card img, 
+.sponsor-logo {
+    -webkit-user-drag: none;
+    pointer-events: none; /* Optional: Makes clicks pass through to the card */
+    user-select: none;    /* Prevents highlighting */
+}
+
+
+@media (max-width: 1400px) {
     :root {
         --card-width: 280px;
         --card-height: 280px;
@@ -144,7 +152,7 @@ body {
     background: radial-gradient(circle at center, transparent 30%, #000000 100%);
 }
 
-#focus-frame {
+/* #focus-frame {
     border-radius: 20px;
     position: fixed;
     top: 50%;
@@ -157,7 +165,7 @@ body {
     z-index: 150;
     pointer-events: none;
     transition: border-color 0.4s ease, box-shadow 0.4s ease, width 0.3s, height 0.3s;
-}
+} */
 
 #interface-container {
     width: 100%;
@@ -166,10 +174,20 @@ body {
     transform: none;
 }
 
+
+
+#tierSubtitle{
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    color: whitesmoke;
+    margin-top: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+
 @media (min-width: 1600px) {
-    .body{
-        zoom: 5.5;
-    }
     #interface-container {
         width: 100vw;
         height: 100vh;
@@ -183,15 +201,25 @@ body {
     }
 }
 
+
+#cs-dailog-closer {
+    align-self: flex-end;
+    margin: 20px;
+    color: gold;
+    font-size: 2rem;
+    cursor: pointer;
+    width: fit-content;
+}
+
 .sidebar {
     position: fixed;
     left: 0;
     top: 0;
     height: 100%;
-    width: 350px;
+    width: 500px;
     background: linear-gradient(180deg, #0a0a0a 0%, #151515 100%);
     z-index: 50;
-    transform: skewX(-10deg) translateX(-80px);
+    transform: skewX(-10deg) translateX(-200px);
     border-right: 2px solid rgba(255, 234, 0, 0.3);
     box-shadow: 20px 0 50px rgba(0,0,0,0.9);
     display: flex;
@@ -229,7 +257,8 @@ body {
 
 .sidebar-content {
     transform: skewX(10deg);
-    padding-left: 100px;
+
+    padding-left: 220px;
     text-align: right;
     padding-right: 40px;
     transition: opacity 0.3s ease;
@@ -240,7 +269,8 @@ body {
 }
 
 .sidebar-content h2 {
-    font-size: 2.8rem;
+    /* font-size: 2.8rem; */
+    font-size: var(--font-size-title);  /* Scales with screen width */
     text-transform: uppercase;
     font-style: italic;
     font-weight: 900;
@@ -253,7 +283,8 @@ body {
 
 .sidebar-content span {
     display: block;
-    font-size: 1rem;
+    /* font-size: 1rem; */
+    font-size: var(--font-size-subtitle);
     color: var(--accent-gold);
     margin-top: 10px;
     font-weight: 400;
@@ -274,14 +305,14 @@ body {
     z-index: 10;
 }
 
-.slider-track {
+/* .slider-track {
     display: flex;
     height: 100%;
     width: 300vw;
     transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
+} */
 
-.tier-section {
+/* .tier-section {
     width: 100vw;
     height: 100%;
     position: relative;
@@ -292,14 +323,14 @@ body {
     transform: scale(0.9);
     pointer-events: none;
     transition: opacity 0.6s ease-out, filter 0.6s ease-out, transform 0.6s ease-out;
-}
+} */
 
-.tier-section.active {
+/* .tier-section.active {
     opacity: 1;
     filter: blur(0px);
     transform: scale(1);
     pointer-events: all;
-}
+} */
 
 .cards-grid {
     display: flex;
@@ -371,14 +402,18 @@ body {
 }
 
 #historyPanel {
+    zoom: 1.05;
+    background-color: rgba(175, 170, 170, 0.273);
     position: fixed;
-    top: 48%;
+    top: 46%;
     right: 5vw;
-    width: 300px;
+    width: 18vw;
     z-index: 100;
     transform: skewX(-10deg);
-    border-left: 2px solid var(--neon-yellow);
-    padding-left: 20px;
+    border-radius: 5px;
+    border-left: 4px solid var(--neon-yellow);
+    box-shadow: 0 0 30px rgba(13, 12, 12, 0.8);
+    padding-left: 10px;
     transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
 }
@@ -386,13 +421,14 @@ body {
 .history-text {
     font-family: 'Orbitron', sans-serif;
     font-size: 2rem;
+    font-weight: 800;
     color: white;
     line-height: 1.2;
     text-transform: uppercase;
     overflow-wrap: break-word;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1400px) {
     #interface-container {
         position: absolute;
         top: 0;
@@ -465,25 +501,28 @@ body {
 }
 
 .card {
+    filter: blur(300px);
     width: var(--card-width);
     height: var(--card-height);
-    background: linear-gradient(135deg, rgba(21, 21, 21, 0.95) 0%, rgba(5, 5, 5, 0.98) 100%);
+    /* background: linear-gradient(135deg, rgba(21, 21, 21, 0.95) 0%, rgba(5, 5, 5, 0.98) 100%); */
+    background: linear-gradient(135deg, #0b0b0b 0%, #000000 100%);
     border: none;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 20px rgba(255, 218, 54, 0.114);
     flex-shrink: 0;
     transition: transform 0.1s linear, filter 0.1s linear, opacity 0.3s;
     transform-origin: center center;
     will-change: transform, filter, opacity;
     border-radius: 20px;
+    overflow: hidden;
 }
 
 .sponsor-logo {
-    width: 80%;
-    height: 80%;
+    width: 90%;
+    height: 90%;
     object-fit: contain;
     filter: drop-shadow(0 0 10px rgba(255, 234, 0, 0.3));
     transition: all 0.3s ease;
@@ -494,20 +533,216 @@ body {
     filter: drop-shadow(0 0 25px rgba(255, 234, 0, 0.8));
 }
 
+/* Base Circle (Gold by default) */
 .solid-circle {
     width: var(--circle-size);
     height: var(--circle-size);
     background-color: var(--neon-yellow);
     border-radius: 50%;
     box-shadow: 0 0 25px rgba(255, 234, 0, 0.6);
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-.tier-silver .solid-circle {
+/* FIX: Target the data-tier attribute on the card itself */
+.card[data-tier="silver"] .solid-circle {
     background-color: #C0C0C0;
-    box-shadow: 0 0 25px #C0C0C0;
+    box-shadow: 0 0 25px rgba(192, 192, 192, 0.6);
 }
 
-.tier-bronze .solid-circle {
+.card[data-tier="bronze"] .solid-circle {
     background-color: #cd7f32;
-    box-shadow: 0 0 25px #cd7f32;
+    box-shadow: 0 0 25px rgba(205, 127, 50, 0.6);
 }
+
+
+/* =========================================
+   ROOT VARIABLES & GLOBAL SCALES
+   ========================================= */
+:root {
+    /* Base Colors */
+    --neon-yellow: #ffea00;
+    --accent-gold: #ccbc00;
+    --bg-black: #050505;
+
+    /* Desktop sizes */
+    --card-width: 22vw;        
+    --card-height: 16vw;       
+    --circle-size: 7vw;        
+    
+    --font-size-title: 3.5vw;  
+    --font-size-subtitle: 1vw; 
+}
+
+/* =========================================
+   DESKTOP HEADER POSITIONING
+   ========================================= */
+@media (min-width: 1600px) {
+    #tierTitle {
+        font-size: 2.5rem;
+        transform: translateX(75px);
+        letter-spacing: 7px;
+    }
+    
+    #tierSubtitle {
+        font-size: 1.2rem;
+        letter-spacing: 3px;
+        transform: translateX(125px);
+    }
+}
+
+.tier-header {
+    position: absolute;
+    top: 50%;
+    left: 4%; 
+    transform: translateY(-50%);
+    z-index: 20;
+    pointer-events: none; 
+    visibility: hidden;
+}
+
+#tierTitle {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 4rem; 
+    font-weight: 700;
+    margin: 0;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+#tierSubtitle {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    opacity: 0.8;
+    display: block;
+    margin-top: 10px;
+}
+
+/* =========================================
+   GRID STYLES
+   ========================================= */
+.cards-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px; 
+    position: absolute;
+    top: 0;
+    left: 50%; 
+    transform: translate(-50%, 0);
+    width: 100%;
+    margin: 0;
+    cursor: grab;
+    will-change: transform;
+}
+
+
+/* =========================================
+   MOBILE OVERRIDES (Unified & Cleaned)
+   ========================================= */
+@media (max-width: 1400px) {
+    
+    /* 1. ROOT VARS */
+    :root {
+        --card-width: 70vw;
+        --card-height: 70vw;
+        --circle-size: 32vw;
+        --font-size-title: 2rem; 
+    }
+
+    .solid-circle{
+        max-width: 150px;
+        max-height: 150px;
+    }
+
+    .card{
+        max-width: 400px;
+        max-height: 300px;
+    }
+
+    /* 2. GRID */
+    .cards-grid {
+        gap: 0px; 
+    }
+
+    /* 3. TIER HEADER (The Title at the Top) */
+    .tier-header {
+        visibility: visible;
+        top: 13%; 
+        left: 50%;
+        transform: translateX(-50%); 
+        width: 100%;
+        text-align: center;
+    }
+
+    #tierTitle {
+        font-size: 1.8rem !important; 
+        text-shadow: 0 0 10px currentColor !important; 
+        color: goldenrod;
+        /* Color is handled by JS, but you can force goldenrod here if JS fails */
+    }
+
+    #tierSubtitle {
+        font-size: 0.8rem !important;
+        margin-top: 5px !important;
+    }
+
+    @media (max-width: 1400px) {
+    
+    /* 1. THE GREY CONTAINER */
+    #historyPanel {
+        zoom: 0.65 !important;
+        border-radius: 20px !important;
+        /* Position: Dead Center */
+        top: 23% !important; 
+        left: 50% !important; 
+        transform: translateX(-50%) !important;
+        white-space: nowrap;
+        
+        /* Flexbox Alignment Rules */
+        display: flex !important;
+        flex-direction: row !important; /* Ensure horizontal flow */
+        justify-content: center !important; /* Center children horizontally */
+        align-items: center !important; /* Center children vertically */
+        
+        /* Sizing: Shrink to fit text */
+        width: fit-content !important;
+        min-width: auto !important;
+        max-width: 90% !important; /* Prevent it from hitting screen edges */
+        
+        /* Padding: Equal on both sides */
+        padding: 8px 30px !important; 
+        
+        /* Reset margins */
+        margin: 0 !important;
+        right: auto !important;
+    }
+
+    /* 2. THE TEXT INSIDE (Crucial Fix) */
+    #historyText {
+        text-align: center !important;
+        width: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    /* 3. Kill the slash pseudo-element */
+    #historyText::before {
+        content: none !important;
+        display: none !important;
+    }
+}
+
+    #historyText::before {
+        content: none !important;
+        display: none !important;
+    }
+
+    /* 5. HIDE OLD SIDEBAR ELEMENTS */
+    .sidebar {
+        display: none !important;
+    }
+}
+
+
+
