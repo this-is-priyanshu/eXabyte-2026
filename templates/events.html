@@ -37,20 +37,22 @@
     filter: blur(4px) brightness(0.4);
     z-index: -1;"></canvas>
 
-    <!-- Navbar -->
+    <!-- Nasty work around -->
   <div style="position:fixed; top:0px; left:0px; width:100%; z-index: 100;">
       {% include "components/navbar.html" with context %}
   </div>
 
-    <section class="section">
-      <div class="hero-events tektur-font">events</div>
-    </section>
+    <div class="section-intro-wrap">
+      <section class="section">
+        <div class="hero-events tektur-font">events</div>
+      </section>
 
-    <section class="intro-section">
-      <p class="tektur-font">A huge collection of events. I don't know what else to write here.</p>
-    </section>
+      <section class="intro-section">
+        <p class="tektur-font">A huge collection of events. I don't know what else to write here.</p>
+      </section>
+    </div>
 
-    <!-- Toggle Switch -->
+    <!-- Toggle Switch Section -->
     <section class="toggle-section">
       <div class="toggle-container">
         <div class="toggle-switch">
@@ -65,8 +67,9 @@
       </div>
     </section>
 
+    <!-- Events Grid Wrapper -->
     <div class="events-grid-wrapper">
-      <!-- Online event grid -->
+      <!-- Online Events Grid -->
       <section class="events-grid-container active" id="online-events-grid">
         <div class="container">
           <div class="cards-grid">
@@ -137,7 +140,7 @@
       </div>
     </section>
 
-    <!-- Offline event grid -->
+    <!-- Offline Events Grid -->
     <section class="events-grid-container hidden" id="offline-events-grid">
       <div class="container">
         <div class="cards-grid">
@@ -591,4 +594,3 @@
 
   </body>
 </html>
-
