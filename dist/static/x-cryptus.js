@@ -407,7 +407,7 @@ const vertexShader = `
 
         vUV = (uvTransform * vec3(uv, 1.0)).xy;
 
-        float mt = time * 1.2;
+        float mt = time * 0.5;
 
         temp.x += weird(time * 0.1) * sin(angles.x + mt * 0.7) * cos(angles.y + mt * 0.3);
         temp.y += weird(time * 0.1) * sin(angles.x + mt * 0.7) * sin(angles.y + mt * 0.3);
@@ -416,7 +416,7 @@ const vertexShader = `
         vec4 mvPosition = modelViewMatrix * vec4(temp, 1.0);
         gl_Position = projectionMatrix * mvPosition;
 
-        gl_PointSize = size * (2400.0 / -mvPosition.z) * (cos((temp.y + temp.z)/3.0 + 2.0*mt) * dooup + 2.0) / 2.0;
+        gl_PointSize = size * (2400.0 / -mvPosition.z) * (sin((temp.y + temp.z)/3.0 + mt) * dooup + 2.0) / 2.0;
         vFogDepth = -mvPosition.z;
     }
 `;
