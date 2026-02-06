@@ -23,10 +23,10 @@ if (typeof gsap !== "undefined") {
     gsap.from(".location", { opacity: 0, y: 20, duration: 1, delay: 0.4, ease: "power3.out" });
 
   if (document.querySelector(".address"))
-    gsap.from(".address", { opacity: 0, y: 20, duration: 1, delay: 0.5, ease: "power3.out" });
+    gsap.from(".address", { opacity: 0, y: 20, duration: 1, delay: 0.4, ease: "power3.out" });
 
   if (document.querySelector(".shiny-cta"))
-    gsap.from(".shiny-cta", { opacity: 0, scale: 0.9, duration: 1, delay: 0.7, ease: "back.out(1.7)" });
+    gsap.from(".shiny-cta", { opacity: 0, scale: 0.9, duration: 1, delay: 0.4, ease: "back.out(1.7)" });
 
   if (document.querySelector(".visualization svg"))
     gsap.from(".visualization svg", { opacity: 0, scale: 0.95, duration: 1.5, delay: 0.3, ease: "power3.out" });
@@ -315,10 +315,20 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       await typeSubtitle();
     }
 
-    const rest = document.querySelectorAll('.status-badge, .location, .address, .cta-container');
-    rest.forEach((el) => {
-      if (el.classList) el.classList.add('seq-visible');
-      if (el.classList) el.classList.add('pop');
+    const rest = document.querySelectorAll('.cta-container');
+
+    gsap.to('.status-badge, .location, .address', {
+        opacity: 1.0,
+        y: 0,
+        delay: 0,
+        duration: 0.05,
+        ease: 'power2.inOut',
+        onComplete: function() {
+            rest.forEach((el) => {
+              if (el.classList) el.classList.add('seq-visible');
+              if (el.classList) el.classList.add('pop');
+            });
+        }
     });
   }
 

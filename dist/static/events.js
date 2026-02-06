@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Toggle logic
   const toggleInputs = document.querySelectorAll('input[name="event-toggle"]');
   const onlineGrid = document.getElementById('online-events-grid');
   const offlineGrid = document.getElementById('offline-events-grid');
