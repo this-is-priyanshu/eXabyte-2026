@@ -37,20 +37,22 @@
     filter: blur(4px) brightness(0.4);
     z-index: -1;"></canvas>
 
-    <!-- Navbar -->
+    <!-- Nasty work around -->
   <div style="position:fixed; top:0px; left:0px; width:100%; z-index: 100;">
       {% include "components/navbar.html" with context %}
   </div>
 
-    <section class="section">
-      <div class="hero-events tektur-font">events</div>
-    </section>
+    <div class="section-intro-wrap">
+      <section class="section">
+        <div class="hero-events tektur-font">Events</div>
+      </section>
 
-    <section class="intro-section">
-      <p class="tektur-font">A huge collection of events. I don't know what else to write here.</p>
-    </section>
+      <section class="intro-section">
+        <p class="tektur-font">A huge collection of events. I don't know what else to write here.</p>
+      </section>
+    </div>
 
-    <!-- Toggle Switch -->
+    <!-- Toggle Switch Section -->
     <section class="toggle-section">
       <div class="toggle-container">
         <div class="toggle-switch">
@@ -65,8 +67,9 @@
       </div>
     </section>
 
+    <!-- Events Grid Wrapper -->
     <div class="events-grid-wrapper">
-      <!-- Online event grid -->
+      <!-- Online Events Grid -->
       <section class="events-grid-container active" id="online-events-grid">
         <div class="container">
           <div class="cards-grid">
@@ -74,70 +77,70 @@
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="online-1">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="online-1">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="online-2">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="online-2">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="online-2">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="online-3">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="online-3">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="online-3">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="online-4">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="online-4">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="online-4">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="online-5">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="online-5">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="online-5">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="online-6">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="online-6">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="online-6">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="online-7">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="online-7">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="online-7">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="online-8">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="online-8">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="online-8">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="online-9">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="online-9">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="online-9">View Details</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Offline event grid -->
+    <!-- Offline Events Grid -->
     <section class="events-grid-container hidden" id="offline-events-grid">
       <div class="container">
         <div class="cards-grid">
@@ -145,63 +148,63 @@
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="offline-1">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="offline-1">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="offline-2">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="offline-2">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="offline-2">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="offline-3">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="offline-3">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="offline-3">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="offline-4">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="offline-4">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="offline-4">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="offline-5">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="offline-5">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="offline-5">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="offline-6">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="offline-6">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="offline-6">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="offline-7">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="offline-7">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="offline-7">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="offline-8">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="offline-8">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="offline-8">View Details</a>
             </div>
           </div>
           <div class="card" data-popup-id="offline-9">
             <div class="card-body">
               <div class="card-title tektur-font">TBD</div>
               <div class="card-meta tektur-font">Details coming soon</div>
-              <a href="#" class="register-btn tektur-font" data-event-id="offline-9">Register</a>
+              <a href="#" class="register-btn tektur-font" data-event-id="offline-9">View Details</a>
             </div>
           </div>
         </div>
