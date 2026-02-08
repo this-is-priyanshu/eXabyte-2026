@@ -497,6 +497,60 @@ body.menu-open .container {
   transition: transform 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms cubic-bezier(.2,.9,.2,1);
 }
 
+.cards-grid .card {
+  position: relative;
+  overflow: hidden;
+  background: var(--card-bg, linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)));
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.cards-grid .card:nth-child(3n + 1) {
+  --card-bg: url("../assets/pic1.jpeg");
+}
+
+.cards-grid .card:nth-child(3n + 2) {
+  --card-bg: url("../assets/pic2.jpeg");
+}
+
+.cards-grid .card:nth-child(3n + 3) {
+  --card-bg: url("../assets/pic3.jpeg");
+}
+
+.cards-grid .card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.cards-grid .card .card-body {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.cards-grid .card:hover::before,
+.cards-grid .card:focus-within::before {
+  opacity: 1;
+}
+
+.cards-grid .card:hover,
+.cards-grid .card:focus-within {
+  border-color: #ffffff;
+}
+
+.cards-grid .card:hover .card-body,
+.cards-grid .card:focus-within .card-body {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .card:hover {
   transform: translateY(-8px) translateZ(12px) scale(1.035); 
   box-shadow: 0 18px 50px rgba(0,0,0,0.60), 0 0 40px rgba(255, 255, 255, 0.25), 0 0 80px rgba(255, 255, 255, 0.12); 
