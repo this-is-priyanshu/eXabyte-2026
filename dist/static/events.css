@@ -495,6 +495,62 @@ body.menu-open .container {
   transform-origin: center center;
   will-change: transform, box-shadow;
   transition: transform 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms cubic-bezier(.2,.9,.2,1);
+  aspect-ratio: calc(4/5);
+}
+
+.cards-grid .card {
+  position: relative;
+  overflow: hidden;
+  background: var(--card-bg, linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)));
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.cards-grid .card:nth-child(3n + 1) {
+  --card-bg: url("../assets/pic1.jpeg");
+}
+
+.cards-grid .card:nth-child(3n + 2) {
+  --card-bg: url("../assets/pic2.jpeg");
+}
+
+.cards-grid .card:nth-child(3n + 3) {
+  --card-bg: url("../assets/pic3.jpeg");
+}
+
+.cards-grid .card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.cards-grid .card .card-body {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.cards-grid .card:hover::before,
+.cards-grid .card:focus-within::before {
+  opacity: 1;
+}
+
+.cards-grid .card:hover,
+.cards-grid .card:focus-within {
+  border-color: #ffffff;
+}
+
+.cards-grid .card:hover .card-body,
+.cards-grid .card:focus-within .card-body {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .card:hover {
@@ -511,8 +567,8 @@ body.menu-open .container {
 }
 
 .card-body { text-align: center; color: rgba(255,255,255,0.9); }
-.card-title { font-weight: 700; color: #ffd700; margin-bottom: 10px; }
-.card-meta { font-size: 0.9rem; color: rgba(255,255,255,0.72); }
+.card-title { font-weight: 700; color: #ffd700; margin-bottom: 10px; font-size: 3em;}
+.card-meta { font-size: 1.5rem; color: rgba(255,255,255,0.72); }
 
 .register-btn {
   display: block;
