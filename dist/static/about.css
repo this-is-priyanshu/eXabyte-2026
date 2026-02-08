@@ -57,7 +57,7 @@ body {
 .about-main-title.hero-events::after {
     content: "";
     display: block;
-    width: var(--underline-width, 0px);
+    width: 100%;
     height: 3px;
     background: #ffffff;
     margin: 0 auto;
@@ -251,6 +251,8 @@ body {
     .about-main-title {
         font-size: 15vw;
         margin-bottom: 1rem;
+        width: 100%;
+        text-align: center;
     }
 
     .about-main-desc {
