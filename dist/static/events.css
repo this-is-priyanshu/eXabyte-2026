@@ -507,16 +507,53 @@ body.menu-open .container {
   background-repeat: no-repeat;
 }
 
-.cards-grid .card:nth-child(3n + 1) {
-  --card-bg: url("../assets/pic1.jpeg");
+.card-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 
-.cards-grid .card:nth-child(3n + 2) {
-  --card-bg: url("../assets/pic2.jpeg");
+.card-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.cards-grid .card:nth-child(3n + 3) {
-  --card-bg: url("../assets/pic3.jpeg");
+#online-events-grid .cards-grid .card:nth-child(1) {
+  --card-bg: url("../assets/exathon.png");
+}
+
+#online-events-grid .cards-grid .card:nth-child(2) {
+  --card-bg: url("../assets/brainstorm.png");
+}
+
+#online-events-grid .cards-grid .card:nth-child(3) {
+  --card-bg: url("../assets/Xhunt.png");
+}
+
+#online-events-grid .cards-grid .card:nth-child(4) {
+  --card-bg: url("../assets/Webbed.png");
+}
+
+#online-events-grid .cards-grid .card:nth-child(5) {
+  --card-bg: url("../assets/crypt-x.png");
+}
+
+#online-events-grid .cards-grid .card:nth-child(6) {
+  --card-bg: url("../assets/DIGIBIT.png");
+}
+
+#offline-events-grid .cards-grid .card:nth-child(1) {
+  --card-bg: url("../assets/byte_tales.png");
+}
+
+#offline-events-grid .cards-grid .card:nth-child(2) {
+  --card-bg: url("../assets/EMBLEED.png");
+}
+
+#offline-events-grid .cards-grid .card:nth-child(3) {
+  --card-bg: url("../assets/snappit.png");
 }
 
 .cards-grid .card::before {
@@ -526,12 +563,13 @@ body.menu-open .container {
   background: rgba(0,0,0,0.6);
   backdrop-filter: blur(8px);
   opacity: 0;
+  z-index: 1;
   transition: opacity 220ms ease;
 }
 
 .cards-grid .card .card-body {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 220ms ease, transform 220ms ease;

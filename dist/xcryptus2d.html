@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   eXabyte '26 x-cryptus
+  </title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="static/xcryptus.css" rel="stylesheet"/>
+  <link href="static/components/navbar.css" rel="stylesheet"/>
+  <script type="importmap">
+   {
+
+            "imports": {
+
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+
+            }
+
+        }
+  </script>
+ </head>
+ <body>
+  <div class="modal-overlay" id="preview-modal">
+   <div class="modal-container">
+    <button class="modal-close" id="close-modal">
+     ×
+    </button>
+    <div class="modal-content">
+     <div class="modal-left">
+      <img alt="Project Preview" id="modal-image" src=""/>
+     </div>
+     <div class="modal-right">
+      <h3 class="modal-subtitle">
+       MAGAZINE DESCRIPTION
+      </h3>
+      <h2 class="modal-title" id="modal-title">
+       PROJECT TITLE
+      </h2>
+      <p class="modal-text" id="modal-desc">
+       Description goes here...
+      </p>
+      <a class="modal-read-btn" href="#" id="modal-link" target="_blank">
+       READ DOCUMENT
+       <span>
+        ↗
+       </span>
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <dialog class="cs-hamburger-dialog" style="display: none;">
+   <div>
+    <div style="text-align: right;">
+     <svg fill="none" height="36" id="cs-dailog-closer" stroke="currentColor" stroke-width="2" viewbox="0 0 36 36" width="36">
+      <path d="M 18 6 L 6 18 M 6 6 l 12 12" style="color:gold;transform:scale(1.5);">
+      </path>
+     </svg>
+    </div>
+    <nav>
+     <a href="index.html">
+      Home
+     </a>
+     <a href="sponsors.html">
+      Sponsors
+     </a>
+     <a href="x-cryptus.html">
+      Xcryptus
+     </a>
+     <a href="events.html">
+      Events
+     </a>
+     <a href="about.html">
+      About-Us
+     </a>
+    </nav>
+   </div>
+  </dialog>
+  <div class="cs-navbar-view-checker">
+  </div>
+  <div class="cs-navbar cs-navbar-collapsed">
+   <div class="cs-outer">
+    <div class="cs-logo">
+     <img height="50" src="logo.png"/>
+    </div>
+    <nav>
+     <a href="index.html">
+      Home
+     </a>
+     <a href="sponsors.html">
+      Sponsors
+     </a>
+     <a href="x-cryptus.html">
+      Xcryptus
+     </a>
+     <a href="events.html">
+      Events
+     </a>
+     <a href="about.html">
+      About-Us
+     </a>
+    </nav>
+    <a href="events.html" style="text-decoration: none;">
+     <div class="cs-call-to-action">
+      REGISTER
+     </div>
+    </a>
+    <div class="cs-menu-open">
+     <svg fill="none" height="48" id="cs-hamburger" stroke="gold" stroke-width="2" viewbox="0 0 48 48" width="48">
+      <path d="M 8 12 h 32">
+      </path>
+      <path d="M 8 24 h 32">
+      </path>
+      <path d="M 8 36 h 32">
+      </path>
+     </svg>
+    </div>
+   </div>
+  </div>
+  <main class="projects-viewport">
+   <div class="timeline-track" id="timelineTrack">
+    <div class="timeline-line">
+    </div>
+    <div class="intro-glass-card" id="target-card">
+     <canvas id="card-canvas">
+     </canvas>
+     <div class="card-slider">
+      <div class="card-slide active">
+       <div class="card-content-wrapper">
+        <div class="card-header">
+         <div class="subtitle">
+          LATEST EDITION
+         </div>
+         <h2>
+          X-CRYPTUS
+         </h2>
+        </div>
+        <div class="card-body">
+         <p>
+          Discover the intersection of logic and creativity. X-Cryptus features exclusive interviews, deep dives into quantum computing, and the roadmap for eXabyte '26.
+         </p>
+        </div>
+       </div>
+      </div>
+      <div class="card-slide">
+       <div class="card-content-wrapper">
+        <div class="card-header">
+         <div class="subtitle">
+          UPCOMING EVENT
+         </div>
+         <h2>
+          QUANTUM LEAP
+         </h2>
+        </div>
+        <div class="card-body">
+         <p>
+          Explore the boundaries of processing power. Join us as we unravel the mysteries of qubits and superposition in modern architecture.
+         </p>
+        </div>
+       </div>
+      </div>
+      <div class="card-slide">
+       <div class="card-content-wrapper">
+        <div class="card-header">
+         <div class="subtitle">
+          FEATURED
+         </div>
+         <h2>
+          NEURAL NETS
+         </h2>
+        </div>
+        <div class="card-body">
+         <p>
+          The evolution of AI is here. From basic perceptrons to complex transformers, witness the code that mimics the human mind.
+         </p>
+        </div>
+       </div>
+      </div>
+      <div class="slider-indicators">
+       <div class="indicator active">
+       </div>
+       <div class="indicator">
+       </div>
+       <div class="indicator">
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="scroll-hub-container">
+     <div class="scroll-hub">
+      <div class="scroll-text">
+       Scroll
+       <br/>
+       <span>
+        ↕
+       </span>
+       <br/>
+       Up/Down
+      </div>
+     </div>
+    </div>
+    <div class="timeline-item">
+     <div class="date-label">
+      AUG 2025
+     </div>
+     <div class="timeline-node">
+     </div>
+     <div class="project-card">
+      <img alt="Quantum Enigma" class="card-poster" src="vol1.jpg"/>
+     </div>
+    </div>
+    <div class="timeline-item">
+     <div class="date-label">
+      JUL 2025
+     </div>
+     <div class="timeline-node">
+     </div>
+     <div class="project-card">
+      <img alt="Neuro Link" class="card-poster" src="vol2.jpg"/>
+     </div>
+    </div>
+    <div class="timeline-item">
+     <div class="date-label">
+      JUN 2025
+     </div>
+     <div class="timeline-node">
+     </div>
+     <div class="project-card">
+      <img alt="Chit Chat" class="card-poster" src="vol3.jpg"/>
+     </div>
+    </div>
+    <div class="timeline-item">
+     <div class="date-label">
+      MAY 2025
+     </div>
+     <div class="timeline-node">
+     </div>
+     <div class="project-card">
+      <img alt="Backend" class="card-poster" src="vol4.jpg"/>
+     </div>
+    </div>
+    <div class="timeline-item">
+     <div class="date-label">
+      APR 2025
+     </div>
+     <div class="timeline-node">
+     </div>
+     <div class="project-card">
+      <img alt="Game of Life" class="card-poster" src="vol5.jpg"/>
+     </div>
+    </div>
+   </div>
+  </main>
+  <script type="module">
+   import * as THREE from "three";
+
+
+
+        // Shaders
+
+        const vertexShader = `
+
+            uniform float size;
+
+            uniform float scale;
+
+            uniform float time;
+
+            varying float vFogDepth;
+
+
+
+            float random(vec2 co) {
+
+                return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+
+            }
+
+
+
+            float noise(vec2 st) {
+
+                vec2 i = floor(st);
+
+                vec2 f = fract(st);
+
+                float a = random(i);
+
+                float b = random(i + vec2(1.0, 0.0));
+
+                float c = random(i + vec2(0.0, 1.0));
+
+                float d = random(i + vec2(1.0, 1.0));
+
+                vec2 u = f * f * (3.0 - 2.0 * f);
+
+                return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+
+            }
+
+
+
+            void main() {
+
+                gl_PointSize = size;
+
+                vec3 pos = position;
+
+                pos.z = noise(pos.xy + vec2(0.0, time * 0.5)) * 0.3;
+
+                vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+
+                gl_PointSize *= (scale / -mvPosition.z);
+
+                vFogDepth = -mvPosition.z;
+
+                gl_Position = projectionMatrix * mvPosition;
+
+            }
+
+        `;
+
+
+
+        const fragmentShader = `
+
+            uniform vec3 diffuse;
+
+            uniform float fogNear;
+
+            uniform float fogFar;
+
+            uniform float fogDensity;
+
+            uniform vec3 fogColor;
+
+            varying float vFogDepth;
+
+
+
+            void main() {
+
+                float d = length(gl_PointCoord - 0.5);
+
+                if (d > 0.5) discard;
+
+                float fogFactor = smoothstep(fogNear, fogFar, vFogDepth);
+
+                gl_FragColor = vec4(mix(diffuse, fogColor, 0.0), 1.4 / vFogDepth);
+
+            }
+
+        `;
+
+
+
+        // Scene Setup
+
+        const container = document.getElementById('target-card');
+
+        const canvas = document.getElementById('card-canvas');
+
+        let width = container.clientWidth;
+
+        let height = container.clientHeight;
+
+
+
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+
+
+
+        renderer.setClearColor(0x000000, 0);
+
+        renderer.setPixelRatio(window.devicePixelRatio);
+
+        renderer.setSize(width, height);
+
+
+
+        window.addEventListener('resize', () => {
+
+            width = container.clientWidth;
+
+            height = container.clientHeight;
+
+            renderer.setSize(width, height);
+
+            camera.aspect = width / height;
+
+            camera.updateProjectionMatrix();
+
+        });
+
+
+
+        // Geometry
+
+        const geometry = new THREE.BufferGeometry();
+
+        const gridH = 12, gridW = 5, res = 80;
+
+        const position = new Float32Array(res * res * 3);
+
+
+
+        for (let i = 0; i < res; i++) {
+
+            for (let j = 0; j < res; j++) {
+
+                const idx = (i * res + j) * 3;
+
+                position[idx] = gridW * (2 * j / (res - 1) - 1) + (i % 2 ? gridW / res : 0);
+
+                position[idx + 1] = gridH * i / (res - 1);
+
+                position[idx + 2] = 0;
+
+            }
+
+        }
+
+
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(position, 3));
+
+
+
+        // Material
+
+        const material = new THREE.ShaderMaterial({
+
+            ...THREE.ShaderLib.points,
+
+            uniforms: {
+
+                ...THREE.ShaderLib.points.uniforms,
+
+                diffuse: { value: new THREE.Color(0xFFD700) },
+
+                size: { value: 10 },
+
+                time: { value: 0 }
+
+            },
+
+            vertexShader,
+
+            fragmentShader,
+
+            transparent: true,
+
+            fog: true
+
+        });
+
+        material.defines.USE_SIZEATTENUATION = true;
+
+
+
+        const plane = new THREE.Points(geometry, material);
+
+        scene.add(plane);
+
+
+
+        camera.position.set(0, 5, 2);
+
+        camera.rotation.set(Math.PI / 2, 0, -Math.PI / 6);
+
+
+
+        const clock = new THREE.Clock();
+
+        const animate = () => {
+
+            material.uniforms.time.value += clock.getDelta();
+
+            renderer.render(scene, camera);
+
+        };
+
+        renderer.setAnimationLoop(animate);
+  </script>
+  <script src="static/xcryptus.js">
+  </script>
+  <script src="static/components/navbar.js">
+  </script>
+ </body>
+</html>

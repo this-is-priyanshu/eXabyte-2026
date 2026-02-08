@@ -1,0 +1,1381 @@
+:root {
+
+            --gold: #FFD700;
+
+            --glass-bg: rgba(20, 20, 20, 0.6);
+
+            --glass-border: rgba(255, 255, 255, 0.1);
+
+        }
+
+
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            scrollbar-width: none;
+
+        }
+
+        *::-webkit-scrollbar { display: none; }
+
+
+
+        body {
+
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+            background-color: #050505;
+
+            color: #fff;
+
+            height: 100vh;
+
+            width: 100vw;
+
+            overflow: hidden;
+
+            overscroll-behavior: none;
+
+        }
+
+
+
+ 
+
+        .register-btn {
+
+            background-color: #fff;
+
+            color: #000;
+
+            padding: 0.5rem 1rem;
+
+            border-radius: 0.375rem;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            font-size: 0.9rem;
+
+            white-space: nowrap;
+
+            transition: transform 0.2s ease, background-color 0.2s;
+
+        }
+
+
+
+        .register-btn:hover {
+
+            transform: scale(1.05);
+
+            background-color: #f0f0f0;
+
+        }
+
+
+
+        /* Main Viewport */
+
+        .projects-viewport {
+
+            height: 100vh;
+
+            width: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            position: relative;
+
+        }
+
+
+
+        .timeline-track {
+
+            display: flex;
+
+            align-items: center;
+
+            padding-left: 6vw;
+
+            padding-right: 28vw;
+
+            transform: translateX(0);
+
+            will-change: transform;
+
+            z-index: 10;
+
+            position: relative;
+
+            height: 800px;
+
+        }
+
+       @media (max-width: 768px) {
+            .timeline-line {
+                left: calc(10vw + 25vw + 120px);
+            }
+        }
+
+        .timeline-line {
+
+            position: absolute;
+
+            top: 50%;
+
+            left: calc(10vw + 35vw + 120px);
+
+            right: 0;
+
+            height: 2px;
+
+            background: linear-gradient(90deg, var(--gold) 0%, rgba(255, 215, 0, 0.4) 70%, transparent 95%);
+
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+
+            transform: translateY(-50%);
+
+            z-index: 0;
+
+        }
+
+         @media (max-width: 1500px) {
+            .timeline-line {
+                left: calc(10vw + 25vw + 120px);
+            }
+        }
+
+
+
+        /* Intro Glass Card */
+
+        .intro-glass-card {
+            width: 30vw;
+
+            min-width: 450px;
+
+            height: 400px;
+
+            flex-shrink: 0;
+
+            background: var(--glass-bg);
+
+            backdrop-filter: blur(15px);
+
+            border: 1px solid var(--glass-border);
+
+            border-radius: 16px;
+
+            padding: 40px;
+
+            margin-right: 120px;
+
+            z-index: 25;
+
+            position: relative;
+
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+
+        }
+
+
+
+        .intro-glass-card::after {
+
+            content: '';
+
+            position: absolute;
+
+            right: -120px;
+
+            top: 50%;
+
+            width: 120px;
+
+            height: 2px;
+
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2));
+
+            pointer-events: none;
+
+        }
+
+
+
+        #card-canvas {
+
+            background-color: rgb(0, 0, 0);
+
+            background-image: linear-gradient(rgb(0, 0, 0), rgba(95, 90, 35, 0.362), rgb(0, 0, 0));
+
+            border: 2px solid var(--glass-border);
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            z-index: 0;
+
+            opacity: 0.9;
+
+            pointer-events: none;
+
+            border-radius: 16px;
+
+        }
+
+
+
+        /* Card Slider */
+
+        .card-slider {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 100%;
+
+            overflow: hidden;
+
+            z-index: 5;
+
+        }
+
+
+
+        .card-slide {
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            transform: translateX(100%);
+
+            opacity: 0;
+
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
+
+            z-index: 1;
+
+        }
+
+
+
+        .card-slide.active {
+
+            transform: translateX(0);
+
+            opacity: 1;
+
+            z-index: 2;
+
+        }
+
+
+
+        .card-slide.exit {
+
+            transform: translateX(-100%);
+
+            opacity: 0;
+
+            z-index: 0;
+
+        }
+
+
+
+        .card-content-wrapper {
+
+            position: relative;
+
+            height: 100%;
+
+            width: 100%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: flex-start;
+
+        }
+
+
+
+        .card-header {
+
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+
+            padding-bottom: 20px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        .intro-glass-card h2 {
+
+            color: var(--gold);
+
+            font-size: 2rem;
+
+            font-weight: 300;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 5px;
+
+            text-transform: uppercase;
+
+        }
+
+
+
+        .intro-glass-card .subtitle {
+
+            font-size: 0.9rem;
+
+            color: #666;
+
+            text-transform: uppercase;
+
+            letter-spacing: 4px;
+
+        }
+
+
+
+        .card-body p {
+
+            color: #ddd;
+
+            font-size: 1.1rem;
+
+            line-height: 1.8;
+
+            font-weight: 300;
+
+        }
+
+
+
+        .slider-indicators {
+
+            position: absolute;
+
+            bottom: 0;
+
+            left: 0;
+
+            display: flex;
+
+            gap: 8px;
+
+            z-index: 10;
+
+        }
+
+
+
+        .indicator {
+
+            height: 4px;
+
+            width: 12px;
+
+            background-color: rgba(255, 255, 255, 0.2);
+
+            border-radius: 2px;
+
+            transition: width 0.4s ease, background-color 0.4s ease;
+
+            cursor: pointer;
+
+        }
+
+
+
+        .indicator.active {
+
+            width: 32px;
+
+            background-color: var(--gold);
+
+        }
+
+
+
+        /* Scroll Hub */
+
+        .scroll-hub-container {
+            width: 140px;
+
+            height: 140px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            position: relative;
+
+            margin-right: 150px;
+
+            z-index: 99 !important; 
+
+            background-color: #ff0000;
+
+            border-radius: 50%;
+
+        }
+
+
+
+        .scroll-hub {
+
+            width: 100%;
+
+            height: 100%;
+
+            border: 4px solid var(--gold);
+
+            border-radius: 50%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.1);
+
+            animation: pulse-border 3s infinite;
+
+            background-color: #050505 !important;
+            opacity: 1;
+
+        }
+
+
+
+        .scroll-text {
+
+            color: #fff;
+
+            font-size: 0.8rem;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            font-weight: 700;
+
+            text-align: center;
+
+            line-height: 1.4;
+
+        }
+
+
+
+        .scroll-text span {
+
+            display: block;
+
+            color: var(--gold);
+
+            font-size: 1.2rem;
+
+            padding: 5px 0;
+
+        }
+
+
+
+        @keyframes pulse-border {
+
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+
+            70% { box-shadow: 0 0 0 20px rgba(255, 215, 0, 0); }
+
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+
+        }
+
+
+
+        /* Timeline Items */
+
+        .timeline-item {
+
+            position: relative;
+
+            width: auto;
+
+            min-width: 200px;
+
+            padding: 0 40px;
+
+            flex-shrink: 0;
+
+            height: 100%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            z-index: 10;
+
+        }
+
+
+
+        .timeline-node {
+
+            width: 18px;
+
+            height: 18px;
+
+            background-color: #050505;
+
+            border: 3px solid var(--gold);
+
+            border-radius: 50%;
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            z-index: 30;
+
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+
+            transition: transform 0.3s ease;
+
+        }
+
+
+
+        .timeline-item:hover .timeline-node {
+
+            transform: translate(-50%, -50%) scale(1.3);
+
+            background-color: var(--gold);
+
+        }
+
+
+
+        .timeline-item::before {
+
+            content: '';
+
+            position: absolute;
+
+            left: 50%;
+
+            width: 2px;
+
+            background: rgba(255, 215, 0, 0.5);
+
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+
+            z-index: 5;
+
+        }
+
+
+
+        .date-label {
+
+            color: var(--gold);
+
+            font-weight: 700;
+
+            font-size: 0.9rem;
+
+            letter-spacing: 2px;
+
+            position: absolute;
+
+            white-space: nowrap;
+
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+
+            z-index: 30;
+
+        }
+
+
+
+        /* Alternating Layout */
+
+        .timeline-item:nth-child(even) .project-card { margin-top: 320px; }
+
+        .timeline-item:nth-child(even) .date-label {
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -45px);
+
+        }
+
+        .timeline-item:nth-child(even)::before {
+
+            top: 50%;
+
+            height: 50px;
+
+            transform: translateX(-50%);
+
+        }
+
+
+
+        .timeline-item:nth-child(odd) .project-card { margin-bottom: 320px; }
+
+        .timeline-item:nth-child(odd) .date-label {
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, 25px);
+
+        }
+
+        .timeline-item:nth-child(odd)::before {
+
+            top: 50%;
+
+            height: 50px;
+
+            transform: translate(-50%, -100%);
+
+        }
+
+
+
+        /* Project Card */
+
+        .project-card {
+
+            width: fit-content;
+
+            height: auto;
+
+            background: var(--glass-bg);
+
+            backdrop-filter: blur(12px);
+
+            border: 1px solid var(--glass-border);
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+            position: relative;
+
+            z-index: 25;
+
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+
+            padding: 0;
+
+        }
+
+
+
+        .project-card:hover {
+
+            border-color: var(--gold);
+
+            transform: translateY(-5px);
+
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8), 0 0 20px rgba(255, 215, 0, 0.1);
+
+        }
+
+
+
+        .card-poster {
+
+            height: 260px;
+
+            width: auto;
+
+            display: block;
+
+            object-fit: contain;
+
+            background-color: #000;
+
+        }
+
+
+
+        /* Responsive - Mobile Snake Timeline */
+        @media (max-width: 768px) {
+            
+
+            /* Viewport becomes scrollable vertically */
+            .projects-viewport {
+                height: auto;
+                min-height: 100vh;
+                overflow-y: auto;
+                overflow-x: hidden;
+                padding: 110px 0 20px 0;
+            }
+
+            /* Timeline track becomes vertical flex column */
+            .timeline-track {
+                flex-direction: column;
+                align-items: center;
+                padding: 0 15px;
+                height: auto;
+                width: 100%;
+                position: relative;
+            }
+
+            /* Vertical timeline line - centered */
+            .timeline-line {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 50%;
+                right: auto;
+                width: 2px;
+                height: 100%;
+                transform: translateX(-50%);
+                background: linear-gradient(180deg, transparent 0%, var(--gold) 5%, var(--gold) 95%, transparent 100%);
+                box-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+            }
+
+            /* Intro glass card */
+           /* Intro glass card */
+            .intro-glass-card {
+                top: 50%;
+                width: 85vw;
+                min-width: auto;
+                
+                /* FIX: Changed from 'auto' to fixed height. 
+                   This prevents the slider from collapsing to 0px. */
+                height: 320px; 
+                
+                margin: 0 0 30px 0;
+                padding: 25px;
+                z-index: 25;
+                display: flex;       /* Ensures internal centering if needed */
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            /* Ensure slider takes full height of this new fixed container */
+            .intro-glass-card .card-slider {
+                height: 100%;
+                width: 100%;
+            }
+
+            .intro-glass-card::after {
+                display: none;
+            }
+
+            /* Hide scroll hub on mobile */
+            .scroll-hub-container {
+                display: none;
+            }
+
+            /* Timeline items container */
+            .timeline-item {
+                width: 100%;
+                min-width: auto;
+                padding: 15px 0;
+                height: auto;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                position: relative;
+            }
+
+            /* Reset desktop alternating card margins */
+            .timeline-item:nth-child(even) .project-card,
+            .timeline-item:nth-child(odd) .project-card {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+
+            /* --- UPDATED DATE LABELS FOR MOBILE --- */
+            
+            /* 1. Un-hide the label and set base positioning */
+            .date-label {
+                display: block !important; /* Force it to show */
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 35%; /* Restrict width to fit in the empty space */
+                text-align: center;
+                font-size: 0.85rem; /* Slightly smaller for mobile */
+                letter-spacing: 1px;
+                z-index: 5;
+            }
+
+            /* 2. ODD ITEMS (Card is on RIGHT -> Place Date on LEFT) */
+            .timeline-item:nth-child(odd) .date-label {
+                left: 25%;  /* Position it on the left side */
+                right: auto;
+                top: 36%; /* Move it below the card for better spacing */
+            }
+
+            /* 3. EVEN ITEMS (Card is on LEFT -> Place Date on RIGHT) */
+            .timeline-item:nth-child(even) .date-label {
+                right: -10%; /* Position it on the right side */
+                left: auto;
+                top: 65%; /* Move it below the card for better spacing */
+            }
+
+            /* ODD items - Card on RIGHT */
+            .timeline-item:nth-child(odd) {
+                justify-content: flex-end;
+                padding-right: 15px;
+                padding-left: calc(50% + 20px);
+            }
+
+            /* Horizontal connector for ODD (from center to card on right) */
+            .timeline-item:nth-child(odd)::after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                width: 150px;
+                top: 50%;
+                height: 2px;
+                background: var(--gold);
+                box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+                transform: translateY(-50%);
+            }
+
+            /* Hide desktop ::before vertical connector for odd */
+            .timeline-item:nth-child(odd)::before {
+                display: none;
+            }
+
+            /* Node for ODD - on center line */
+            .timeline-item:nth-child(odd) .timeline-node {
+                position: absolute;
+                left: 50%;
+                right: auto;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            /* EVEN items - Card on LEFT */
+            .timeline-item:nth-child(even) {
+                justify-content: flex-start;
+                padding-left: 15px;
+                padding-right: calc(50% + 20px);
+            }
+
+            /* Horizontal connector for EVEN (from card on left to center) */
+            .timeline-item:nth-child(even)::after {
+                content: '';
+                position: absolute;
+                right: 50%;
+                width: 150px;
+                top: 50%;
+                height: 2px;
+                background: var(--gold);
+                box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+                transform: translateY(-50%);
+            }
+
+            /* Hide desktop ::before vertical connector for even */
+            .timeline-item:nth-child(even)::before {
+                display: none;
+            }
+
+            /* Node for EVEN - on center line */
+            .timeline-item:nth-child(even) .timeline-node {
+                position: absolute;
+                left: 50%;
+                right: auto;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            /* Project card sizing for mobile */
+            .project-card {
+                width: 100%;
+                height: 100%;
+                max-width: 160px;
+                flex-shrink: 0;
+            }
+
+            .card-poster {
+                height: 200px;
+                width: 100%;
+                object-fit: cover;
+            }
+
+            /* Intro card text adjustments */
+            .intro-glass-card h2 {
+                font-size: 1.4rem;
+            }
+
+            .card-body p {
+                font-size: 0.9rem;
+            }
+        }
+
+
+
+        /* Modal Styles */
+
+.modal-overlay {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100vw;
+
+    height: 100vh;
+
+    background-color: rgba(0, 0, 0, 0.85);
+
+    backdrop-filter: blur(8px);
+
+    z-index: 2000; /* Above Navbar */
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: opacity 0.4s ease;
+
+}
+
+
+
+.modal-overlay.active {
+
+    opacity: 1;
+
+    pointer-events: all;
+
+}
+
+
+
+.modal-container {
+
+    width: 65vw;
+
+    max-width: 1000px;
+
+    height: 90vh;
+
+    background: var(--glass-bg); /* Use existing glass variable */
+
+    border: 1px solid var(--glass-border);
+
+    border-radius: 20px;
+
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.15); /* Gold glow */
+
+    position: relative;
+
+    overflow: hidden;
+
+    transform: scale(0.95);
+
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+    display: flex;
+
+}
+
+
+
+.modal-overlay.active .modal-container {
+
+    transform: scale(1);
+
+}
+
+
+
+.modal-close {
+
+    position: absolute;
+
+    top: 20px;
+
+    right: 25px;
+
+    background: transparent;
+
+    border: none;
+
+    color: #666;
+
+    font-size: 2rem;
+
+    cursor: pointer;
+
+    z-index: 10;
+
+    transition: color 0.3s ease;
+
+    line-height: 1;
+
+}
+
+
+
+.modal-close:hover {
+
+    color: var(--gold);
+
+}
+
+
+
+.modal-content {
+
+    display: flex;
+
+    width: 100%;
+
+    height: 100%;
+
+}
+
+
+
+/* Left Side (Image) */
+
+.modal-left {
+
+    flex: 1;
+
+    background: #000;
+
+    position: relative;
+
+    overflow: hidden;
+
+    /* background-size: contain; */
+
+}
+
+
+
+.modal-left img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    opacity: 0.8;
+
+}
+
+
+
+/* Right Side (Text) */
+
+.modal-right {
+
+    flex: 1;
+
+    padding: 50px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+
+}
+
+
+
+.modal-subtitle {
+
+    color: #666;
+
+    font-size: 0.8rem;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 10px;
+
+}
+
+
+
+.modal-title {
+
+    color: var(--gold);
+
+    font-size: 2.5rem;
+
+    font-weight: 300;
+
+    margin-bottom: 25px;
+
+    text-transform: uppercase;
+
+    line-height: 1.1;
+
+}
+
+
+
+.modal-text {
+
+    color: #ccc;
+
+    font-size: 1rem;
+
+    line-height: 1.6;
+
+    margin-bottom: 40px;
+
+    font-weight: 300;
+
+}
+
+
+
+.modal-read-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 12px 30px;
+
+    border: 1px solid var(--gold);
+
+    color: var(--gold);
+
+    text-decoration: none;
+
+    text-transform: uppercase;
+
+    font-size: 0.9rem;
+
+    letter-spacing: 2px;
+
+    width: fit-content;
+
+    transition: all 0.3s ease;
+
+}
+
+
+
+.modal-read-btn:hover {
+
+    background: var(--gold);
+
+    color: #000;
+
+}
+
+
+
+/* Mobile Responsiveness for Modal */
+
+@media (max-width: 768px) {
+
+    .modal-container {
+
+        width: 90vw;
+
+        height: 80vh;
+
+        flex-direction: column;
+
+    }
+
+    .modal-content { flex-direction: column; }
+
+    .modal-left { flex: 0.8; } /* Image takes 40% height */
+
+    .modal-right { flex: 1.2; padding: 25px; }
+
+    .modal-title { font-size: 1.8rem; }
+
+}
+
+
+
+/* =========================================
+   RESPONSIVE SCALING FOR IDENTICAL LAYOUT
+   ========================================= */
+
+/* --- 1. 2K Resolution (2560x1440) --- */
+@media (min-width: 2000px) {
+    .timeline-line {
+ 
+
+
+        right: -100vw; 
+        
+
+        width: auto;
+    }
+    
+
+    .timeline-track {
+        overflow: visible; 
+    }
+
+    .timeline-track {
+        transform: scale(1.3); /* Zoom everything up by 30% */
+        transform-origin: left center; /* Anchor to the left */
+        padding-left: 10vw; /* Add more spacing on the left */
+        width: 75%; /* Compensate for the scale stretching width */
+    }
+
+    /* Adjust the navbar to look bigger */
+    nav {
+        zoom: 1.3; /* Scale navbar elements */
+        max-width: 1200px;
+    }
+
+    /* Fix the line position for the zoomed layout */
+    .timeline-line {
+        /* Re-calculate line start position for wider screen */
+        left: calc(10vw + 34vw + 150px); 
+    }
+}
+
+
+@media (min-width: 1600px) and (max-width: 1999px) {
+    .intro-glass-card {
+        width: 32vw;       /* Slightly wider card */
+        height: 480px;     /* Taller to match 1080p height */
+    }
+
+    .timeline-track {
+        padding-left: 8vw; /* Center the starting point more */
+    }
+
+    .project-card .card-poster {
+        height: 300px; /* Larger posters */
+    }
+    
+    /* Push top/bottom cards further apart to fill vertical space */
+    .timeline-item:nth-child(even) .project-card { margin-top: 380px; }
+    .timeline-item:nth-child(odd) .project-card { margin-bottom: 380px; }
+}
+
+
+@media (max-width: 1400px) and (min-width: 769px) {
+    .intro-glass-card {
+        width: 28vw;
+        height: 340px;     /* Smaller height to fit 768p */
+        min-width: 380px;
+        margin-right: 80px; /* Reduce gap to scroll hub */
+    }
+
+    .timeline-track {
+        padding-left: 4vw; /* Tighter left spacing */
+    }
+
+    /* Shrink the posters */
+    .project-card .card-poster {
+        height: 200px; 
+    }
+
+    /* Bring cards closer to the center line vertically */
+    .timeline-item:nth-child(even) .project-card { margin-top: 240px; }
+    .timeline-item:nth-child(odd) .project-card { margin-bottom: 240px; }
+
+    /* Adjust center line connectors */
+    .timeline-item:nth-child(even)::before,
+    .timeline-item:nth-child(odd)::before {
+        height: 40px; /* Shorter connector lines */
+    }
+}
+
+.cs-navbar {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    position: fixed !important;
+    z-index: 9999 !important; /* Ensure it's on top of everything */
+}
+
+/* 2. Reset the inner <nav> tag to prevent old xcryptus.css rules 
+      from hijacking the layout */
+.cs-navbar nav {
+    position: static !important; /* Stop it from floating away */
+    transform: none !important;  /* Remove any shifts */
+    width: auto !important;      /* Let it fit naturally */
+    max-width: none !important;  /* Remove width caps */
+    left: auto !important;       
+    top: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
