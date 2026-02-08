@@ -495,6 +495,7 @@ body.menu-open .container {
   transform-origin: center center;
   will-change: transform, box-shadow;
   transition: transform 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms cubic-bezier(.2,.9,.2,1);
+  aspect-ratio: calc(4/5);
 }
 
 .cards-grid .card {
@@ -522,7 +523,8 @@ body.menu-open .container {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
   opacity: 0;
   transition: opacity 220ms ease;
 }
@@ -565,8 +567,8 @@ body.menu-open .container {
 }
 
 .card-body { text-align: center; color: rgba(255,255,255,0.9); }
-.card-title { font-weight: 700; color: #ffd700; margin-bottom: 10px; }
-.card-meta { font-size: 0.9rem; color: rgba(255,255,255,0.72); }
+.card-title { font-weight: 700; color: #ffd700; margin-bottom: 10px; font-size: 3em;}
+.card-meta { font-size: 1.5rem; color: rgba(255,255,255,0.72); }
 
 .register-btn {
   display: block;
