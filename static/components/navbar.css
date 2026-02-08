@@ -1,6 +1,6 @@
 .cs-navbar {
     box-sizing: border-box;
-
+    z-index:3000;
     font-family: Orbitron;
     font-weight: 600;
     box-sizing: border-box;

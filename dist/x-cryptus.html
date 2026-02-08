@@ -40,6 +40,7 @@
     opacity: 0;
 }
   </style>
+  <link href="static/x-cryptus-modalwindows.css" rel="stylesheet"/>
   <link href="static/components/navbar.css" rel="stylesheet"/>
  </head>
  <body>
@@ -129,6 +130,38 @@
    </div>
   </dialog>
   <script src="static/components/navbar.js">
+  </script>
+  <!-- Modal Window Borrowed from @Samrat -->
+  <div class="modal-overlay" id="preview-modal">
+   <div class="modal-container">
+    <button class="modal-close" id="close-modal">
+     ×
+    </button>
+    <div class="modal-content">
+     <div class="modal-left">
+      <img alt="Project Preview" id="modal-image" src="https://xcryptus.netlify.app/vol1.jpg"/>
+     </div>
+     <div class="modal-right">
+      <h3 class="modal-subtitle">
+       MAGAZINE DESCRIPTION
+      </h3>
+      <h2 class="modal-title" id="modal-title">
+       Quantum Enigma
+      </h2>
+      <p class="modal-text" id="modal-desc">
+       An in-depth look at how quantum states are revolutionizing cryptography. We explore the latest breakthroughs in qubit stability and error correction.
+      </p>
+      <a class="modal-read-btn" href="https://drive.google.com/your-file-link-1" id="modal-link" target="_blank">
+       READ DOCUMENT
+       <span>
+        ↗
+       </span>
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="static/x-cryptus-modalwindows.js">
   </script>
  </body>
 </html>

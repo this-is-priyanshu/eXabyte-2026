@@ -1,6 +1,25 @@
 import * as THREE from "three";
 import { gsap } from "gsap";
 
+const data = {
+    eyeLevel: 2,
+    voxelSize: 16,
+    voxelHeight: 24,
+    corridorLength: 8,
+    corridorCount: 5,
+    startPosition: {
+        x: 0,
+        z: 0
+    },
+    volumes: [
+        "assets/x-cryptus/vol1.jpg",
+        "assets/x-cryptus/vol2.jpg",
+        "assets/x-cryptus/vol3.jpg",
+        "assets/x-cryptus/vol4.jpg",
+        "assets/x-cryptus/vol4.jpg"
+    ]
+}
+
 // We create a map from the loaded data
 export class Map {
     constructor(data) {
@@ -310,6 +329,34 @@ export class Map {
             }
         }
 
+        const launchThingbertAgain = eve => {
+
+            if(this.isAnimatingMovement)
+                return;
+            else
+            {
+
+                // First Thing is to check if we are hitting any actual Walk Points.
+                // Otherwise we can just keep on cooking normally.
+                const rect = canvas.getBoundingClientRect()
+                const x = (eve.clientX - rect.left) * canvas.width / rect.width;
+                const y = (eve.clientY - rect.top) * canvas.height / rect.height;
+                const rx = x / canvas.width * 2 - 1;
+                const ry = 1 - y / canvas.height * 2;
+
+                const tar = {x: rx, y: ry};
+
+                // Project ray into scene
+                raycaster.setFromCamera(tar, camera);
+                let who = raycaster.intersectObjects([ this.banners[this.currentWalkPoint - 1]?.mesh ]); 
+
+                if(who.length > 0)
+                {
+                    launchModal(data.volumes[this.currentWalkPoint - 1], this.currentWalkPoint - 1);
+                }
+            }
+        }
+
         const rotation_handler = eve => {
 
             if(this.isAnimatingMovement)
@@ -377,6 +424,9 @@ export class Map {
 
         window.addEventListener('click', click_handler)
         window.addEventListener('touchstart', click_handler)
+
+        window.addEventListener('click', launchThingbertAgain)
+        window.addEventListener('touchstart', launchThingbertAgain)
 
         const k = document.querySelectorAll('.clicker');
         for(const t of k) {
@@ -557,6 +607,11 @@ export class ParticleVolumes {
         }, {
             visible: false,
             duration: 0.01
+            /*
+            onComplete: () =>{
+                launchModal(data.volumes[this.indx], this.indx)
+            }
+            */
         })
 
         if(this.indx + 1 != 0) {
@@ -607,25 +662,6 @@ export class ParticleVolumes {
     }
 }
 
-const data = {
-    eyeLevel: 2,
-    voxelSize: 16,
-    voxelHeight: 24,
-    corridorLength: 8,
-    corridorCount: 5,
-    startPosition: {
-        x: 0,
-        z: 0
-    },
-    volumes: [
-        "assets/x-cryptus/vol1.jpg",
-        "assets/x-cryptus/vol2.jpg",
-        "assets/x-cryptus/vol3.jpg",
-        "assets/x-cryptus/vol4.jpg",
-        "assets/x-cryptus/vol4.jpg"
-    ]
-}
-
 // Setting up the renderer
 const canvas = document.getElementById('xcryptus');
 const renderer = new THREE.WebGLRenderer({ canvas: canvas });
@@ -640,6 +676,23 @@ window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight, false);
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
+})
+
+// Detect If there was a closure of modal window
+document.body.addEventListener('xCryptusModalClosed', () => {
+    //const oldy = camera.rotation.y
+    const angle = camera.rotation.y + Math.PI / 3 * ((map.currentWalkPoint + 1) % 2 == 0 ? -1 : 1) 
+    map.isAnimatingMovement = true;
+    gsap.to(camera.rotation, {
+        y: angle,
+        yoyo: true,
+        duration: 0.5,
+        delay: 0.5,
+        repeat: 1,
+        onComplete: () => {
+            map.isAnimatingMovement = false;
+        }
+    });
 })
 
 // Setting up the scene
