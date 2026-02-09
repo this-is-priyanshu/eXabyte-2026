@@ -1,744 +1,315 @@
-/* 
-============================================================
-CSS Nav Helper AI generated summary by Samrat XD
-============================================================
-
-This file controls ALL visuals:
-- Layout
-- Colors
-- Effects
-- Responsive behavior
-
-No interaction logic lives here.
-
-------------------------------------------------------------
-DESIGN SYSTEM
-------------------------------------------------------------
-
-:root
-- CSS variables define:
-  - Card size
-  - Viewfinder size
-  - Tier colors
-- Mobile overrides applied via media queries.
-
-------------------------------------------------------------
-MAJOR VISUAL COMPONENTS
-------------------------------------------------------------
-
-#focus-frame
-- Center viewfinder rectangle.
-- Fixed position.
-- Color & glow updated dynamically by JS.
-
-.sidebar
-- Angled left panel (skewed).
-- Desktop only.
-- Acts as a visual anchor, not interactive.
-
-.history-panel
-- Right-side information display (desktop).
-- On mobile, repositioned as a top header.
-- Styling updated dynamically by JS.
-
-.slider-viewport / slider-track
-- Horizontal slider layout.
-- Prevents overflow and unwanted scrolling.
-
-.tier-section
-- Visual isolation per tier.
-- Inactive tiers:
-  - Blurred
-  - Scaled down
-  - Pointer-events disabled
-
-.cards-grid
-- Vertical flex stack.
-- Transformed vertically by JS (translateY).
-
-.card
-- Sponsor card container.
-- Scales, blurs, and fades based on distance from viewfinder.
-
-------------------------------------------------------------
-RESPONSIVE BEHAVIOR
-------------------------------------------------------------
-
-Desktop:
-- Sidebar visible
-- History panel on right
-- Nav pill bottom-right
-
-Mobile:
-- Sidebar hidden
-- History panel becomes top header
-- Nav pill centered bottom
-
-------------------------------------------------------------
-CSS RULES
-------------------------------------------------------------
-- Avoid inline styles.
-- Prefer CSS variables for size & color changes.
-- Visual changes only — no logic assumptions.
-
-============================================================
-*/
-
-
-
-
-:root {
-    --neon-yellow: #ffea00;
-    --accent-gold: #ccbc00;
-    --bg-black: #050505;
-    --card-width: 400px;
-    --card-height: 300px;
-    --circle-size: 1250px;
-}
-
-/* Prevent images from being dragged natively (ghost image effect) */
-.card img, 
-.sponsor-logo {
-    -webkit-user-drag: none;
-    pointer-events: none; /* Optional: Makes clicks pass through to the card */
-    user-select: none;    /* Prevents highlighting */
-}
-
-
-@media (max-width: 1400px) {
-    :root {
-        --card-width: 280px;
-        --card-height: 280px;
-        --circle-size: 100px;
-    }
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    user-select: none;
-}
-
-body {
-    background-color: var(--bg-black);
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-    display: block;
-    font-family: 'Orbitron', sans-serif;
-}
-
-#background {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    z-index: -2;
-    background-color: #000;
-    filter: blur(4px);
-}
-
-.vignette-layer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    pointer-events: none;
-    background: radial-gradient(circle at center, transparent 30%, #000000 100%);
-}
-
-/* #focus-frame {
-    border-radius: 20px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: var(--card-width);
-    height: var(--card-height);
-    border: 3px solid var(--neon-yellow);
-    box-shadow: 0 0 40px rgba(255, 234, 0, 0.2);
-    z-index: 150;
-    pointer-events: none;
-    transition: border-color 0.4s ease, box-shadow 0.4s ease, width 0.3s, height 0.3s;
-} */
-
-#interface-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform: none;
-}
-
-
-
-#tierSubtitle{
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.2rem;
-    color: whitesmoke;
-    margin-top: 10px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    text-align: center;
-}
-
-
-@media (min-width: 1600px) {
-    #interface-container {
-        width: 100vw;
-        height: 100vh;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
-    :root {
-        --card-width: 400px;
-        --card-height: 300px;
-    }
-}
-
-
-#cs-dailog-closer {
-    align-self: flex-end;
-    margin: 20px;
-    color: gold;
-    font-size: 2rem;
-    cursor: pointer;
-    width: fit-content;
-}
-
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 500px;
-    background: linear-gradient(180deg, #0a0a0a 0%, #151515 100%);
-    z-index: 50;
-    transform: skewX(-10deg) translateX(-200px);
-    border-right: 2px solid rgba(255, 234, 0, 0.3);
-    box-shadow: 20px 0 50px rgba(0,0,0,0.9);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.static-sponsors {
-    position: absolute;
-    top: 25%;
-    right: -180px;
-    transform: skewX(10deg);
-    font-weight: 900;
-    font-size: 3rem;
-    letter-spacing: 2px;
-    color: transparent;
-    -webkit-text-stroke: 1px #f9e127;
-    filter: drop-shadow(0 0 2px rgba(255, 234, 0, 0.2));
-    pointer-events: none;
-    white-space: nowrap;
-}
-
-.static-text {
-    position: absolute;
-    top: 29%;
-    right: -450px;
-    transform: skewX(10deg);
-    font-weight: 900;
-    font-size: 1rem;
-    letter-spacing: 2px;
-    color: white;
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.425);
-    pointer-events: none;
-}
-
-.sidebar-content {
-    transform: skewX(10deg);
-
-    padding-left: 220px;
-    text-align: right;
-    padding-right: 40px;
-    transition: opacity 0.3s ease;
-}
-
-.sidebar-content.fade-out {
-    opacity: 0;
-}
-
-.sidebar-content h2 {
-    /* font-size: 2.8rem; */
-    font-size: var(--font-size-title);  /* Scales with screen width */
-    text-transform: uppercase;
-    font-style: italic;
-    font-weight: 900;
-    color: var(--neon-yellow);
-    text-shadow: 0 0 20px rgba(255, 234, 0, 0.7);
-    margin-bottom: 0;
-    line-height: 0.9;
-    transition: text-shadow 0.3s, color 0.3s;
-}
-
-.sidebar-content span {
-    display: block;
-    /* font-size: 1rem; */
-    font-size: var(--font-size-subtitle);
-    color: var(--accent-gold);
-    margin-top: 10px;
-    font-weight: 400;
-    letter-spacing: 2px;
-}
-
-.slider-viewport {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    max-width: none !important;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    z-index: 10;
-}
-
-/* .slider-track {
-    display: flex;
-    height: 100%;
-    width: 300vw;
-    transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-} */
-
-/* .tier-section {
-    width: 100vw;
-    height: 100%;
-    position: relative;
-    overflow: hidden;
-    flex-shrink: 0;
-    opacity: 0;
-    filter: blur(10px);
-    transform: scale(0.9);
-    pointer-events: none;
-    transition: opacity 0.6s ease-out, filter 0.6s ease-out, transform 0.6s ease-out;
-} */
-
-/* .tier-section.active {
-    opacity: 1;
-    filter: blur(0px);
-    transform: scale(1);
-    pointer-events: all;
-} */
-
-.cards-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: -50px;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: 100%;
-    margin: 0;
-    cursor: grab;
-    will-change: transform;
-}
-
-.cards-grid:active {
-    cursor: grabbing;
-}
-
-.nav-pill {
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    display: flex;
-    background: rgba(0, 0, 0, 0.6);
-    border: 1px solid var(--neon-yellow);
-    border-radius: 50px;
-    padding: 6px;
-    gap: 5px;
-    z-index: 100;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 20px rgba(0,0,0,0.8);
-    transition: border-color 0.3s ease;
-}
-
-.nav-item {
-    padding: 8px 24px;
-    border-radius: 40px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 0.85rem;
-    letter-spacing: 1px;
-    color: rgba(255, 255, 255, 0.5);
-    cursor: pointer;
-    transition: all 0.4s ease;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-.nav-item:hover {
-    color: white;
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.nav-item.active {
-    color: black;
-    background: var(--neon-yellow);
-    box-shadow: 0 0 15px var(--neon-yellow);
-    font-weight: 900;
-}
-
-.nav-item.active[data-tier="silver"] {
-    background: #C0C0C0;
-    box-shadow: 0 0 15px #C0C0C0;
-}
-
-.nav-item.active[data-tier="bronze"] {
-    background: #cd7f32;
-    box-shadow: 0 0 15px #cd7f32;
-}
-
-#historyPanel {
-    zoom: 1.05;
-    background-color: rgba(175, 170, 170, 0.273);
-    position: fixed;
-    top: 46%;
-    right: 5vw;
-    width: 18vw;
-    z-index: 100;
-    transform: skewX(-10deg);
-    border-radius: 5px;
-    border-left: 4px solid var(--neon-yellow);
-    box-shadow: 0 0 30px rgba(13, 12, 12, 0.8);
-    padding-left: 10px;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    pointer-events: none;
-}
-
-.history-text {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2rem;
-    font-weight: 800;
-    color: white;
-    line-height: 1.2;
-    text-transform: uppercase;
-    overflow-wrap: break-word;
-}
-
-@media (max-width: 1400px) {
-    #interface-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    .sidebar {
-        display: none;
-    }
-
-    #historyPanel {
-        display: flex;
-        top: 110px;
-        left: 0;
-        right: auto;
-        width: 100%;
-        transform: none;
-        border-left: none;
-        box-shadow: none !important;
-        padding-left: 0;
-        justify-content: center;
-        text-align: center;
-        z-index: 200;
-    }
-
-    .history-text {
-        font-size: 2rem;
-        font-weight: 900;
-        width: 90%;
-        margin: 0 auto;
-        text-shadow: 0 0 10px rgba(0,0,0,0.8);
-    }
-
-    .slider-viewport {
-        position: fixed;
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        pointer-events: none;
-    }
-
-    .tier-section {
-        width: 100vw;
-        height: 100vh;
-        display: block;
-        pointer-events: all;
-    }
-
-    .cards-grid {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 100%;
-        margin: 0;
-    }
-
-    .nav-pill {
-        left: 50%;
-        right: auto;
-        transform: translateX(-50%);
-        bottom: 30px;
-        width: max-content;
-        pointer-events: auto;
-        z-index: 300;
-    }
-}
-
-.card {
-    filter: blur(300px);
-    width: var(--card-width);
-    height: var(--card-height);
-    /* background: linear-gradient(135deg, rgba(21, 21, 21, 0.95) 0%, rgba(5, 5, 5, 0.98) 100%); */
-    background: linear-gradient(135deg, #0b0b0b 0%, #000000 100%);
-    border: none;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    transition: transform 0.1s linear, filter 0.1s linear, opacity 0.3s;
-    transform-origin: center center;
-    will-change: transform, filter, opacity;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-.sponsor-logo {
-    width: 80%;
-    height: 80%;
-    object-fit: contain;
-    filter: drop-shadow(0 0 10px rgba(255, 234, 0, 0.3));
-    transition: all 0.3s ease;
-}
-
-.card:hover .sponsor-logo {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 25px rgba(255, 234, 0, 0.8));
-}
-
-/* Base Circle (Gold by default) */
-.solid-circle {
-    width: var(--circle-size);
-    height: var(--circle-size);
-    background-color: var(--neon-yellow);
-    border-radius: 50%;
-    box-shadow: 0 0 25px rgba(255, 234, 0, 0.6);
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-/* FIX: Target the data-tier attribute on the card itself */
-.card[data-tier="silver"] .solid-circle {
-    background-color: #C0C0C0;
-    box-shadow: 0 0 25px rgba(192, 192, 192, 0.6);
-}
-
-.card[data-tier="bronze"] .solid-circle {
-    background-color: #cd7f32;
-    box-shadow: 0 0 25px rgba(205, 127, 50, 0.6);
-}
-
-
 /* =========================================
-   ROOT VARIABLES & GLOBAL SCALES
+   2. UNIFIED VERTICAL SCROLLER (LOWER ACTIVE CARD ON MOBILE)
    ========================================= */
-:root {
-    /* Base Colors */
-    --neon-yellow: #ffea00;
-    --accent-gold: #ccbc00;
-    --bg-black: #050505;
 
-    /* Desktop sizes */
-    --card-width: 22vw;        
-    --card-height: 16vw;       
-    --circle-size: 7vw;        
-    
-    --font-size-title: 3.5vw;  
-    --font-size-subtitle: 1vw; 
-}
+// Configuration for each tier
+const TIER_CONFIG = {
+    gold:   { title: "SPONSORS",   subtitle: "The elixir of eXabyte 2026",          color: "#ffd700", shadow: "rgba(255, 234, 0, 0.5)" },
+    silver: { title: "SPONSORS", subtitle: "The elixir of eXabyte 2026", color: "#C0C0C0", shadow: "rgba(192, 192, 192, 0.5)" },
+    bronze: { title: "SPONSORS", subtitle: "The elixir of eXabyte 2026",      color: "#cd7f32", shadow: "rgba(205, 127, 50, 0.5)" }
+};
 
-/* =========================================
-   DESKTOP HEADER POSITIONING
-   ========================================= */
-@media (min-width: 1600px) {
-    #tierTitle {
-        font-size: 2.5rem;
-        transform: translateX(75px);
-        letter-spacing: 7px;
-    }
-    
-    #tierSubtitle {
-        font-size: 1.2rem;
-        letter-spacing: 3px;
-        transform: translateX(125px);
-    }
-}
-
-.tier-header {
-    position: absolute;
-    top: 50%;
-    left: 4%; 
-    transform: translateY(-50%);
-    z-index: 20;
-    pointer-events: none; 
-    visibility: hidden;
-}
-
-#tierTitle {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 4rem; 
-    font-weight: 700;
-    margin: 0;
-    line-height: 1;
-    text-transform: uppercase;
-}
-
-#tierSubtitle {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.2rem;
-    opacity: 0.8;
-    display: block;
-    margin-top: 10px;
-}
-
-/* =========================================
-   GRID STYLES
-   ========================================= */
-.cards-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 50px; 
-    position: absolute;
-    top: 0;
-    left: 50%; 
-    transform: translate(-50%, 0);
-    width: 100%;
-    margin: 0;
-    cursor: grab;
-    will-change: transform;
-}
-
-
-/* =========================================
-   MOBILE OVERRIDES (Unified & Cleaned)
-   ========================================= */
-@media (max-width: 1400px) {
-    
-    /* 1. ROOT VARS */
-    :root {
-        --card-width: 67vw;
-        --card-height: 65vw;
-        --circle-size: 30vw;
-        --font-size-title: 2rem; 
-    }
-
-    .solid-circle{
-        max-width: 150px;
-        max-height: 150px;
-    }
-
-    .card{
-        max-width: 400px;
-        max-height: 300px;
-    }
-
-    /* 2. GRID */
-    .cards-grid {
-        gap: 0px; 
-    }
-
-    /* 3. TIER HEADER (The Title at the Top) */
-    .tier-header {
-        visibility: visible;
-        top: 13%; 
-        left: 50%;
-        transform: translateX(-50%); 
-        width: 100%;
-        text-align: center;
-    }
-
-    #tierTitle {
-        font-size: 1.8rem !important; 
-        text-shadow: 0 0 10px currentColor !important; 
-        color: goldenrod;
-        /* Color is handled by JS, but you can force goldenrod here if JS fails */
-    }
-
-    #tierSubtitle {
-        font-size: 0.8rem !important;
-        margin-top: 5px !important;
-    }
-
-    @media (max-width: 1400px) {
-    
-    /* 1. THE GREY CONTAINER */
-    #historyPanel {
-        zoom: 0.65 !important;
-        border-radius: 20px !important;
-        /* Position: Dead Center */
-        top: 23% !important; 
-        left: 50% !important; 
-        transform: translateX(-50%) !important;
-        white-space: nowrap;
+class UnifiedSlider {
+    constructor(element) {
+        if (!element) return;
         
-        /* Flexbox Alignment Rules */
-        display: flex !important;
-        flex-direction: row !important; /* Ensure horizontal flow */
-        justify-content: center !important; /* Center children horizontally */
-        align-items: center !important; /* Center children vertically */
+        this.container = element; 
+        this.cards = Array.from(element.querySelectorAll('.card'));
+        this.focusFrame = document.getElementById('focus-frame'); 
+
+        if (this.cards.length === 0) return;
+
+        // Physics variables
+        this.currentY = 0;
+        this.targetY = 0;
+        this.isDragging = false;
+        this.startY = 0;
+        this.startCurrentY = 0;
+        this.currentIndex = 0; 
         
-        /* Sizing: Shrink to fit text */
-        width: fit-content !important;
-        min-width: auto !important;
-        max-width: 90% !important; /* Prevent it from hitting screen edges */
-        
-        /* Padding: Equal on both sides */
-        padding: 8px 30px !important; 
-        
-        /* Reset margins */
-        margin: 0 !important;
-        right: auto !important;
+        // Find start indices
+        this.tierIndices = {
+            gold: this.cards.findIndex(c => c.dataset.tier === 'gold'),
+            silver: this.cards.findIndex(c => c.dataset.tier === 'silver'),
+            bronze: this.cards.findIndex(c => c.dataset.tier === 'bronze')
+        };
+
+        // Initialize Dimensions
+        this.updateDimensions(); 
+
+        this.initEvents();
+        this.animate();
+        this.snapToIndex(0);
+
+        // Listen for resize to fix layout instantly
+        window.addEventListener('resize', () => this.handleResize());
     }
 
-    /* 2. THE TEXT INSIDE (Crucial Fix) */
-    #historyText {
-        text-align: center !important;
-        width: auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        display: block !important;
+    // --- NEW HELPER: Determines how much to shift down ---
+    getMobileOffset() {
+        // If width < 1400px, shift down by 10% of viewport height (approx 80-100px)
+        return window.innerWidth < 1400 ? window.innerHeight * 0.001 : 0;
+    }
+    // ----------------------------------------------------
+
+    updateDimensions() {
+        const style = window.getComputedStyle(this.container);
+        const gap = parseFloat(style.gap) || 0;
+        this.cardHeight = this.cards[0].offsetHeight || 300; 
+        this.itemStride = this.cardHeight + gap;
     }
 
-    /* 3. Kill the slash pseudo-element */
-    #historyText::before {
-        content: none !important;
-        display: none !important;
+    handleResize() {
+        this.updateDimensions();
+        this.snapToIndex(this.currentIndex);
+    }
+
+    initEvents() {
+        // --- DESKTOP ---
+        window.addEventListener('mousedown', e => { 
+            if(e.target.closest('.nav-pill') || e.target.closest('.cs-navbar')) return;
+            this.startDrag(e.clientY); 
+        });
+        
+        window.addEventListener('mousemove', e => {
+            if(this.isDragging) {
+                e.preventDefault(); 
+                this.onDrag(e.clientY);
+            }
+        });
+        
+        window.addEventListener('mouseup', () => this.endDrag());
+
+        // --- MOBILE (TOUCH) ---
+        window.addEventListener('touchstart', e => { 
+            if(e.target.closest('.nav-pill') || 
+               e.target.closest('.cs-navbar') || 
+               e.target.closest('.cs-hamburger-dialog')) {
+                return;
+            }
+            this.startDrag(e.touches[0].clientY); 
+        }, { passive: false }); 
+
+        window.addEventListener('touchmove', e => {
+            if (this.isDragging) {
+                e.preventDefault(); 
+                this.onDrag(e.touches[0].clientY);
+            }
+        }, { passive: false }); 
+
+        window.addEventListener('touchend', () => this.endDrag());
+
+        // --- WHEEL ---
+        window.addEventListener('wheel', e => this.onWheel(e), { passive: false });
+    }
+
+    onWheel(e) {
+        e.preventDefault();
+        this.targetY -= e.deltaY * 0.8;
+        this.clampTarget();
+        clearTimeout(this.scrollTimeout);
+        this.scrollTimeout = setTimeout(() => this.snapToNearest(), 100);
+    }
+
+    startDrag(y) {
+        this.isDragging = true;
+        this.startY = y;
+        this.startCurrentY = this.currentY;
+        
+        this.targetY = this.currentY; 
+        this.container.style.cursor = 'grabbing';
+    }
+
+    onDrag(y) {
+        if (!this.isDragging) return;
+        const delta = y - this.startY;
+        this.targetY = this.startCurrentY + delta * 1.5; 
+    }
+
+    endDrag() {
+        if (!this.isDragging) return;
+        this.isDragging = false;
+        this.container.style.cursor = 'grab';
+        this.snapToNearest();
+    }
+
+    clampTarget() {
+        const shift = this.getMobileOffset();
+        // Add 'shift' to the center offset logic
+        const screenCenterOffset = (window.innerHeight / 2) - (this.cardHeight / 2) + shift;
+        
+        const maxScroll = screenCenterOffset; 
+        const minScroll = screenCenterOffset - ((this.cards.length - 1) * this.itemStride);
+        
+        if (this.targetY > maxScroll + 50) this.targetY = maxScroll + 50;
+        if (this.targetY < minScroll - 50) this.targetY = minScroll - 50;
+    }
+
+    snapToNearest() {
+        const shift = this.getMobileOffset();
+        const screenCenterOffset = (window.innerHeight / 2) - (this.cardHeight / 2) + shift;
+
+        let index = Math.round((screenCenterOffset - this.targetY) / this.itemStride);
+        index = Math.max(0, Math.min(index, this.cards.length - 1));
+        this.snapToIndex(index);
+    }
+
+    snapToIndex(index) {
+        this.currentIndex = index; 
+        
+        const shift = this.getMobileOffset();
+        const screenCenterOffset = (window.innerHeight / 2) - (this.cardHeight / 2) + shift;
+
+        this.targetY = screenCenterOffset - (index * this.itemStride);
+        
+        const activeCard = this.cards[index];
+        if(!activeCard) return;
+
+        const tier = activeCard.dataset.tier || 'gold'; 
+        const config = TIER_CONFIG[tier];
+
+        if (config) {
+            this.updateInterface(tier, config, activeCard);
+        }
+    }
+
+    updateInterface(tier, config, activeCard) {
+        const titleElements = document.querySelectorAll('[id="tierTitle"]');
+        const subtitleElements = document.querySelectorAll('[id="tierSubtitle"]');
+        const historyPanel = document.getElementById('historyPanel');
+        const historyText = document.getElementById('historyText');
+        
+        titleElements.forEach(titleEl => {
+            titleEl.style.color = config.color;
+            titleEl.style.textShadow = `0 0 20px ${config.shadow}`;
+            if (titleEl.innerText !== config.title) {
+                titleEl.innerText = config.title;
+            }
+        });
+
+        if(historyPanel) {
+            historyPanel.style.borderLeftColor = config.color; 
+        }
+
+        if(this.focusFrame) {
+            this.focusFrame.style.borderColor = config.color;
+            this.focusFrame.style.boxShadow = `0 0 40px ${config.shadow}`;
+        }
+
+        if(historyText) {
+            historyText.innerText = activeCard.getAttribute('data-history') || "";
+            historyText.style.color = config.color;
+            historyText.style.textShadow = `0 0 10px ${config.shadow}`;
+        }
+
+        subtitleElements.forEach(subEl => {
+            if (subEl.innerText !== config.subtitle) {
+                subEl.innerText = config.subtitle;
+            }
+             subEl.style.color = "whitesmoke"; 
+        });
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            const isTarget = item.dataset.targetTier === tier;
+            item.classList.toggle('active', isTarget);
+            
+            if (isTarget) {
+                const pill = document.getElementById('navPill');
+                if(pill) pill.style.borderColor = config.color;
+                
+                item.style.background = config.color;
+                item.style.boxShadow = `0 0 15px ${config.shadow}`;
+                item.style.color = 'black';
+            } else {
+                item.style.background = 'transparent';
+                item.style.boxShadow = 'none';
+                item.style.color = 'rgba(255,255,255,0.5)';
+            }
+        });
+
+        if(historyText) {
+            historyText.innerText = activeCard.getAttribute('data-history') || "";
+            historyText.style.color = config.color;
+            historyText.style.textShadow = `0 0 10px ${config.shadow}`;
+        }
+    }
+
+    scrollToTier(tierName) {
+        const index = this.tierIndices[tierName];
+        if (index !== -1 && index !== undefined) {
+            this.snapToIndex(index);
+        }
+    }
+
+    animate() {
+        if (!this.isDragging) {
+            this.currentY += (this.targetY - this.currentY) * 0.1;
+        }
+
+        this.container.style.transform = `translate(-50%, ${this.currentY}px)`;
+        
+        // --- 1. Get Shift Amount ---
+        const shift = this.getMobileOffset();
+        
+        // --- 2. Shift the "Focal Point" down by that amount ---
+        const focalPoint = (window.innerHeight / 2) + shift;
+        
+        const isDesktop = window.innerWidth > 900; 
+        
+        let maxScale = isDesktop ? 1.5 : 1.2;
+        let minScale = isDesktop ? 0.6 : 0.2;
+
+        // --- 3. Shift the Focus Frame down using CSS calc() ---
+        if (this.focusFrame) {
+            this.focusFrame.style.transform = `translate(-50%, calc(-50% + ${shift}px)) scale(${maxScale})`;
+        }
+
+        this.cards.forEach(card => {
+            const rect = card.getBoundingClientRect();
+            const centerY = rect.top + rect.height / 2;
+            const dist = Math.abs(focalPoint - centerY);
+            
+            let normDist = Math.min(dist / (window.innerHeight * 0.5), 1);
+            
+            const scaleDropoff = Math.pow(normDist, 2); 
+            let scale = maxScale - (scaleDropoff * (maxScale - minScale));
+            if (scale < minScale) scale = minScale;
+
+            card.style.transform = `scale(${scale})`;
+
+          // --- OPACITY FIX ---
+            // 1. Calculate opacity based on distance. 
+            //    The '* 1.5' makes it fade faster. Higher number = faster fade.
+            let activeOpacity = Math.max(0.45, 1 - (normDist * 1.5)); 
+
+            // 2. Apply opacity to the WHOLE card (this fades the circle/logo too)
+            card.style.opacity = activeOpacity;
+            // -------------------
+
+            // Update background and shadow to match
+            card.style.background = `linear-gradient(135deg, rgba(11, 11, 11, ${0.75 * activeOpacity}) 0%, rgba(0, 0, 0, ${activeOpacity}) 100%)`;
+            card.style.boxShadow = `0 0 3.5px rgba(255, 255, 255, ${.25 * activeOpacity})`;
+            
+            // Blur effect
+            card.style.filter = `blur(${normDist * 10}px)`; 
+            
+            card.style.zIndex = Math.round(100 - normDist * 100);
+        });
+
+        requestAnimationFrame(() => this.animate());
     }
 }
 
-    #historyText::before {
-        content: none !important;
-        display: none !important;
-    }
+// === INITIALIZATION ===
+const gridElement = document.getElementById('mainGrid');
 
-    /* 5. HIDE OLD SIDEBAR ELEMENTS */
-    .sidebar {
-        display: none !important;
-    }
+if(gridElement) {
+    const slider = new UnifiedSlider(gridElement);
+
+    document.querySelectorAll('.nav-item').forEach(item => {
+        item.addEventListener('click', () => {
+            const tier = item.dataset.targetTier;
+            slider.scrollToTier(tier);
+        });
+    });
 }
