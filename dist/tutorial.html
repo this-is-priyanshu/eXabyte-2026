@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   X-Cryptus Split Layout Card
+  </title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&amp;display=swap" rel="stylesheet"/>
+  <script type="importmap">
+   {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+            }
+        }
+  </script>
+  <style>
+   /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --gold: #FFD700;
+            --glass-bg: rgba(20, 20, 20, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: transparent;
+            color: #fff;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- INTRO GLASS CARD STYLES --- */
+        .intro-glass-card {
+            /* Increased width slightly to accommodate split layout better */
+            width: 40vw; 
+            min-width: 550px;
+            /* Increased height to give the split content room */
+            height: 450px; 
+            flex-shrink: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            /* Reduced padding slightly so content gets more room */
+            padding: 30px; 
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+
+        /* --- CANVAS BACKGROUND --- */
+        #card-canvas {
+            background-color: rgb(0, 0, 0);
+            background-image: linear-gradient(rgb(0, 0, 0), rgba(95, 90, 35, 0.362), rgb(0, 0, 0));
+            border: 2px solid var(--glass-border);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.9;
+            pointer-events: none;
+            border-radius: 16px;
+        }
+
+        /* --- SLIDER STYLES --- */
+        .card-slider {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .card-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
+            z-index: 1;
+        }
+
+        .card-slide.active {
+            transform: translateX(0);
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .card-slide.exit {
+            transform: translateX(-100%);
+            opacity: 0;
+            z-index: 0;
+        }
+
+        /* Wrapper turns into a flex column to manage vertical space */
+        .card-content-wrapper {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header stays fixed size at top */
+        .card-header {
+            flex: 0 0 auto; /* Don't grow or shrink */
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        /* --- NEW SPLIT LAYOUT STYLES --- */
+
+        /* card-body now fills remaining vertical space */
+        .card-body {
+            flex: 1 1 auto; /* Grow to fill space */
+            display: flex; /* Turn into a row for left/right split */
+            flex-direction: row;
+            gap: 20px;
+            min-height: 0; /* Crucial for nested flex scrolling/sizing */
+            /* Add margin bottom to not overlap the indicators area */
+            margin-bottom: 30px; 
+        }
+
+        .split-image-container {
+            flex: 1; /* Take 50% width */
+            height: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            background: rgba(255,255,255,0.05); /* Placeholder bg */
+        }
+
+        .split-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit:contain; /* Fills container, cropping if needed */
+            display: block;
+        }
+
+        .split-text-container {
+            flex: 1; /* Take 50% width */
+            display: flex;
+            align-items: center; /* Center text vertically in its half */
+            overflow-y: auto; /* Scroll if text is too long */
+        }
+
+        .split-text-container p {
+            color: #ddd;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        .intro-glass-card h2 {
+            color: var(--gold);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .intro-glass-card .subtitle {
+            font-size: 0.8rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        /* --- INDICATORS --- */
+        .slider-indicators {
+            position: absolute;
+            bottom: 0; /* Positioned relative to card padding */
+            left: 0;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+            align-items: center;
+            height: 40px; /* Define height for area below content */
+        }
+
+        .indicator {
+            height: 4px;
+            width: 12px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            transition: width 0.4s ease, background-color 0.4s ease;
+            cursor: pointer;
+        }
+
+        .indicator.active {
+            width: 32px;
+            background-color: var(--gold);
+        }
+
+        /* --- NEXT PILL BUTTON --- */
+        .next-pill-btn {
+            position: absolute;
+            bottom: 30px; /* Match card padding */
+            right: 30px;  /* Match card padding */
+            padding: 10px 30px;
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid var(--gold);
+            border-radius: 50px;
+            color: var(--gold);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 20;
+            text-transform: uppercase;
+            outline: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .next-pill-btn:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+            transform: translateX(2px);
+        }
+
+        /* --- RESPONSIVE QUERIES --- */
+        @media (max-width: 900px) {
+            .intro-glass-card {
+                width: 90vw;
+                min-width: auto;
+                height: 80vh;
+                min-height: 500px;
+                padding: 25px;
+            }
+            
+            /* Stack them vertically on smaller screens */
+            .card-body {
+                flex-direction: column;
+            }
+            
+            .split-image-container {
+                flex: 0 0 200px; /* Fixed height for image on mobile */
+                width: 100%;
+            }
+             .split-text-container {
+                padding-top: 15px;
+            }
+
+            .next-pill-btn {
+                bottom: 25px;
+                right: 25px;
+                padding: 8px 20px;
+                font-size: 0.7rem;
+            }
+            .slider-indicators { bottom: -5px; }
+        }
+  </style>
+ </head>
+ <body>
+  <div class="intro-glass-card" id="target-card">
+   <canvas id="card-canvas">
+   </canvas>
+   <div class="card-slider">
+    <div class="card-slide active">
+     <div class="card-content-wrapper">
+      <div class="card-header">
+       <div class="subtitle">
+        How To?
+       </div>
+       <h2>
+        Tutorial
+       </h2>
+      </div>
+      <div class="card-body">
+       <div class="split-image-container">
+        <img alt="Crypto Image" src="assets/tutorial_imgs/img0.webp"/>
+       </div>
+       <div class="split-text-container">
+        <p>
+         Welcome to the X-Cryptus Magazine Tutorial! In this interactive guide, we'll show you how to navigate through our digital magazine using simple swipe gestures. Whether you're on a desktop or a mobile device, you'll be able to explore our content seamlessly. Let's get started!
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="card-slide">
+     <div class="card-content-wrapper">
+      <div class="card-header">
+       <div class="subtitle">
+        How To?
+       </div>
+       <h2>
+        move forward
+       </h2>
+      </div>
+      <div class="card-body">
+       <div class="split-image-container">
+        <img alt="Crypto Image" src="assets/tutorial_imgs/img1.jpeg"/>
+       </div>
+       <div class="split-text-container">
+        <p>
+         click the glowing region on screen to teleport to the first xcryptus magazine and start exploring the world of crypto, blockchain, and web3.
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="card-slide">
+     <div class="card-content-wrapper">
+      <div class="card-header">
+       <div class="subtitle">
+        How To?
+       </div>
+       <h2>
+        move right
+       </h2>
+      </div>
+      <div class="card-body">
+       <div class="split-image-container">
+        <img alt="Quantum Image" src="assets/tutorial_imgs/img2.jpeg"/>
+       </div>
+       <div class="split-text-container">
+        <p>
+         click the shaded region to turn right and see the next xcryptus magazine
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="card-slide">
+     <div class="card-content-wrapper">
+      <div class="card-header">
+       <div class="subtitle">
+        How To?
+       </div>
+       <h2>
+        move left
+       </h2>
+      </div>
+      <div class="card-body">
+       <div class="split-image-container">
+        <img alt="AI Image" src="assets/tutorial_imgs/img3.jpeg"/>
+       </div>
+       <div class="split-text-container">
+        <p>
+         click on the shaded part to move right and see the next xcryptus magazine
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="card-slide">
+     <div class="card-content-wrapper">
+      <div class="card-header">
+       <div class="subtitle">
+        How To?
+       </div>
+       <h2>
+        enjoy!
+       </h2>
+      </div>
+      <div class="card-body">
+       <div class="split-image-container">
+        <img alt="Quantum Image" src="assets/tutorial_imgs/img4.jpg"/>
+       </div>
+       <div class="split-text-container">
+        <p>
+         Thats all for the tutorial! We hope you enjoyed the experience and found it informative. If you have any questions or feedback, feel free to F OFF :D
+        </p>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="slider-indicators">
+     <div class="indicator active">
+     </div>
+     <div class="indicator">
+     </div>
+     <div class="indicator">
+     </div>
+     <div class="indicator">
+     </div>
+     <div class="indicator">
+     </div>
+    </div>
+   </div>
+   <button class="next-pill-btn" id="next-btn">
+    Next →
+   </button>
+  </div>
+  <script type="module">
+   import * as THREE from "three";
+        const vertexShader = `uniform float size; uniform float scale; uniform float time; varying float vFogDepth; float random(vec2 co) { return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453); } float noise(vec2 st) { vec2 i = floor(st); vec2 f = fract(st); float a = random(i); float b = random(i + vec2(1.0, 0.0)); float c = random(i + vec2(0.0, 1.0)); float d = random(i + vec2(1.0, 1.0)); vec2 u = f * f * (3.0 - 2.0 * f); return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y; } void main() { gl_PointSize = size; vec3 pos = position; pos.z = noise(pos.xy + vec2(0.0, time * 0.5)) * 0.3; vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0); gl_PointSize *= (scale / -mvPosition.z); vFogDepth = -mvPosition.z; gl_Position = projectionMatrix * mvPosition; }`;
+        const fragmentShader = `uniform vec3 diffuse; uniform float fogNear; uniform float fogFar; uniform vec3 fogColor; varying float vFogDepth; void main() { float d = length(gl_PointCoord - 0.5); if (d > 0.5) discard; gl_FragColor = vec4(mix(diffuse, fogColor, 0.0), 1.4 / vFogDepth); }`;
+        const container = document.getElementById('target-card');
+        const canvas = document.getElementById('card-canvas');
+        let width = container.clientWidth;
+        let height = container.clientHeight;
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+        renderer.setClearColor(0x000000, 0);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(width, height);
+        window.addEventListener('resize', () => {
+            width = container.clientWidth;
+            height = container.clientHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+        });
+        const geometry = new THREE.BufferGeometry();
+        const res = 80;
+        const position = new Float32Array(res * res * 3);
+        for (let i = 0; i < res; i++) {
+            for (let j = 0; j < res; j++) {
+                const idx = (i * res + j) * 3;
+                position[idx] = 5 * (2 * j / (res - 1) - 1) + (i % 2 ? 5 / res : 0);
+                position[idx + 1] = 12 * i / (res - 1);
+                position[idx + 2] = 0;
+            }
+        }
+        geometry.setAttribute('position', new THREE.BufferAttribute(position, 3));
+        const material = new THREE.ShaderMaterial({
+            uniforms: {
+                diffuse: { value: new THREE.Color(0xFFD700) },
+                size: { value: 10 },
+                time: { value: 0 }
+            },
+            vertexShader, fragmentShader, transparent: true
+        });
+        const plane = new THREE.Points(geometry, material);
+        scene.add(plane);
+        camera.position.set(0, 5, 2);
+        camera.rotation.set(Math.PI / 2, 0, -Math.PI / 6);
+        const clock = new THREE.Clock();
+        renderer.setAnimationLoop(() => {
+            material.uniforms.time.value += clock.getDelta();
+            renderer.render(scene, camera);
+        });
+
+        // Slider Logic
+        const slides = document.querySelectorAll('.card-slide');
+        const indicators = document.querySelectorAll('.indicator');
+        const sliderContainer = document.querySelector('.card-slider');
+        const nextButton = document.getElementById('next-btn');
+        let currentIndex = 0;
+        const slideInterval = 5000;
+        let isAnimating = false;
+        const showSlide = (index) => {
+            if (isAnimating || index === currentIndex) return;
+            isAnimating = true;
+            const currentSlide = slides[currentIndex];
+            const currentIndicator = indicators[currentIndex];
+            currentSlide.classList.remove('active');
+            currentSlide.classList.add('exit');
+            currentIndicator.classList.remove('active');
+            setTimeout(() => {
+                currentSlide.classList.remove('exit');
+                isAnimating = false;
+            }, 600);
+            currentIndex = index;
+            slides[currentIndex].classList.add('active');
+            indicators[currentIndex].classList.add('active');
+        };
+        const nextSlide = () => showSlide((currentIndex + 1) % slides.length);
+        const prevSlide = () => showSlide((currentIndex - 1 + slides.length) % slides.length);
+        // let sliderTimer = setInterval(nextSlide, slideInterval);
+       // Modified Next Button Logic
+nextButton.addEventListener('click', () => {
+    // If we are on the last slide, tell the parent window to close us
+    if (currentIndex === slides.length - 1) {
+        window.parent.postMessage("closeTutorial", "*");
+    } else {
+        nextSlide();
+        
+        // Optional: Change button text on the last slide
+        if (currentIndex === slides.length - 1) {
+            nextButton.innerHTML = "ENTER WORLD &rarr;";
+        }
+    }
+});
+        let touchStartX = 0;
+        let touchEndX = 0;
+        sliderContainer.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+        sliderContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+        const handleSwipe = () => {
+            const threshold = 50;
+            if (touchStartX - touchEndX > threshold) { clearInterval(sliderTimer); nextSlide(); sliderTimer = setInterval(nextSlide, slideInterval); }
+            if (touchEndX - touchStartX > threshold) { clearInterval(sliderTimer); prevSlide(); sliderTimer = setInterval(nextSlide, slideInterval); }
+        };
+        indicators.forEach((ind, index) => {
+            ind.addEventListener('click', () => {
+                // clearInterval(sliderTimer);
+                showSlide(index);
+                // sliderTimer = setInterval(nextSlide, slideInterval);
+            });
+        });
+  </script>
+ </body>
+</html>
