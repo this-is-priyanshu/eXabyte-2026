@@ -732,3 +732,25 @@ renderer.setAnimationLoop(renderScene)
 console.log(map.walkPoints)
 
 console.log('Done!')
+
+
+// Select both radio buttons
+  const toggleOnline = document.getElementById('toggle-online');
+  const toggleOffline = document.getElementById('toggle-offline');
+
+  // Listen for the change event on the "2D" toggle
+  toggleOffline.addEventListener('change', function() {
+    if (this.checked) {
+      // Small delay so the user can see the toggle animation finish
+      setTimeout(() => {
+        window.location.href = 'https://s-desk.top/eXabyte-2026/xcryptus2d.html';
+      }, 300); 
+    }
+  });
+
+  // Optional: Log if staying on 3D
+  toggleOnline.addEventListener('change', function() {
+    if (this.checked) {
+      console.log("Staying on 3D page");
+    }
+  });

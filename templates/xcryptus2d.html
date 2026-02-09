@@ -15,8 +15,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="static/xcryptus.css">
-    <link rel="stylesheet" href="static/components/navbar.css">
+    <link rel="stylesheet" href="xcryptus.css">
+    <link rel="stylesheet" href="navbar.css">
 
     <script type="importmap">
 
@@ -31,6 +31,8 @@
         }
 
     </script>
+
+    <style src="xcryptus.css"></style>
 
 </head>
 
@@ -561,8 +563,31 @@
         renderer.setAnimationLoop(animate);
 
     </script>
-    <script src="static/xcryptus.js"></script>
-        <script src="static/components/navbar.js"></script>
+    <script src="xcryptus.js"></script>
+        <script src="navbar.js"></script>
+
+        <section class="toggle-section">
+    <div class="toggle-switch">
+        <input id="toggle-online" name="event-toggle" type="radio" value="online"/>
+        <label class="toggle-label" for="toggle-online">3D</label>
+        
+        <input checked id="toggle-offline" name="event-toggle" type="radio" value="offline"/>
+        <label class="toggle-label" for="toggle-offline">2D</label>
+        
+        <div class="toggle-slider"></div>
+    </div>
+</section>
+
+<script>
+    // Logic: Redirect to 3D site if toggled
+    document.getElementById('toggle-online').addEventListener('change', function() {
+        if (this.checked) {
+            setTimeout(() => {
+                window.location.href = 'https://s-desk.top/eXabyte-2026/x-cryptus.html';
+            }, 300);
+        }
+    });
+</script>
 
 </body>
 

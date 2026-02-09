@@ -1,13 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Xcryptus</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
-        <style>
-body {
+ <head>
+  <title>
+   Xcryptus
+  </title>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&amp;family=Orbitron:wght@400..900&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
     margin: 0px;
 }
 
@@ -37,53 +39,261 @@ body {
     background: linear-gradient(-90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
     opacity: 0;
 }
-        </style>
 
-        <link rel="stylesheet" href="static/x-cryptus-modalwindows.css">
-        <link rel="stylesheet" href="static/components/navbar.css">
-    </head>
-    <body>
-        <canvas id="xcryptus"></canvas>
-        <script type=importmap>
-            {
+/* --- Add this to your existing <style> block --- */
+
+.toggle-section {
+  position: absolute;
+  bottom: 30px;      /* Distance from bottom */
+  right: 40px;       /* Distance from right */
+  width: auto;       /* Shrink to fit content (don't block the center screen) */
+  display: flex;
+  align-items: center;
+  z-index: 1500;     /* High z-index to sit above the gradient clickers */
+}
+
+.toggle-container {
+  display: inline-block;
+  pointer-events: auto; /* Re-enables clicking on the specific button */
+}
+
+.toggle-switch {
+  position: relative;
+  display: flex;
+  gap: 0;
+  background: rgb(0, 0, 0);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  border-radius: 50px;
+  padding: 4px;
+  backdrop-filter: blur(10px);
+}
+
+.toggle-switch input[type="radio"] {
+  display: none;
+}
+
+.toggle-label {
+  font-family: Orbitron;
+  font-weight: 600;
+  position: relative;
+  padding: 12px 32px;
+  cursor: pointer;
+  z-index: 2;
+  transition: color 0.3s ease;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.toggle-switch input[type="radio"]:checked + .toggle-label {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(50% - 4px);
+  height: calc(100% - 8px);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.95), rgba(245, 192, 77, 0.95));
+  border-radius: 50px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+.toggle-switch input[type="radio"]:nth-of-type(2):checked ~ .toggle-slider {
+  transform: translateX(100%);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .toggle-section {
+        bottom: 20px;
+        right: 20px;
+    }
+    .toggle-label {
+        padding: 8px 18px;
+        font-size: 12px;
+    }
+}
+  </style>
+  <link href="static/x-cryptus-modalwindows.css" rel="stylesheet"/>
+  <link href="static/components/navbar.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <iframe 
+    id="tutorial-frame" 
+    src="tutorial.html" 
+    style="
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        width: 100vw; 
+        height: 100vh; 
+        border: none; 
+        z-index: 5000; 
+        background: rgba(0,0,0,0.5); /* Semi-transparent dimming */
+        backdrop-filter: blur(10px); /* <--- ADD THIS FOR BLUR */
+        -webkit-backdrop-filter: blur(10px); /* Safari support */    
+    "
+></iframe>
+  <canvas id="xcryptus">
+  </canvas>
+  <script type="importmap">
+   {
                 "imports": {
                     "three": "https://cdn.jsdelivr.net/npm/three@0.182.0/build/three.module.js",
                     "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.182.0/examples/jsm/",
                     "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js"
                 }
             }
-        </script>
-        <script type=module src=static/x-cryptus.js></script>
+  </script>
+  <script src="static/x-cryptus.js" type="module">
+  </script>
+  <div class="left-gradient clicker">
+  </div>
+  <div class="right-gradient clicker">
+  </div>
+  <div class="cs-navbar-view-checker">
+  </div>
+  <div class="cs-navbar cs-navbar-collapsed">
+   <div class="cs-outer">
+    <div class="cs-logo">
+     <img height="50" src="assets/logo.png"/>
+    </div>
+    <nav>
+     <a href="index.html">
+      Home
+     </a>
+     <a href="sponsors.html">
+      Sponsors
+     </a>
+     <a href="x-cryptus.html">
+      Xcryptus
+     </a>
+     <a href="events.html">
+      Events
+     </a>
+     <a href="about.html">
+      About-Us
+     </a>
+    </nav>
+    <a href="events.html" style="text-decoration: none;">
+     <div class="cs-call-to-action">
+      REGISTER
+     </div>
+    </a>
+    <div class="cs-menu-open">
+     <svg fill="none" height="48" id="cs-hamburger" stroke="gold" stroke-width="2" viewbox="0 0 48 48" width="48">
+      <path d="M 8 12 h 32">
+      </path>
+      <path d="M 8 24 h 32">
+      </path>
+      <path d="M 8 36 h 32">
+      </path>
+     </svg>
+    </div>
+   </div>
+  </div>
+  <dialog class="cs-hamburger-dialog" style="display: none;">
+   <div>
+    <div style="text-align: right;">
+     <svg fill="none" height="36" id="cs-dailog-closer" stroke="gold" stroke-width="2" viewbox="0 0 36 36" width="36">
+      <path d="M 18 6 L 6 18 M 6 6 l 12 12" style="color:gold;transform:scale(1.5);">
+      </path>
+     </svg>
+    </div>
+    <nav>
+     <a href="index.html">
+      Home
+     </a>
+     <a href="sponsors.html">
+      Sponsors
+     </a>
+     <a href="x-cryptus.html">
+      Xcryptus
+     </a>
+     <a href="events.html">
+      Events
+     </a>
+     <a href="about.html">
+      About-Us
+     </a>
+    </nav>
+   </div>
+  </dialog>
+  <script src="static/components/navbar.js">
+  </script>
+  <!-- Modal Window Borrowed from @Samrat -->
+  <div class="modal-overlay" id="preview-modal">
+   <div class="modal-container">
+    <button class="modal-close" id="close-modal">
+     ×
+    </button>
+    <div class="modal-content">
+     <div class="modal-left">
+      <img alt="Project Preview" id="modal-image" src="https://xcryptus.netlify.app/vol1.jpg"/>
+     </div>
+     <div class="modal-right">
+      <h3 class="modal-subtitle">
+       MAGAZINE DESCRIPTION
+      </h3>
+      <h2 class="modal-title" id="modal-title">
+       Quantum Enigma
+      </h2>
+      <p class="modal-text" id="modal-desc">
+       An in-depth look at how quantum states are revolutionizing cryptography. We explore the latest breakthroughs in qubit stability and error correction.
+      </p>
+      <a class="modal-read-btn" href="https://drive.google.com/your-file-link-1" id="modal-link" target="_blank">
+       READ DOCUMENT
+       <span>
+        ↗
+       </span>
+      </a>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script src="static/x-cryptus-modalwindows.js">
+  </script>
 
-        <div class='left-gradient clicker'></div>
-        <div class='right-gradient clicker'></div>
-
-        {% include "components/navbar.html" with context %}
-        <script src="static/components/navbar.js"></script>
-
-        <!-- Modal Window Borrowed from @Samrat -->
-        <div id="preview-modal" class="modal-overlay">
-            <div class="modal-container">
-                <button class="modal-close" id="close-modal">×</button>
-
-                <div class="modal-content">
-                    <div class="modal-left">
-                        <img id="modal-image" src="https://xcryptus.netlify.app/vol1.jpg" alt="Project Preview">
-                    </div>
-
-                    <div class="modal-right">
-                        <h3 class="modal-subtitle">MAGAZINE DESCRIPTION</h3>
-                        <h2 id="modal-title" class="modal-title">Quantum Enigma</h2>
-                        <p id="modal-desc" class="modal-text">An in-depth look at how quantum states are revolutionizing cryptography. We explore the latest breakthroughs in qubit stability and error correction.</p>
-
-                        <a id="modal-link" href="https://drive.google.com/your-file-link-1" target="_blank" class="modal-read-btn">
-                            READ DOCUMENT <span>↗</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script src= static/x-cryptus-modalwindows.js></script>
-    </body>
+  <section class="toggle-section">
+   <div class="toggle-container">
+    <div class="toggle-switch">
+     <input checked="" id="toggle-online" name="event-toggle" type="radio" value="online"/>
+     <label class="toggle-label" for="toggle-online">
+      3D
+     </label>
+     <input id="toggle-offline" name="event-toggle" type="radio" value="offline"/>
+     <label class="toggle-label" for="toggle-offline">
+      2D
+     </label>
+     <div class="toggle-slider">
+     </div>
+    </div>
+   </div>
+  </section>
+  <script>
+    // Listen for the "closeTutorial" message from the iframe
+    window.addEventListener("message", (event) => {
+        if (event.data === "closeTutorial") {
+            const frame = document.getElementById("tutorial-frame");
+            
+            // Fade out effect
+            frame.style.transition = "opacity 0.5s ease";
+            frame.style.opacity = "0";
+            
+            // Remove from DOM after fade
+            setTimeout(() => {
+                frame.remove();
+            }, 500);
+        }
+    });
+</script>
+ </body>
 </html>
