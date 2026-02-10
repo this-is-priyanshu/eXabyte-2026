@@ -50,7 +50,8 @@ const modalLink = document.getElementById('modal-link');
 // Close Modal Function
 const closeModal = () => {
     modal.classList.remove('active');
-
+    //FIXME: WHAT THE ACTUAL SHYTE STAIN
+    document.querySelector('.cs-navbar').style.display = 'block';
     const eve = new Event("xCryptusModalClosed");
     document.body.dispatchEvent(eve);
 };
@@ -87,4 +88,8 @@ function launchModal(imgSrc, index) {
 
     // Optional: Pause horizontal scroll while reading?
     // document.body.style.overflow = 'hidden'; (Not needed since body is already hidden overflow)
+
+   //FIXME: WHAT THE ACTUAL SHYTE STAIN 2 
+    document.querySelector('.cs-navbar').style.display = 'none';
+
 }
