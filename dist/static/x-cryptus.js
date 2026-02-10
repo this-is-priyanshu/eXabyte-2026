@@ -743,7 +743,7 @@ console.log('Done!')
     if (this.checked) {
       // Small delay so the user can see the toggle animation finish
       setTimeout(() => {
-        window.location.href = 'https://s-desk.top/eXabyte-2026/xcryptus2d.html';
+        window.location.href = 'xcryptus2d.html';
       }, 300); 
     }
   });

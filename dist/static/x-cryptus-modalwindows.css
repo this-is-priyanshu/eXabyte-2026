@@ -40,6 +40,7 @@ body {
 }
 
 .modal-container {
+    z-index:10000;
     width: 65vw;
     max-width: 1000px;
     height: 90vh;

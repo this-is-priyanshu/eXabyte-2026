@@ -10,8 +10,8 @@
   <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&amp;display=swap" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
-  <link href="xcryptus.css" rel="stylesheet"/>
-  <link href="navbar.css" rel="stylesheet"/>
+  <link href="static/xcryptus2d.css" rel="stylesheet"/>
+  <link href="static/components/navbar.css" rel="stylesheet"/>
   <script type="importmap">
    {
 
@@ -23,8 +23,6 @@
 
         }
   </script>
-  <style src="xcryptus.css">
-  </style>
  </head>
  <body>
   <div class="modal-overlay" id="preview-modal">
@@ -88,7 +86,7 @@
   <div class="cs-navbar cs-navbar-collapsed">
    <div class="cs-outer">
     <div class="cs-logo">
-     <img height="50" src="logo.png"/>
+     <img height="50" src="assets/logo.png"/>
     </div>
     <nav>
      <a href="index.html">
@@ -213,7 +211,7 @@
      <div class="timeline-node">
      </div>
      <div class="project-card">
-      <img alt="Quantum Enigma" class="card-poster" src="vol1.jpg"/>
+      <img alt="vol1" class="card-poster" src="assets/x-cryptus/vol1.jpg"/>
      </div>
     </div>
     <div class="timeline-item">
@@ -223,7 +221,7 @@
      <div class="timeline-node">
      </div>
      <div class="project-card">
-      <img alt="Neuro Link" class="card-poster" src="vol2.jpg"/>
+      <img alt="vol2" class="card-poster" src="assets/x-cryptus/vol2.jpg"/>
      </div>
     </div>
     <div class="timeline-item">
@@ -233,7 +231,7 @@
      <div class="timeline-node">
      </div>
      <div class="project-card">
-      <img alt="Chit Chat" class="card-poster" src="vol3.jpg"/>
+      <img alt="vol3" class="card-poster" src="assets/x-cryptus/vol3.jpg"/>
      </div>
     </div>
     <div class="timeline-item">
@@ -243,7 +241,7 @@
      <div class="timeline-node">
      </div>
      <div class="project-card">
-      <img alt="Backend" class="card-poster" src="vol4.jpg"/>
+      <img alt="vol4" class="card-poster" src="assets/x-cryptus/vol4.jpg"/>
      </div>
     </div>
     <div class="timeline-item">
@@ -253,7 +251,7 @@
      <div class="timeline-node">
      </div>
      <div class="project-card">
-      <img alt="Game of Life" class="card-poster" src="vol5.jpg"/>
+      <img alt="vol5" class="card-poster" src="assets/x-cryptus/vol5.jpg"/>
      </div>
     </div>
    </div>
@@ -493,9 +491,9 @@
 
         renderer.setAnimationLoop(animate);
   </script>
-  <script src="xcryptus.js">
+  <script src="static/xcryptus2d.js">
   </script>
-  <script src="navbar.js">
+  <script src="static/components/navbar.js">
   </script>
   <section class="toggle-section">
    <div class="toggle-switch">
@@ -516,7 +514,7 @@
     document.getElementById('toggle-online').addEventListener('change', function() {
         if (this.checked) {
             setTimeout(() => {
-                window.location.href = 'https://s-desk.top/eXabyte-2026/x-cryptus.html';
+                window.location.href = 'x-cryptus.html';
             }, 300);
         }
     });

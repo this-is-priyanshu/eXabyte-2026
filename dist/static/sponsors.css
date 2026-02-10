@@ -236,7 +236,7 @@ body {
     font-size: 3rem;
     letter-spacing: 2px;
     color: transparent;
-    -webkit-text-stroke: 1px #807309;
+    -webkit-text-stroke: 1px #f9e127;
     filter: drop-shadow(0 0 2px rgba(255, 234, 0, 0.2));
     pointer-events: none;
     white-space: nowrap;
@@ -511,7 +511,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 20px rgba(255, 218, 54, 0.114);
     flex-shrink: 0;
     transition: transform 0.1s linear, filter 0.1s linear, opacity 0.3s;
     transform-origin: center center;
@@ -521,8 +520,8 @@ body {
 }
 
 .sponsor-logo {
-    width: 90%;
-    height: 90%;
+    width: 80%;
+    height: 80%;
     object-fit: contain;
     filter: drop-shadow(0 0 10px rgba(255, 234, 0, 0.3));
     transition: all 0.3s ease;
@@ -602,7 +601,7 @@ body {
 
 #tierTitle {
     font-family: 'Orbitron', sans-serif;
-    font-size: 3rem; 
+    font-size: 4rem; 
     font-weight: 700;
     margin: 0;
     line-height: 1;
@@ -643,9 +642,9 @@ body {
     
     /* 1. ROOT VARS */
     :root {
-        --card-width: 70vw;
-        --card-height: 70vw;
-        --circle-size: 32vw;
+        --card-width: 67vw;
+        --card-height: 65vw;
+        --circle-size: 30vw;
         --font-size-title: 2rem; 
     }
 
@@ -675,7 +674,7 @@ body {
     }
 
     #tierTitle {
-        font-size: 2rem !important; 
+        font-size: 1.8rem !important; 
         text-shadow: 0 0 10px currentColor !important; 
         color: goldenrod;
         /* Color is handled by JS, but you can force goldenrod here if JS fails */

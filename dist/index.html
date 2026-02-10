@@ -21,10 +21,31 @@
   <!-- Stylesheet -->
   <link href="static/home.css" rel="stylesheet">
    <link href="static/components/navbar.css" rel="stylesheet">
+    <script type="importmap">
+     {
+            "imports" : {
+                  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
    </link>
   </link>
  </head>
  <body>
+  <canvas id="loader-thingbert" style="display: block;
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        z-index: 100;
+        width: 100vw;
+        height: 100vh;
+        background: black;">
+  </canvas>
+  <!-- Thanks Debaprabha for the amazing loader file, I have made some changes to
+    fit it into the actual thing -->
+  <script src="static/components/loader.js" type="module">
+  </script>
   <canvas id="background" style="
     position: fixed;
     left: 0px;
@@ -35,7 +56,7 @@
     z-index: -1;">
   </canvas>
   <!-- Nasty work around -->
-  <div style="position:fixed; top:0px; left:0px; width:100%; z-index: 100;">
+  <div id="the-navbarington" style="position:fixed; top:0px; left:0px; width:100%; z-index: 100; opacity: 0; transition: opacity 0.3s ease;">
    <div class="cs-navbar-view-checker">
    </div>
    <div class="cs-navbar cs-navbar-collapsed">
@@ -165,17 +186,15 @@
   <script src="static/home.js">
   </script>
   <!-- Background Effects -->
-  <script type="importmap">
-   {
-            "imports" : {
-                  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-                  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-            }
-        }
-  </script>
   <script src="static/3d-sea.js" type="module">
   </script>
   <script src="static/components/navbar.js">
+  </script>
+  <script>
+   document.body.addEventListener('loaderLoaded', () =>  {
+            const thing = document.getElementById('the-navbarington');
+            thing.style.opacity = 1.0;
+        })
   </script>
  </body>
 </html>
