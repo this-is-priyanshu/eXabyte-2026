@@ -1,26 +1,19 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
-<head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>eXabyte '26 x-cryptus</title>
-
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <link rel="stylesheet" href="xcryptus.css">
-    <link rel="stylesheet" href="navbar.css">
-
-    <script type="importmap">
-
-        {
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   eXabyte '26 x-cryptus
+  </title>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&amp;display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+  <link href="static/xcryptus2d.css" rel="stylesheet"/>
+  <link href="static/components/navbar.css" rel="stylesheet"/>
+  <script type="importmap">
+   {
 
             "imports": {
 
@@ -29,306 +22,242 @@
             }
 
         }
-
-    </script>
-
-    <style src="xcryptus.css"></style>
-
-</head>
-
-<body>
-
-    <div id="preview-modal" class="modal-overlay">
-
-    <div class="modal-container">
-
-        <button class="modal-close" id="close-modal">&times;</button>
-
-       
-
-        <div class="modal-content">
-
-            <div class="modal-left">
-
-                <img id="modal-image" src="" alt="Project Preview">
-
-            </div>
-
-           
-
-            <div class="modal-right">
-
-                <h3 class="modal-subtitle">MAGAZINE DESCRIPTION</h3>
-
-                <h2 id="modal-title" class="modal-title">PROJECT TITLE</h2>
-
-                <p id="modal-desc" class="modal-text">
-
-                    Description goes here...
-
-                </p>
-
-               
-
-                <a id="modal-link" href="#" target="_blank" class="modal-read-btn">
-
-                    READ DOCUMENT <span>&#8599;</span>
-
-                </a>
-
-            </div>
-
-        </div>
-
+  </script>
+ </head>
+ <body>
+  <div class="modal-overlay" id="preview-modal">
+   <div class="modal-container">
+    <button class="modal-close" id="close-modal">
+     ×
+    </button>
+    <div class="modal-content">
+     <div class="modal-left">
+      <img alt="Project Preview" id="modal-image" src=""/>
+     </div>
+     <div class="modal-right">
+      <h3 class="modal-subtitle">
+       MAGAZINE DESCRIPTION
+      </h3>
+      <h2 class="modal-title" id="modal-title">
+       PROJECT TITLE
+      </h2>
+      <p class="modal-text" id="modal-desc">
+       Description goes here...
+      </p>
+      <a class="modal-read-btn" href="#" id="modal-link" target="_blank">
+       READ DOCUMENT
+       <span>
+        ↗
+       </span>
+      </a>
+     </div>
     </div>
-
-</div>
-
-<dialog class='cs-hamburger-dialog' style='display: none;'>
-    <div>
-        <div style='text-align: right;'>
-            <svg id="cs-dailog-closer" width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M 18 6 L 6 18 M 6 6 l 12 12" style='color:gold;transform:scale(1.5);'></path>
-            </svg>
-        </div>
-        <nav>
-            <a href='index.html' >Home</a>
-            <a href='sponsors.html' >Sponsors</a>
-            <a href='x-cryptus.html' >Xcryptus</a>
-            <a href='events.html' >Events</a>
-            <a href='about.html' >About-Us</a>
-        </nav>
+   </div>
+  </div>
+  <dialog class="cs-hamburger-dialog" style="display: none;">
+   <div>
+    <div style="text-align: right;">
+     <svg fill="none" height="36" id="cs-dailog-closer" stroke="currentColor" stroke-width="2" viewbox="0 0 36 36" width="36">
+      <path d="M 18 6 L 6 18 M 6 6 l 12 12" style="color:gold;transform:scale(1.5);">
+      </path>
+     </svg>
     </div>
-</dialog>
-
-<div class='cs-navbar-view-checker'></div>
-<div class='cs-navbar cs-navbar-collapsed'>
-    <div class='cs-outer'>
-        <div class='cs-logo'>
-            <img src='logo.png' height=50>
-        </div>
-
-        <nav>
-            <a href='index.html' >Home</a>
-            <a href='sponsors.html' >Sponsors</a>
-            <a href='x-cryptus.html' >Xcryptus</a>
-            <a href='events.html' >Events</a>
-            <a href='about.html' >About-Us</a>
-        </nav>
-
-        <a href='events.html' style='text-decoration: none;'><div class='cs-call-to-action'>REGISTER</div></a>
-        <div class='cs-menu-open'>
-            <svg id="cs-hamburger" width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="gold" stroke-width="2">
-                <path d="M 8 12 h 32"></path>
-                <path d="M 8 24 h 32"></path>
-                <path d="M 8 36 h 32"></path>
-            </svg>
-        </div>
+    <nav>
+     <a href="index.html">
+      Home
+     </a>
+     <a href="sponsors.html">
+      Sponsors
+     </a>
+     <a href="x-cryptus.html">
+      Xcryptus
+     </a>
+     <a href="events.html">
+      Events
+     </a>
+     <a href="about.html">
+      About-Us
+     </a>
+    </nav>
+   </div>
+  </dialog>
+  <div class="cs-navbar-view-checker">
+  </div>
+  <div class="cs-navbar cs-navbar-collapsed">
+   <div class="cs-outer">
+    <div class="cs-logo">
+     <img height="50" src="assets/logo.png"/>
     </div>
-</div>
-
-
-    <main class="projects-viewport">
-
-        <div class="timeline-track" id="timelineTrack">
-
-            <div class="timeline-line"></div>
-
-
-
-            <div class="intro-glass-card" id="target-card">
-
-                <canvas id="card-canvas"></canvas>
-
-
-
-                <div class="card-slider">
-
-                    <div class="card-slide active">
-
-                        <div class="card-content-wrapper">
-
-                            <div class="card-header">
-
-                                <div class="subtitle">LATEST EDITION</div>
-
-                                <h2>X-CRYPTUS</h2>
-
-                            </div>
-
-                            <div class="card-body">
-
-                                <p>Discover the intersection of logic and creativity. X-Cryptus features exclusive interviews, deep dives into quantum computing, and the roadmap for eXabyte '26.</p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="card-slide">
-
-                        <div class="card-content-wrapper">
-
-                            <div class="card-header">
-
-                                <div class="subtitle">UPCOMING EVENT</div>
-
-                                <h2>QUANTUM LEAP</h2>
-
-                            </div>
-
-                            <div class="card-body">
-
-                                <p>Explore the boundaries of processing power. Join us as we unravel the mysteries of qubits and superposition in modern architecture.</p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="card-slide">
-
-                        <div class="card-content-wrapper">
-
-                            <div class="card-header">
-
-                                <div class="subtitle">FEATURED</div>
-
-                                <h2>NEURAL NETS</h2>
-
-                            </div>
-
-                            <div class="card-body">
-
-                                <p>The evolution of AI is here. From basic perceptrons to complex transformers, witness the code that mimics the human mind.</p>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="slider-indicators">
-
-                        <div class="indicator active"></div>
-
-                        <div class="indicator"></div>
-
-                        <div class="indicator"></div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="scroll-hub-container">
-
-                <div class="scroll-hub">
-
-                    <div class="scroll-text">Scroll<br><span>&#8597;</span><br>Up/Down</div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="timeline-item">
-
-                <div class="date-label">AUG 2025</div>
-
-                <div class="timeline-node"></div>
-
-                <div class="project-card">
-
-                    <img src="vol1.jpg" alt="Quantum Enigma" class="card-poster">
-
-                </div>
-
-            </div>
-
-
-
-            <div class="timeline-item">
-
-                <div class="date-label">JUL 2025</div>
-
-                <div class="timeline-node"></div>
-
-                <div class="project-card">
-
-                    <img src="vol2.jpg" alt="Neuro Link" class="card-poster">
-
-                </div>
-
-            </div>
-
-
-
-            <div class="timeline-item">
-
-                <div class="date-label">JUN 2025</div>
-
-                <div class="timeline-node"></div>
-
-                <div class="project-card">
-
-                    <img src="vol3.jpg" alt="Chit Chat" class="card-poster">
-
-                </div>
-
-            </div>
-
-
-
-            <div class="timeline-item">
-
-                <div class="date-label">MAY 2025</div>
-
-                <div class="timeline-node"></div>
-
-                <div class="project-card">
-
-                    <img src="vol4.jpg" alt="Backend" class="card-poster">
-
-                </div>
-
-            </div>
-
-
-
-            <div class="timeline-item">
-
-                <div class="date-label">APR 2025</div>
-
-                <div class="timeline-node"></div>
-
-                <div class="project-card">
-
-                    <img src="vol5.jpg" alt="Game of Life" class="card-poster">
-
-                </div>
-
-            </div>
-
+    <nav>
+     <a href="index.html">
+      Home
+     </a>
+     <a href="sponsors.html">
+      Sponsors
+     </a>
+     <a href="x-cryptus.html">
+      Xcryptus
+     </a>
+     <a href="events.html">
+      Events
+     </a>
+     <a href="about.html">
+      About-Us
+     </a>
+    </nav>
+    <a href="events.html" style="text-decoration: none;">
+     <div class="cs-call-to-action">
+      REGISTER
+     </div>
+    </a>
+    <div class="cs-menu-open">
+     <svg fill="none" height="48" id="cs-hamburger" stroke="gold" stroke-width="2" viewbox="0 0 48 48" width="48">
+      <path d="M 8 12 h 32">
+      </path>
+      <path d="M 8 24 h 32">
+      </path>
+      <path d="M 8 36 h 32">
+      </path>
+     </svg>
+    </div>
+   </div>
+  </div>
+  <main class="projects-viewport">
+   <div class="timeline-track" id="timelineTrack">
+    <div class="timeline-line">
+    </div>
+    <div class="intro-glass-card" id="target-card">
+     <canvas id="card-canvas">
+     </canvas>
+     <div class="card-slider">
+      <div class="card-slide active">
+       <div class="card-content-wrapper">
+        <div class="card-header">
+         <div class="subtitle">
+          LATEST EDITION
+         </div>
+         <h2>
+          X-CRYPTUS
+         </h2>
         </div>
-
-    </main>
-    
-    <script type="module">
-
-        import * as THREE from "three";
+        <div class="card-body">
+         <p>
+          Discover the intersection of logic and creativity. X-Cryptus features exclusive interviews, deep dives into quantum computing, and the roadmap for eXabyte '26.
+         </p>
+        </div>
+       </div>
+      </div>
+      <div class="card-slide">
+       <div class="card-content-wrapper">
+        <div class="card-header">
+         <div class="subtitle">
+          UPCOMING EVENT
+         </div>
+         <h2>
+          QUANTUM LEAP
+         </h2>
+        </div>
+        <div class="card-body">
+         <p>
+          Explore the boundaries of processing power. Join us as we unravel the mysteries of qubits and superposition in modern architecture.
+         </p>
+        </div>
+       </div>
+      </div>
+      <div class="card-slide">
+       <div class="card-content-wrapper">
+        <div class="card-header">
+         <div class="subtitle">
+          FEATURED
+         </div>
+         <h2>
+          NEURAL NETS
+         </h2>
+        </div>
+        <div class="card-body">
+         <p>
+          The evolution of AI is here. From basic perceptrons to complex transformers, witness the code that mimics the human mind.
+         </p>
+        </div>
+       </div>
+      </div>
+      <div class="slider-indicators">
+       <div class="indicator active">
+       </div>
+       <div class="indicator">
+       </div>
+       <div class="indicator">
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="scroll-hub-container">
+     <div class="scroll-hub">
+      <div class="scroll-text">
+       Scroll
+       <br/>
+       <span>
+        ↕
+       </span>
+       <br/>
+       Up/Down
+      </div>
+     </div>
+    </div>
+    <div class="timeline-item">
+     <div class="date-label">
+      AUG 2025
+     </div>
+     <div class="timeline-node">
+     </div>
+     <div class="project-card">
+      <img alt="vol1" class="card-poster" src="assets/x-cryptus/vol1.jpg"/>
+     </div>
+    </div>
+    <div class="timeline-item">
+     <div class="date-label">
+      JUL 2025
+     </div>
+     <div class="timeline-node">
+     </div>
+     <div class="project-card">
+      <img alt="vol2" class="card-poster" src="assets/x-cryptus/vol2.jpg"/>
+     </div>
+    </div>
+    <div class="timeline-item">
+     <div class="date-label">
+      JUN 2025
+     </div>
+     <div class="timeline-node">
+     </div>
+     <div class="project-card">
+      <img alt="vol3" class="card-poster" src="assets/x-cryptus/vol3.jpg"/>
+     </div>
+    </div>
+    <div class="timeline-item">
+     <div class="date-label">
+      MAY 2025
+     </div>
+     <div class="timeline-node">
+     </div>
+     <div class="project-card">
+      <img alt="vol4" class="card-poster" src="assets/x-cryptus/vol4.jpg"/>
+     </div>
+    </div>
+    <div class="timeline-item">
+     <div class="date-label">
+      APR 2025
+     </div>
+     <div class="timeline-node">
+     </div>
+     <div class="project-card">
+      <img alt="vol5" class="card-poster" src="assets/x-cryptus/vol5.jpg"/>
+     </div>
+    </div>
+   </div>
+  </main>
+  <script type="module">
+   import * as THREE from "three";
 
 
 
@@ -561,25 +490,27 @@
         };
 
         renderer.setAnimationLoop(animate);
-
-    </script>
-    <script src="xcryptus.js"></script>
-        <script src="navbar.js"></script>
-
-        <section class="toggle-section">
-    <div class="toggle-switch">
-        <input id="toggle-online" name="event-toggle" type="radio" value="online"/>
-        <label class="toggle-label" for="toggle-online">3D</label>
-        
-        <input checked id="toggle-offline" name="event-toggle" type="radio" value="offline"/>
-        <label class="toggle-label" for="toggle-offline">2D</label>
-        
-        <div class="toggle-slider"></div>
+  </script>
+ <script src="static/xcryptus2d.js">
+  </script>
+  <script src="static/components/navbar.js">
+  </script>
+  <section class="toggle-section">
+   <div class="toggle-switch">
+    <input id="toggle-online" name="event-toggle" type="radio" value="online"/>
+    <label class="toggle-label" for="toggle-online">
+     3D
+    </label>
+    <input checked="" id="toggle-offline" name="event-toggle" type="radio" value="offline"/>
+    <label class="toggle-label" for="toggle-offline">
+     2D
+    </label>
+    <div class="toggle-slider">
     </div>
-</section>
-
-<script>
-    // Logic: Redirect to 3D site if toggled
+   </div>
+  </section>
+  <script>
+   // Logic: Redirect to 3D site if toggled
     document.getElementById('toggle-online').addEventListener('change', function() {
         if (this.checked) {
             setTimeout(() => {
@@ -587,10 +518,6 @@
             }, 300);
         }
     });
-</script>
-
-</body>
-
+  </script>
+ </body>
 </html>
-
-
