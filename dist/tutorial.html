@@ -45,10 +45,10 @@
         /* --- INTRO GLASS CARD STYLES --- */
         .intro-glass-card {
             /* Increased width slightly to accommodate split layout better */
-            width: 40vw; 
-            min-width: 550px;
+            width: 57vw; 
+            min-width: 800px;
             /* Increased height to give the split content room */
-            height: 450px; 
+            height: 600px; 
             flex-shrink: 0;
             background: var(--glass-bg);
             backdrop-filter: blur(15px);
@@ -164,9 +164,9 @@
 
         .split-text-container p {
             color: #ddd;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            font-weight: 300;
+            font-size: 1.45rem;
+            line-height: 1.5;
+            font-weight: 350;
         }
 
         /* --- TYPOGRAPHY --- */
@@ -266,6 +266,13 @@
                 padding-top: 15px;
             }
 
+.split-text-container p {
+            color: #ddd;
+            font-size: 1.25rem;
+            line-height: 1.25;
+            font-weight: 350;
+        }
+
             .next-pill-btn {
                 bottom: 25px;
                 right: 25px;
@@ -274,10 +281,42 @@
             }
             .slider-indicators { bottom: -5px; }
         }
+
+        /* --- CLOSE BUTTON --- */
+.close-card-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    color: var(--gold);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 20; /* High z-index to stay above content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    padding-bottom: 1px; /* Slight adjustment for visual centering */
+}
+
+.close-card-btn:hover {
+    background: rgba(255, 217, 0, 0.255); /* Gold hover effect */
+    border-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+    color: #000;
+}
   </style>
  </head>
  <body>
   <div class="intro-glass-card" id="target-card">
+   <button class="close-card-btn" id="close-btn">
+    ×
+   </button>
    <canvas id="card-canvas">
    </canvas>
    <div class="card-slider">
@@ -293,7 +332,7 @@
       </div>
       <div class="card-body">
        <div class="split-image-container">
-        <img alt="Crypto Image" src="assets/tutorial_imgs/img0.webp"/>
+        <img alt="Crypto Image" src="img0.webp"/>
        </div>
        <div class="split-text-container">
         <p>
@@ -519,6 +558,12 @@ nextButton.addEventListener('click', () => {
                 // sliderTimer = setInterval(nextSlide, slideInterval);
             });
         });
+
+        //close button logic
+const closeButton = document.getElementById('close-btn');
+closeButton.addEventListener('click', () => {
+    window.parent.postMessage("closeTutorial", "*");
+});
   </script>
  </body>
 </html>
