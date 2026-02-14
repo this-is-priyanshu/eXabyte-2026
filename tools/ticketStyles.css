@@ -1,0 +1,446 @@
+/* color palette */
+
+:root {
+    --a1: #C39A22;
+    --a2: #FFD700;
+    --a3: #FDDC5C;
+
+    --b1: #FFFFFF;
+    --b2: #FFFFF0;
+    --b3: #F5F5DC;
+
+    --c1: #000000;
+    --c2: #160D08;
+    --c3: #27292B;
+}
+
+
+/* reset */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* base */
+
+html,
+body {
+    height: 100vh;
+
+    display: grid;
+    place-items: center;
+
+    background: var(--b1);
+    color: var(--c1);
+
+    font-family: "Oswald", sans-serif;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+}
+
+
+/* ticket container */
+
+.ticket {
+    height: 320px;
+    aspect-ratio: 2.9 / 1;
+
+    display: flex;
+
+    background: var(--c1);
+    color: var(--b1);
+}
+
+
+/* left panel */
+
+.left {
+    position: relative;
+    display: flex;
+
+    flex: 0.45;
+
+    border-right: 2px dashed var(--b1);
+}
+
+.left::before,
+.left::after {
+    content: "";
+    position: absolute;
+    right: -15px;
+
+    width: 30px;
+    height: 30px;
+
+    background: var(--b1);
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.left::before {
+    top: 0;
+    transform: translateY(-50%);
+}
+
+.left::after {
+    bottom: 0;
+    transform: translateY(50%);
+}
+
+
+/* event image */
+
+.image {
+    height: 100%;
+    aspect-ratio: 4 / 5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--c3);
+}
+
+.image img {
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain;
+    display: block;
+}
+
+
+/* ticket info */
+
+.ticket-info {
+    flex: 1;
+    padding: 14px 30px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    text-align: center;
+}
+
+
+/* event name / logo */
+
+.event-name {
+    height: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+    font-weight: 800;
+    color: var(--a2);
+
+    white-space: nowrap;
+}
+
+.event-logo {
+    height: 106%;
+    width: auto;
+
+    display: block;
+    margin: 0 auto;
+    padding-top: 22px;
+}
+
+
+/* date */
+
+.date {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 6px 0;
+
+    border-top: 1px solid var(--b1);
+    border-bottom: 1px solid var(--b1);
+
+    font-weight: 600;
+}
+
+.date span {
+    width: 100px;
+}
+
+.date .day {
+    font-weight: 700;
+    color: var(--a1);
+}
+
+
+/* time */
+
+.time {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    padding: 6px 0;
+
+    border-top: 1px solid var(--b1);
+
+    font-weight: 500;
+    color: var(--b2);
+}
+
+.time span {
+    font-weight: 300;
+    color: var(--a1);
+}
+
+
+/* right panel */
+
+.right {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    height: 100%;
+    padding-left: 28px;
+
+    background-color: var(--a1);
+    background-image:
+        linear-gradient(135deg, var(--a2) 25%, transparent 25%),
+        linear-gradient(225deg, var(--a3) 25%, transparent 25%),
+        linear-gradient(45deg, var(--a2) 25%, transparent 25%),
+        linear-gradient(315deg, var(--a3) 25%, transparent 25%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    background-repeat: repeat;
+
+    border-left: 2px dashed var(--b1);
+}
+
+.right-info-container {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    position: relative;
+    padding-right: 22px;
+}
+
+.right-content {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: 100%;
+    height: 100%;
+    padding-right: 22px;
+}
+
+
+/* participants */
+
+.participant-list {
+    margin-top: 12px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.participant {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--c1);
+
+    white-space: nowrap;
+}
+
+
+/* qr code */
+
+.qrcode {
+    width: 96px;
+    aspect-ratio: 1 / 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: auto;
+    margin-bottom: 4px;
+
+    background: var(--c1);
+    border: 1px solid var(--b3);
+}
+
+.qrcode img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    display: block;
+}
+
+
+/* admit number */
+
+.admit-number {
+    position: absolute;
+    left: 6px;
+    top: 46%;
+
+    transform: translateY(-50%) rotate(-180deg);
+    writing-mode: vertical-rl;
+
+    font-size: 18px;
+    font-weight: 1400;
+    letter-spacing: 0.2em;
+    color: var(--c1);
+}
+
+
+/* ticket strip */
+
+.ticket-strip {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 22px;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--c1);
+    color: var(--b1);
+
+    z-index: 20;
+}
+
+.ticket-number {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+}
+
+
+/* perforation */
+
+.perforation {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    width: 10px;
+    height: 100%;
+
+    background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 6px,
+        var(--b3) 6px,
+        var(--b3) 10px
+    );
+
+    opacity: 0.5;
+}
+
+
+/* print */
+
+@media print {
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    body {
+        background: white !important;
+    }
+
+    .ticket {
+        background: var(--c1) !important;
+        color: var(--b1) !important;
+    }
+
+    .left {
+        background: var(--c1) !important;
+        border-right: 2px dashed var(--b1) !important;
+    }
+
+    .right {
+        background-color: var(--a1) !important;
+        background-image:
+            linear-gradient(135deg, var(--a2) 25%, transparent 25%),
+            linear-gradient(225deg, var(--a3) 25%, transparent 25%),
+            linear-gradient(45deg, var(--a2) 25%, transparent 25%),
+            linear-gradient(315deg, var(--a3) 25%, transparent 25%) !important;
+        background-size: 20px 20px !important;
+        background-repeat: repeat !important;
+        border-left: 2px dashed var(--b1) !important;
+    }
+
+    img {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    .qrcode {
+        background: var(--c1) !important;
+        border: 1px solid var(--b3) !important;
+    }
+
+    .ticket-strip {
+        background: var(--c1) !important;
+        color: var(--b1) !important;
+    }
+}
+
+
+/* pdf export */
+
+@media screen {
+    body.pdf-export,
+    body.pdf-export * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    body.pdf-export .ticket {
+        background: var(--c1) !important;
+        color: var(--b1) !important;
+    }
+
+    body.pdf-export .right {
+        background-color: var(--a1) !important;
+        background-image:
+            linear-gradient(135deg, var(--a2) 25%, transparent 25%),
+            linear-gradient(225deg, var(--a3) 25%, transparent 25%),
+            linear-gradient(45deg, var(--a2) 25%, transparent 25%),
+            linear-gradient(315deg, var(--a3) 25%, transparent 25%) !important;
+        background-size: 20px 20px !important;
+        background-repeat: repeat !important;
+    }
+
+    body.pdf-export img {
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
