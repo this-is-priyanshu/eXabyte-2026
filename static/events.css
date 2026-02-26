@@ -521,39 +521,43 @@ body.menu-open .container {
 }
 
 #online-events-grid .cards-grid .card:nth-child(1) {
-  --card-bg: url("../assets/exathon.png");
+  --card-bg: url("../assets/Exathon.jpg");
 }
 
 #online-events-grid .cards-grid .card:nth-child(2) {
-  --card-bg: url("../assets/brainstorm.png");
+  --card-bg: url("../assets/brainstorm.jpg");
 }
 
 #online-events-grid .cards-grid .card:nth-child(3) {
-  --card-bg: url("../assets/Xhunt.png");
+  --card-bg: url("../assets/Xhunt.jpg");
 }
 
 #online-events-grid .cards-grid .card:nth-child(4) {
-  --card-bg: url("../assets/Webbed.png");
+  --card-bg: url("../assets/Webbed.jpg");
 }
 
 #online-events-grid .cards-grid .card:nth-child(5) {
-  --card-bg: url("../assets/crypt-x.png");
+  --card-bg: url("../assets/crypt-x.jpg");
 }
 
 #online-events-grid .cards-grid .card:nth-child(6) {
-  --card-bg: url("../assets/DIGIBIT.png");
+  --card-bg: url("../assets/Digibit.jpg");
+}
+
+#online-events-grid .cards-grid .card:nth-child(10) {
+  --card-bg: url("../assets/excelerate.jpeg");
 }
 
 #offline-events-grid .cards-grid .card:nth-child(1) {
-  --card-bg: url("../assets/byte_tales.png");
+  --card-bg: url("../assets/byte_tales.jpg");
 }
 
 #offline-events-grid .cards-grid .card:nth-child(2) {
-  --card-bg: url("../assets/EMBLEED.png");
+  --card-bg: url("../assets/EMBLEED.jpg");
 }
 
 #offline-events-grid .cards-grid .card:nth-child(3) {
-  --card-bg: url("../assets/snappit.png");
+  --card-bg: url("../assets/snappit.jpg");
 }
 
 .cards-grid .card::before {
