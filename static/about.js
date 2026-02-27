@@ -9,37 +9,57 @@ cards.forEach(card => {
     });
 });
 
+const leadsList = document.getElementById("leads-list");
+const ccmList = document.getElementById("ccm-list");
 const ocmList = document.getElementById("ocm-list");
+const webList = document.getElementById("web-list");
 
-const members = [
+const leads = [
+  { name: "Srijan Sen",role: "Convenor",phone: "+919903023866",email: "srijan.sen.official@gmail.com",linkedin: "https://www.linkedin.com/in/srijan-sen-sxc",instagram: "https://www.instagram.com/ad.roit"},
+  {name: "Debottam Chatterjee",role: "Co-Convenor",phone: "8777675501",email: "debottam2004@gmail.com",linkedin: "https://www.linkedin.com/in/debottam0812",instagram: ""}
+];
+const ccm_members = [
+    {name: "Animikh Chowdhury",role: "CCM",phone: "8777838379",email: "animikhchowdhury.2007@gmail.com",linkedin: "https://www.linkedin.com/in/animikh-chowdhury-363b92303",instagram: ""},
+    {name: "Lavanya Singh",role: "CCM",phone: "8337036490",email: "lavanya2706singh@gmail.com",linkedin: "https://www.linkedin.com/in/lavanya-singh-149535331",instagram: ""},
+    {name: "Bhaskar Joyti Mitra",role: "CCM",phone: "",email: "mitrabhaskarjyoti@gmail.com",linkedin: "https://in.linkedin.com/in/bhaskar-joyti-mitra-b3046428b",instagram: ""}
+];
+const ocm_members = [
     { name: "Diya Konar", role: "OCM OF EVENTS", phone: "8972572486", email: "diyakonar99@gmail.com", linkedin: "https://www.linkedin.com/in/diya-konar-61546028b", instagram: "https://www.instagram.com/__.diiiyyyaaaa.__" },
     { name: "Shashank Tiwari", role: "OCM OF EVENTS", phone: "", email: "twari.shashank05@gmail.com", linkedin: "https://www.linkedin.com/in/shashank-tiwari-92946528b", instagram: "" },
-    
+
     { name: "Shitij Bhadra", role: "OCM (Systems)", phone: "", email: "jeetbhadra2005@gmail.com", linkedin: "https://www.linkedin.com/in/shitij-bhadra-4aa879312", instagram: "" },
     { name: "Jishnu Chattopadhyay", role: "OCM ( Systems )", phone: "", email: "jishnuchattopadhya@gmail.com", linkedin: "", instagram: "" },
-    
+
     { name: "Shubhrajyoti Biswas", role: "OCM (Logistics)", phone: "8617216165", email: "shubhrajyotib3@gmail.com", linkedin: "https://www.linkedin.com/in/shubhrajyoti-biswas-258224368", instagram: "" },
     { name: "Sujatra Paul", role: "OCM (Logistics)", phone: "9330660104", email: "sujatraofficio2005@gmail.com", linkedin: "", instagram: "https://www.instagram.com/capt.suga21" },
-    
+
     { name: "Chayan Pal", role: "OCM (Photography)", phone: "", email: "palc02.github.io/Photography", linkedin: "https://www.linkedin.com/in/chayan-pal-580058260", instagram: "" },
     { name: "Ujjainee Sengupta", role: "OCM (Photography)", phone: "", email: "ujjaineeushasi4321@gmail.com", linkedin: "https://www.linkedin.com/in/ujjainee-sengupta-1278522a7", instagram: "" },
-    
+
     { name: "Sourashis Nath", role: "OCM (PR)", phone: "9038490777", email: "nath.soura18@gmail.com", linkedin: "", instagram: "https://www.instagram.com/loonixi" },
     { name: "Aditi Das", role: "OCM (PR)", phone: "8697945875", email: "aditi13042004@gmail.com", linkedin: "https://www.linkedin.com/in/aditi-das-20040413ad", instagram: "" },
-    
+
     { name: "Arghya Mukherjee", role: "OCM (Videography)", phone: "7439248710", email: "arghyam.india@gmail.com", linkedin: "https://www.linkedin.com/in/arghya-mukherjee-464422332", instagram: "" },
     { name: "Pragna Pramanik", role: "OCM (Videography)", phone: "9883892210", email: "pragnapramanik2020@gmail.com", linkedin: "https://www.linkedin.com/in/pragna-pramanik-28912a279", instagram: "" },
-    
+
     { name: "Saheli Majumder", role: "OCM (Cultural)", phone: "6290718056", email: "sahelimajumder2004@gmail.com", linkedin: "https://www.linkedin.com/in/sahelimajumder001", instagram: "" },
     { name: "Archita Sengupta", role: "OCM (Cultural)", phone: "", email: "architasengupta06@gmail.com", linkedin: "https://www.linkedin.com/in/archita-sengupta-b5b449316", instagram: "" },
-    
+
     { name: "Devanshi Bhattacharjee", role: "OCM (Hospitality)", phone: "", email: "devanshibhattacharjeenn@gmail.com", linkedin: "", instagram: "" },
     { name: "Sucheta Sinha", role: "OCM (Hospitality)", phone: "", email: "", linkedin: "", instagram: "" },
-    
+
     { name: "Anandi Roy Chowdhury", role: "OCM (Content Creation)", phone: "", email: "anandiroychowdhury20218096@gmail.com", linkedin: "https://www.linkedin.com/in/anandi-roy-chowdhury-657313289", instagram: "" },
     { name: "Aireen Jawed", role: "OCM (Content Creation)", phone: "6291637696", email: "aireenjawed24@gmail.com", linkedin: "https://www.linkedin.com/in/aireen-jawed-59174b28b", instagram: "" },
-    
+
     { name: "Sounak De", role: "OCM (Design)", phone: "8335098087", email: "sounakde69@gmail.com", linkedin: "https://www.linkedin.com/in/sounak-de-22-04-2005-/", instagram: "" }
+];
+const web_members = [
+    { name: "Aanjishnu Bhattacharyya", role: "OCM (Web Development)", phone: "", email: "freshgrounds.nrp+eXabyte@gmail.com", linkedin: "https://www.linkedin.com/in/aanjishnu", instagram: "" },
+    { name: "Samrat Mondal", role: "Web Dev", phone: "", email: "quantsam.1311@gmail.com", linkedin: "https://www.linkedin.com/in/samrat-m-26a158229", instagram: "" },
+    { name: "Shuvadip Ghosh", role: "Web Dev", phone: "7439444588", email: "shuvadipdeveloper@gmail.com", linkedin: "https://www.linkedin.com/in/shuvadipghosh/", instagram: "" },
+    { name: "Debaprabha Thakur", role: "Web Dev", phone: "08777431623", email: "debaprabha.thakur@gmail.com", linkedin: "https://www.linkedin.com/in/debaprabha-thakur-57a647336/", instagram: "" },
+    { name: "Priyanshu Sarkar", role: "Web Dev", phone: "", email: "sarkarpriyanshu27@gmail.com", linkedin: "https://www.linkedin.com/in/sarkar-priyanshu/", instagram: "" },
+    { name: "Rupanjali Roy Chowdhury", role: "Web Dev", phone: "", email: "rupanjaliroychowdhury90@gmail.com", linkedin: "https://www.linkedin.com/in/rupanjali-roy-chowdhury-334062374", instagram: "" }
 ];
 
 function createCard(member) {
@@ -94,21 +114,29 @@ function createCard(member) {
             </a>
         `;
     }
-
+    imgName = member.name.replaceAll(" ","_").toLowerCase()+".jpg"
     card.innerHTML = `
         <div class="card-info">
             <h3>${member.name}</h3>
             <p>${member.role}</p>
         </div>
-        <img src="assets/default.png" alt="Member" class="card-img">
+        <img src="assets/about_us/${imgName}" alt="Member" class="card-img" onerror="this.onerror=null; this.src='assets/about_us/default.png';"/>
         <div class="card-overlay">
             ${overlayIcons}
         </div>
     `;
-
     return card;
 }
 
-members.forEach(member => {
+leads.forEach(member => {
+    leadsList.appendChild(createCard(member));
+});
+ccm_members.forEach(member => {
+    ccmList.appendChild(createCard(member));
+});
+ocm_members.forEach(member => {
     ocmList.appendChild(createCard(member));
+});
+web_members.forEach(member => {
+    webList.appendChild(createCard(member));
 });
