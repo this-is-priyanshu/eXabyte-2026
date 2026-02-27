@@ -520,6 +520,7 @@ body.menu-open .container {
   display: block;
 }
 
+
 #online-events-grid .cards-grid .card:nth-child(1) {
   --card-bg: url("../assets/Exathon.jpg");
 }
@@ -547,6 +548,11 @@ body.menu-open .container {
 #online-events-grid .cards-grid .card:nth-child(10) {
   --card-bg: url("../assets/excelerate.jpeg");
 }
+
+#online-events-grid .cards-grid .card:nth-child(11) {
+  --card-bg: url("../assets/sudox.jpeg");
+}
+
 
 #offline-events-grid .cards-grid .card:nth-child(1) {
   --card-bg: url("../assets/byte_tales.jpg");
