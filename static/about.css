@@ -63,10 +63,10 @@ body {
     margin: 0 auto;
     border-radius: 2px;
     opacity: 0.95;
-    box-shadow: 0 6px 18px rgba(255,255,255,0.04);
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.04);
     transform: scaleX(0);
     transform-origin: center left;
-    transition: transform 260ms cubic-bezier(.2,.9,.2,1), opacity 180ms ease;
+    transition: transform 260ms cubic-bezier(.2, .9, .2, 1), opacity 180ms ease;
 }
 
 .about-main-title.hero-events.underline-visible::after {
@@ -118,9 +118,9 @@ body {
     box-shadow: 1px 2px 30px 10px rgba(255, 255, 255, 0.3);
 
     /* TODO: adding this here to fix weird card look */
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        box-shadow: none;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    box-shadow: none;
 }
 
 .division-title {
@@ -142,7 +142,8 @@ body {
     display: flex;
     gap: 4rem;
     flex-wrap: wrap;
-    justify-content: center; /*flex-start;*/
+    justify-content: center;
+    /*flex-start;*/
 }
 
 
@@ -234,16 +235,18 @@ body {
 }
 
 @media (max-width: 480px) {
-    .team-division{
+    .team-division {
         width: 80%;
         margin: auto;
         margin-bottom: 5rem;
     }
-    .glass-card{
+
+    .glass-card {
         background: rgba(255, 255, 255, 0.1);
         border: none;
         box-shadow: none;
     }
+
     .abt-hero {
         height: 60vh;
         width: fit-content;
@@ -272,6 +275,10 @@ body {
         width: 90%;
         height: 24rem;
         margin: auto;
+    }
+
+    .card-info h3 {
+        font-size: 1.2rem;
     }
 
     .division-title {
